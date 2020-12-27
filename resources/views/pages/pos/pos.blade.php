@@ -1,0 +1,396 @@
+@extends('layouts/layone')
+
+@section('content')
+
+    <div class="o-card p-4 mb-3">
+        <form  id="posform" class="row">
+            <div class="form-group col-sm-12 col-md-4">
+                <label for="">Barcode</label>
+                <input autocomplete="off" type="text" name="barcode" id="barcode" class="form-control">
+                <p id="barcode_error" class="text-danger alert"></p>
+            </div>
+            {{-- <div class="form-group col-sm-12 col-md-4">
+                <label for="">Product Name</label>
+                <input autocomplete="off" type="text" name="barcode" id="product_name" class="form-control">
+            </div> --}}
+            <div class="form-group col-sm-12 col-md-4">
+                <label for="">Product Name</label>
+                {{-- <input autocomplete="off" type="text" name="barcode" id="product_name" class="form-control"> --}}
+
+                <select name="product_name" id="product_name" class="form-control selectpicker" data-live-search="true">
+                    <option selected disabled value="">No product selected</option>
+                    @foreach ($products as $product)
+                        <option value="{{$product->id}}">{{$product->name}}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="form-group col-sm-12 col-md-2">
+                <label for="">Quantity</label>
+                <input autocomplete="off" required type="text" name="barcode" id="quantity" class="form-control">
+            </div>
+            <div class="form-group col-sm-6 col-md-2 mt-2">
+                <label for=""></label>
+                <input type="submit" name="barcode" id="submit" class="form-control">
+            </div>
+        </form>
+    </div>
+
+
+
+
+    <div class="o-card p-4 mb-3">
+        <table id="table_id" class="display table-striped table-responsive-sm">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Product Name</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="list-body">
+                <tr>
+                    <td>Row 1 Data 1</td>
+                    <td>Row 1 Data 2</td>
+                    <td>Row 1 Data 2</td>
+                    <td>Row 1 Data 2</td>
+                    <td>Row 1 Data 2</td>
+                    <td>Row 1 Data 2</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+
+    <div class="o-card p-4 mb-0 d-flex justify-content-between">
+        <span>
+            <p class="m-1">Total: <span id="total"></span></p>
+            <div id="customer_point">
+                
+            </div>
+            <h3>Grand Total : <span id="grand_total"></span></h3>
+        </span>
+        <form id="posSendData" method="POST" action="{{ route('invoices.store')}}" enctype="multipart/form-data">
+            {{ csrf_field() }}
+            <div id="posData">
+            </div>
+            <div id="billData">
+            </div>
+            <div id="custData">
+                
+            </div>
+            <input type="submit" id="submitInvoice" value="submit" class="btn btn-primary">
+        </form>
+    </div>
+
+    <div class="row">
+        <div class=" p-3 col-6">
+            <div class="o-card p-4">
+                <h4 class="card-title">Customer</h4>
+                <div class="form-group col-12">
+                    <label for="">Customer Phone #</label>
+                    {{-- <input autocomplete="off" type="text" name="barcode" id="product_name" class="form-control"> --}}
+    
+                    <select name="customer_name_select" id="customer_name_select" class="form-control selectpicker" data-live-search="true">
+                        <option selected disabled value="">No customer selected</option>
+                        @foreach ($customers as $customer)
+                            <option value="{{$customer->phone}}">{{$customer->phone}}</option>
+                        @endforeach
+                    </select>
+                    
+                </div>
+                <div class="form-check ml-3">
+                    <input type="checkbox" class="form-check-input" id="redeem_points">
+                    <label class="form-check-label" for="exampleCheck1">Redeem points</label>
+                </div>
+                <p class="mt-3" id="customer_name"></p>
+                
+            </div>
+        </div>
+        <div class=" p-3 col-6">
+            <div class="o-card p-4">
+                <h4 class="card-title">Cupons</h4>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="https://code.jquery.com/jquery-migrate-3.0.0.min.js"></script> 
+    <script src="https://cdn.jsdelivr.net/npm/underscore@1.12.0/underscore-min.js"></script>
+    <script>
+
+        var billables = []
+        var currentProd = null;
+        var total = 0;
+        var modeOfInput = 0;
+        var g_customer = null;
+        var redeem_points = false;
+        $(document).ready(function() {
+
+            $('#product_name').selectpicker();
+
+            $('#table_id').DataTable({
+                searching: false,
+                paging: false,
+                info: false,
+                sorting:false
+            });
+
+            buildBillables()
+
+            $('#barcode').keyup(_.debounce(function(){
+                modeOfInput = 0;
+                $('#barcode_error').html("")
+                if($('#barcode').val()!=""){
+                    $.get('/api/barcode/'+$('#barcode').val(),function(data,status){
+                        console.log(data.data)
+                        
+                        if(data.data.length==0){
+                            console.log("sd")
+                            $('#barcode_error').html("No products found")
+                        }else{
+                            var prod = data.data[0];
+                            if(prod.stock<=0){
+                                reset()
+                                return alert("No stock / stock mismatch")
+                            }
+                            $('#product_name').val(prod.id)
+                            $('.selectpicker').selectpicker('refresh');
+                            $('#product_name').prop("readonly", true);
+                            $("#quantity").focus()
+                            currentProd = prod;
+                        }
+                    })
+                }
+            } , 300));
+
+            $('#product_name').change(function(){
+                modeOfInput = 1;
+                // alert($(this).val())
+                $('#barcode_error').html("")
+                $.get('/api/product/'+$(this).val(),function(data,status){
+                        console.log(data.data)
+                        
+                        if(data.data.length==0){
+                            console.log("sd")
+                            $('#barcode_error').html("No products found")
+                        }else{
+                            var prod = data.data[0];
+                            if(prod.stock<=0){
+                                reset()
+                                return alert("No stock / stock mismatch")
+                            }
+                            $('#product_name').val(prod.id)
+                            $('#barcode').val(prod.barcode)
+                            $('#product_name').prop("readonly", true);
+                            $("#quantity").focus()
+                            currentProd = prod;
+                        }
+                    })
+            })
+
+
+            $('#customer_name_select').change(function(){
+
+                $.get('/api/customer/'+$(this).val(),function(data,status){
+                        console.log(data.data)
+                        
+                        if(data.data.length==0){
+                            console.log("sd")
+                            $('#barcode_error').html("No customer found")
+                        }else{
+                            var customer = data.data[0];
+                            $('#customer_name').html(
+                                `
+                                <p><b>Name :</b> <span>${customer.name}</span></p>
+                                <p><b>Points :</b> <span>${customer.points}</span></p>
+                                <p><b>Credits :</b> <span>${customer.credit}</span></p>
+                                `
+                            )
+
+                            
+                            g_customer = customer;
+
+                            buildBillables()
+                        }
+                    })
+            })
+
+
+            $('#posform').on('submit',function(e){
+                e.preventDefault();
+
+                if(currentProd.stock<$('#quantity').val()){
+                    reset()
+                    return alert("Quatity is greater than stock available")
+                }
+
+                billables.push({
+                    product:currentProd,
+                    quantity:$('#quantity').val()
+
+                });
+                buildBillables()
+
+                reset()
+
+            })
+        });
+
+        $('#redeem_points').change(function(){
+            // alert($(this).prop('checked'))
+            redeem_points = $(this).prop('checked');
+            buildBillables()
+        })
+
+        function reset(){
+            currentProd = null;
+            $('#quantity').val("");
+            $('#barcode').val("");
+            $('#product_name').val("");
+            $('#product_name').prop("readonly", false);
+            $('#product_name').selectpicker('refresh');
+            $('#barcode_error').html("")
+            if(modeOfInput==0){
+                $('#barcode').focus()
+            }else{
+                $('#product_name').data('selectpicker').$button.focus();
+                $('#product_name').data('selectpicker').$button.click();
+                // $('.selectpicker').selectpicker().data("selectpicker").$searchbox.focus();
+                console.log("prd")
+
+                
+            }
+
+
+        }
+
+
+        function buildBillables(){
+            $('#list-body').html("")
+            $('#billData').html("")
+            total = 0;
+            g_total = 0;
+            $("#total").html(total)
+
+            if(billables.length>0){
+                $('#submitInvoice').prop('disabled', false)
+            }else{
+                $('#submitInvoice').prop('disabled', true)
+
+            }
+            
+
+            billables.forEach((item,index)=>{
+
+                var el = `
+                <tr>
+                    <td>${index+1}</td>
+                    <td>${item.product.name}</td>
+                    <td>${item.quantity}</td>
+                    <td>${item.product.price}</td>
+                    <td>${item.product.price * item.quantity}</td>
+                    <td>
+                        <button class="delete-entry btn btn-danger" data-index=${index}>Remove</button>
+                    </td>
+                </tr>
+                `
+                total +=item.product.price * item.quantity;
+                
+                g_total = total;
+                // customer point calc
+                if(g_customer!=null && g_customer.points < total && redeem_points ){ //Any condition regarding points
+                    g_total = total - g_customer.points;
+                    $('#customer_point').html(`
+                                <p class="m-1">Customer Points: <span>${g_customer.points}</span></p>
+                            `)
+                }
+                else{
+                    $('#customer_point').html("")
+                }
+
+
+                // Add form data of customers
+                if(g_customer!=null){
+                    $('#custData').html(`
+                        <input type="text" hidded name="customer" value=${g_customer.id}>
+                        <input type="text" hidded name="redeem" value=${redeem_points}>
+                    `)
+                }
+
+
+
+                $('#list-body').append(el)
+                $("#total").html(total)
+                $('#grand_total').html(g_total)
+
+
+                var prd = `
+                <input type="text" name="products[]" value="${item.product.id}" hidden>
+                <input type="text" name="quantities[]" value="${item.quantity}" hidden>
+                `
+                $('#billData').append(prd)
+            })
+
+
+            // Delete
+        $('.delete-entry').on('click',function(){
+            // alert($(this).data('index'))
+            // billables.pop()
+            billables.splice($(this).data('index'), 1);
+
+            buildBillables()
+            buildBillables()
+        })
+        }
+    </script>
+@endsection
+
+
+
+
+
+
+
+
+{{-- 
+
+
+name = "s"
+            $('#table_id').DataTable({
+                searching: false,
+                paging: false,
+                info: false
+            });
+
+            $('#table_id2').DataTable({
+                searching: false,
+                paging: false,
+                info: false
+            });
+
+            $(document).ready(function() {
+                $('.js-example-basic-single').select2();
+            });
+
+            var countries = [
+                { value: 'Andorra', data: 'AD' },
+                { value: 'Zimbabwe', data: 'ZZ' }
+                ];
+
+            $('.s').autocomplete({
+                source: countries,
+                select: function (suggestion) {
+                    alert('You selected: ' + suggestion.value + ', ' + suggestion.data);
+                }
+            });
+
+            $('#posform').on('submit',function(e){
+                e.preventDefault()
+                var values = $(this).serialize();
+                console.log(values)
+            }) --}}
