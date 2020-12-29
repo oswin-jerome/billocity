@@ -9862,9 +9862,12 @@ body {
 }
 
 .left-drawer ul li .o-head::after {
-  content: '\E688';
+  content: '\F152';
   position: absolute;
-  right: 0;
+  color: rgb(126, 126, 126);
+  font-family: "Font Awesome 5 Free";
+  right: 10px;
+  transform: rotate(90deg);
 }
 
 .left-drawer ul li .o-head {

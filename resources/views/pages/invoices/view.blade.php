@@ -14,6 +14,7 @@
                     <th scope="col">Products</th>
                     <th scope="col">Discounts</th>
                     <th scope="col">Payment Mode</th>
+                    <th scope="col">status</th>
                     <th scope="col">Customer</th>
                     <th scope="col">Final Price</th>
                     <th scope="col">Handle</th>
@@ -28,6 +29,7 @@
                         <td>{{count($invoice->products)}}</td>
                         <td>{{$invoice->points_redeem + $invoice->coupon_redeem}}</td>
                         <td>{{$invoice->payment_method}}</td>
+                        <td>{{$invoice->status}}</td>
                         <td>
                             @if ($invoice->custo)
                             {{$invoice->custo->name}}

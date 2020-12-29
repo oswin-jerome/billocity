@@ -101,6 +101,17 @@
             </ul>
           </li>
 
+          {{-- Suppliers --}}
+          <li class="has-sub">
+            <a class="o-head">
+              <i class="fas fa-users"></i><span>Suppliers</span>
+            </a>
+            <ul class="inul">
+              <li><a href="/suppliers/create">Add Supplier</a></li>
+              <li><a href="/suppliers">View Suppliers</a></li>
+            </ul>
+          </li>
+
           {{-- Sales --}}
           <li class="has-sub">
             <a class="o-head">
@@ -108,7 +119,7 @@
             </a>
             <ul class="inul">
               <li><a href="/invoices">View Sales</a></li>
-              <li><a href="/customers">View Customers</a></li>
+              <li><a href="/prods/returned">View Returned Products</a></li>
             </ul>
           </li>
 
@@ -175,7 +186,7 @@
 
     // Open on hover
     $('.left-drawer').hover(function(){
-        if(navMinimized==true){
+        if(navMinimized=='true'){
             $('.left-drawer').toggleClass('closed-state')
 
         }

@@ -100,7 +100,10 @@ class BrandController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $brand = Brand::find($request->pid);
+        $brand->name = $request->name;
+        $brand->save();
+        return redirect()->back();
     }
 
     /**

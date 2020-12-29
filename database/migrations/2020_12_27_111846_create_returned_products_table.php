@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSoldProductsTable extends Migration
+class CreateReturnedProductsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateSoldProductsTable extends Migration
      */
     public function up()
     {
-        Schema::create('sold_products', function (Blueprint $table) {
+        Schema::create('returned_products', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('product');
             $table->unsignedBigInteger('invoice');
@@ -21,15 +21,12 @@ class CreateSoldProductsTable extends Migration
             $table->float('product_price');
             $table->float('sold_price');
             $table->integer('quantity'); //change to float if necessary
-            $table->enum('status', array('DONE', 'CANCLED','RETURNED'));
             $table->timestamps();
 
 
             $table->foreign('product')->references('id')->on('products');
             $table->foreign('invoice')->references('id')->on('invoices');
             $table->foreign('customer')->references('id')->on('customers');
-
-
         });
     }
 
@@ -40,6 +37,6 @@ class CreateSoldProductsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sold_products');
+        Schema::dropIfExists('returned_products');
     }
 }

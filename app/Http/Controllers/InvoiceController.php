@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Invoice;
 use App\Models\Product;
 use App\Models\SoldProduct;
+use App\Models\ReturnedProduct;
 use App\Models\Customer;
 class InvoiceController extends Controller
 {
@@ -94,6 +95,7 @@ class InvoiceController extends Controller
             $sold->product_price = $product->price;
             $sold->sold_price = $product->price - 0; // TODO: any discounts on product
             $sold->quantity = $request->quantities[$key];
+            $sold->status = "DONE";
 
             $sold->save();
 
@@ -111,8 +113,7 @@ class InvoiceController extends Controller
      */
     public function show($id)
     {
-        
-        return view('pages/pos/invoice',['invoice'=>Invoice::find($id)]);
+        return view('pages/pos/invoice',['invoice'=>Invoice::find($id),'ret_products'=>SoldProduct::where('invoice','=',$id)->where('status','=','RETURNED')->get()]);
     }
 
     /**
@@ -123,7 +124,10 @@ class InvoiceController extends Controller
      */
     public function edit($id)
     {
-        //
+
+        $invoice = Invoice::find($id);
+
+        return view('pages/invoices/salesreturn',['invoice'=>$invoice,'products'=>Product::all(),'customers'=>Customer::all()]);
     }
 
     /**
@@ -135,7 +139,26 @@ class InvoiceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+        // Salse return
+
+
+        $invoice = Invoice::find($id);
+
+        foreach ($request->deleted as $key => $value) {
+            $soldProduct = SoldProduct::find($value);
+            $product = Product::find($soldProduct->product);
+            $product->stock = $product->stock +  $soldProduct->quantity;
+            $product->save();
+            $invoice->final_price = $invoice->final_price - ($soldProduct->sold_price * $soldProduct->quantity);
+            $invoice->total = $invoice->total - ($soldProduct->sold_price * $soldProduct->quantity);
+            $invoice->paid_amount = $invoice->paid_amount - ($soldProduct->sold_price * $soldProduct->quantity);
+            $invoice->save();
+            $soldProduct->status = "RETURNED";
+            $soldProduct->save();
+            echo($soldProduct);
+        }
+        return redirect('invoices/'.$id);
     }
 
     /**
@@ -147,5 +170,33 @@ class InvoiceController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+
+    public function viewreturned(){
+         return view('pages/invoices/viewreturned',['products'=>SoldProduct::where('status','=','RETURNED')->get(),'cancled'=>SoldProduct::where('status','=','CANCLED')->get()]);
+    }
+
+
+
+    // Cancel Bil
+    public function cancelProduct(Request $request){
+
+        $invoice = Invoice::find($request->id);
+
+        foreach ($invoice->products as $key => $value) {
+           $prod = $value->prod;
+           $prod->stock = $prod->stock + $value->quantity;
+           $prod->save();
+           $value->status = 'CANCLED';
+           $value->save();
+        }
+
+        $invoice->status = "CANCLED";
+        $invoice->save();
+
+        return redirect()->back();
+        // return view('pages/invoices/viewreturned',['products'=>ReturnedProduct::all()]);
     }
 }

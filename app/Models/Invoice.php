@@ -15,6 +15,6 @@ class Invoice extends Model
         return $this->hasMany(SoldProduct::class,'invoice');
     }
     public function custo(){
-        return $this->hasOne(Customer::class,'id');
+        return $this->hasOne(Customer::class,'id','customer');
     }
 }

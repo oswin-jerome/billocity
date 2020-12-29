@@ -87,7 +87,7 @@
     </div>
 
     <div class="row">
-        <div class=" p-3 col-6">
+        <div class=" pr-2 py-3 col-6">
             <div class="o-card p-4">
                 <h4 class="card-title">Customer</h4>
                 <div class="form-group col-12">
@@ -110,7 +110,7 @@
                 
             </div>
         </div>
-        <div class=" p-3 col-6">
+        <div class=" pl-2 py-3 col-6">
             <div class="o-card p-4">
                 <h4 class="card-title">Cupons</h4>
             </div>
@@ -147,8 +147,6 @@
                 $('#barcode_error').html("")
                 if($('#barcode').val()!=""){
                     $.get('/api/barcode/'+$('#barcode').val(),function(data,status){
-                        console.log(data.data)
-                        
                         if(data.data.length==0){
                             console.log("sd")
                             $('#barcode_error').html("No products found")
@@ -193,12 +191,9 @@
                     })
             })
 
-
             $('#customer_name_select').change(function(){
 
                 $.get('/api/customer/'+$(this).val(),function(data,status){
-                        console.log(data.data)
-                        
                         if(data.data.length==0){
                             console.log("sd")
                             $('#barcode_error').html("No customer found")
@@ -211,8 +206,6 @@
                                 <p><b>Credits :</b> <span>${customer.credit}</span></p>
                                 `
                             )
-
-                            
                             g_customer = customer;
 
                             buildBillables()
@@ -317,8 +310,8 @@
                 // Add form data of customers
                 if(g_customer!=null){
                     $('#custData').html(`
-                        <input type="text" hidded name="customer" value=${g_customer.id}>
-                        <input type="text" hidded name="redeem" value=${redeem_points}>
+                        <input type="text" hidden name="customer" value=${g_customer.id}>
+                        <input type="text" hidden name="redeem" value=${redeem_points}>
                     `)
                 }
 

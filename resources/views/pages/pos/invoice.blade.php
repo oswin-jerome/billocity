@@ -9,8 +9,22 @@
             margin-bottom: 50px;
         }
     </style>
-
-    <div id="invoice">
+<div class="print">
+    <button class="btn btn-primary" id="print">Print</button>
+    @if ($invoice->total == $invoice->final_price )
+    <a href="/invoices/{{$invoice->id}}/edit" class="btn btn-warning" id="salesreturn">Return Product(s)</a>
+    @else
+        <p class="alert-danger mt-3 p-2 d-inline">This invoice has redeemed points/coupon thus cannot be returned</p>
+    @endif
+    {{-- <a href="/invoices/cancel/{{$invoice->id}}" class="btn btn-danger" id="salesreturn">Cancel Bill</a> --}}
+    <form method="POST" action="/invoice/cancel" enctype="multipart/form-data" class="d-inline">
+        {{ csrf_field() }}
+        <input type="text" name="id" value="{{$invoice->id}}" hidden>
+        <button class="btn btn-danger" type="submit">Cancel Bill</button>
+    </form>
+</div>
+<br>
+    <div id="invoice" class="o-card">
         <div class="d-flex justify-content-between">
             <div class="col-sm-12 col-md-6 ">
                 <h4 class="text-primary ml-1">STORE NAME</h4>
@@ -25,23 +39,29 @@
         </div>
 
         {{-- second --}}
-        <div class="d-flex mt-5">
-            <div class="col-sm-6 col-md-3 ">
+        <div class="d-flex mt-5 row mx-3">
+            <div class="col-sm-6 col-md-3 col-lg-3 mb-3">
                 <h5 class="d-inline text-primary">Date : </h5>
                 <p class="d-inline">{{date('d-M-Y', strtotime($invoice->created_at))}}</p>
             </div>
-            <div class="col-sm-6 col-md-3 ">
+            <div class="col-sm-6 col-md-3 col-lg-3 mb-3">
                 <h5 class="d-inline text-primary">Time : </h5>
                 <p class="d-inline">{{date('h:i:A', strtotime($invoice->created_at))}}</p>
             </div>
-            <div class="col-sm-6 col-md-3 ">
+            <div class="col-sm-6 col-md-3 col-lg-3 mb-3">
                 <h5 class="d-inline text-primary">Mode : </h5>
                 <p class="d-inline">{{$invoice->payment_method}}</p>
             </div>
             @if ($invoice->custo)
-            <div class="col-sm-6 col-md-3 ">
+            <div class="col-sm-6 col-md-3 col-lg-3 mb-3">
                 <h5 class="d-inline text-primary">Customer : </h5>
                 <p class="d-inline">{{$invoice->custo->name}}</p>
+            </div>
+            @endif
+            @if ($invoice->status=="CANCLED")
+            <div class="col-sm-6 col-md-3 col-lg-3 mb-3">
+                <h5 class="d-inline text-primary">Status : </h5>
+                <p class="d-inline">Cancled</p>
             </div>
             @endif
         </div>
@@ -60,7 +80,7 @@
               </tr>
             </thead>
             <tbody>
-                @foreach ($invoice->products as $key=>$product)
+                @foreach ($invoice->products->whereIn('status',['DONE','CANCLED']) as $key=>$product)
                     <tr>
                         <th scope="row">{{$key+1}}</th>
                         <td>{{$product->prod->name}}</td>
@@ -109,8 +129,45 @@
         </div>
 
 
-    <div class="print">
+    {{-- <div class="print">
         <button class="btn btn-primary" id="print">Print</button>
+        <button class="btn btn-warning" id="salesreturn">Return Product(s)</button>
+    </div> --}}
+
+    <div class="">
+        <div class="o-card p-4 mb-3">
+            <table class="table mt-5 table-striped">
+                <h4>Returned Products</h4>
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Product</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Discount</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($ret_products as $key => $product)
+                        <tr>
+                            <th scope="row">{{ $key + 1 }}</th>
+                            <td>{{ $product->prod->name }}</td>
+                            <td>{{ $product->product_price }}</td>
+                            <td></td>
+                            <td>{{ $product->quantity }}</td>
+                            <td>{{ $product->sold_price * $product->quantity }}</td>
+                        </tr>
+                    @endforeach
+    
+                </tbody>
+            </table>
+    
+    
+    
+    
+    
+        </div>
     </div>
 
     <script defer>

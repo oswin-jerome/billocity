@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Category;
 use Illuminate\Support\Facades\Validator;
-class CategoryController extends Controller
+use App\Models\Supplier;
+class SupplierController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
-        return view('pages/category/view',['categories'=>$categories]);
+        return view('pages/supplier/view',['suppliers'=>Supplier::all()]);
     }
 
     /**
@@ -25,7 +24,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('pages/category/create');
+        
+        return view('pages/supplier/create');
     }
 
     /**
@@ -36,9 +36,10 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-
         $validated = Validator::make($request->all(),[
-            'name' => 'required|unique:categories',
+            'name' => 'required',
+            'address' => 'required',
+            'phone' => 'required|unique:customers',
         ]);
 
             
@@ -48,17 +49,21 @@ class CategoryController extends Controller
             return redirect()->back();
         }
 
-        $category = Category::create([
-            'name'=>$request->name
+        $category = Supplier::create([
+            'name'=>$request->name,
+            'phone'=>$request->phone,
+            'email'=>$request->email,
+            'address'=>$request->address,
         ]);
 
         if($category){
-            \Toastr::success('Category added', 'Success', ["positionClass" => "toast-top-right"]);
+            \Toastr::success('Supplier added', 'Success', ["positionClass" => "toast-top-right"]);
             return redirect()->back();
         }
 
-        \Toastr::error('Unable to add Category', 'Error', ["positionClass" => "toast-top-right"]);
+        \Toastr::error('Unable to add Supplier', 'Error', ["positionClass" => "toast-top-right"]);
         return redirect()->back();
+
     }
 
     /**
@@ -69,8 +74,7 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        $brand = Category::where('id','=',$id)->first();
-        return view('pages/category/details',['brand'=>$brand]);
+        //
     }
 
     /**
@@ -93,10 +97,7 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $category = Category::find($request->pid);
-        $category->name = $request->name;
-        $category->save();
-        return redirect()->back();
+        //
     }
 
     /**

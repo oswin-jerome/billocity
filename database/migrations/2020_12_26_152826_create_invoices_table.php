@@ -19,7 +19,7 @@ class CreateInvoicesTable extends Migration
             $table->string('coupon')->nullable();
             $table->float('final_price');
             $table->unsignedBigInteger('customer')->nullable();
-            $table->enum('status', array('NEW', 'PAUSED','COMPLETED'));
+            $table->enum('status', array('CANCLED', 'PAUSED','COMPLETED'));
             $table->enum('payment_method', array('CASH', 'CARD','CREDIT'));
             $table->float('paid_amount');
             $table->float('points_redeem')->default(0);

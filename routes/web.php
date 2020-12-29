@@ -5,6 +5,7 @@ use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\InvoiceController;
 
 use App\Models\Product;
@@ -32,8 +33,10 @@ Route::resource('brands',BrandController::class);
 Route::resource('categories',CategoryController::class);
 Route::resource('products',ProductController::class);
 Route::resource('customers',CustomerController::class);
+Route::resource('suppliers',SupplierController::class);
 Route::resource('invoices',InvoiceController::class);
-
+Route::get('prods/returned','App\Http\Controllers\InvoiceController@viewreturned');
+Route::post('invoice/cancel','App\Http\Controllers\InvoiceController@cancelProduct');
 
 Route::get('/test',function(){
     $product = new Product();
