@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Supplier;
+use App\Models\Stock;
 use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
@@ -121,4 +123,40 @@ class ProductController extends Controller
     {
         //
     }
+
+
+    public function stock_in_view()
+    {
+        $products = Product::all();
+        $suppliers = Supplier::all();
+        return view('pages/product/stockin',['products'=>$products,'suppliers'=>$suppliers]);
+    }
+
+    public function stock_in(Request $request){
+
+        $product = Product::find($request->product);
+        // return $product;
+        $stock = new Stock();
+        $stock->product = $request->product;
+        $stock->supplier = $request->supplier;
+        $stock->stock = $request->stock;
+        $stock->total = $request->stock * $product->price;
+        $stock->paid = $request->amount;
+        $stock->balance = ($product->price * $request->stock) - $request->amount;
+        if(!$stock->save()){
+            $stock->delete();
+            \Toastr::success('Something went wrong (0)', 'error', ["positionClass" => "toast-top-right"]);
+            return redirect()->back();
+        }
+
+        $product->stock = $product->stock + $request->stock;
+        if(!$product->save()){
+            \Toastr::success('Something went wrong (1)', 'error', ["positionClass" => "toast-top-right"]);
+            return redirect()->back();
+        }
+
+        \Toastr::success('Stock Updated', 'Success', ["positionClass" => "toast-top-right"]);
+        return redirect()->back();
+    }
+
 }

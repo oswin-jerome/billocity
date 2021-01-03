@@ -23,7 +23,8 @@
                             <td>{{$supplier->email}}</td>
                             <td>{{$supplier->address}}</td>
                             <td class="">
-                                <form action="" class="m-0 p-0 d-inline"><button type="submit" class="btn btn-primary">View</button></form>
+                                <a href="/suppliers/{{$supplier->id}}" class="btn btn-primary">View</a>
+                                {{-- <form action="" class="m-0 p-0 d-inline"><button type="submit" class="btn btn-primary">View</button></form> --}}
                                 <form action="" class="m-0 p-0 d-inline"><button type="submit" class="btn btn-warning">Edit</button></form>
                                 <form action="" class="m-0 p-0 d-inline"><button type="submit" class="btn btn-danger">DELETE</button></form>
                             </td>

@@ -253,10 +253,7 @@
             }else{
                 $('#product_name').data('selectpicker').$button.focus();
                 $('#product_name').data('selectpicker').$button.click();
-                // $('.selectpicker').selectpicker().data("selectpicker").$searchbox.focus();
-                console.log("prd")
-
-                
+                // $('.selectpicker').selectpicker().data("selectpicker").$searchbox.focus();                
             }
 
 

@@ -19,6 +19,25 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+
+
+
+
+{{-- To --}}
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.5/css/buttons.dataTables.min.css">
+
+<script src="https://cdn.datatables.net/buttons/1.6.5/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.print.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.5/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.flash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.print.min.js"></script>
+
+
   </head>
   <body>
     <header id="header">
@@ -87,6 +106,7 @@
             <ul class="inul">
               <li><a href="/products/create">Add Products</a></li>
               <li><a href="/products">View Products</a></li>
+              <li><a href="/prods/stockin">Stock IN</a></li>
             </ul>
           </li>
 
@@ -120,6 +140,20 @@
             <ul class="inul">
               <li><a href="/invoices">View Sales</a></li>
               <li><a href="/prods/returned">View Returned Products</a></li>
+            </ul>
+          </li>
+
+
+          {{-- Report --}}
+          <li class="has-sub">
+            <a class="o-head">
+              <i class="fas fa-clipboard"></i><span>Report</span>
+            </a>
+            <ul class="inul">
+              {{-- <li><a href="/invoices">Sales Report</a></li> --}}
+              <li><a href="/reports/stock">Stock Report</a></li>
+              <li><a href="/reports/stockin">Stock IN Report</a></li>
+              <li><a href="/reports/sales">Sales Report</a></li>
             </ul>
           </li>
 
