@@ -22,6 +22,8 @@ class CreateInvoicesTable extends Migration
             $table->enum('status', array('CANCLED', 'PAUSED','COMPLETED'));
             $table->enum('payment_method', array('CASH', 'CARD','CREDIT'));
             $table->float('paid_amount');
+            $table->float('profit_wd');
+            $table->float('profit');
             $table->float('points_redeem')->default(0);
             $table->float('coupon_redeem')->default(0);
             $table->timestamps();

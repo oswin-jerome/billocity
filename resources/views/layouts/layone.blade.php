@@ -68,14 +68,18 @@
       <aside class="left-drawer">
         <p class="nav-title ">MENU</p>
         <ul>
-          <li class="has-sub">
+          <li>
+            <a href="/" class="o-head"><i class="fas fa-tachometer-alt">
+            </i> <span>Dashboard</span></a>
+          </li>
+          {{-- <li class="has-sub">
             <a class="o-head"><i class="fas fa-tachometer-alt">
                 </i> <span>Dashboard</span></a>
             <ul class="inul">
               <li><a href="">Analytisc</a></li>
               <li><a href="">Sales </a></li>
             </ul>
-          </li>
+          </li> --}}
           {{-- Brands --}}
           <li class="has-sub">
             <a class="o-head">
@@ -140,6 +144,17 @@
             <ul class="inul">
               <li><a href="/invoices">View Sales</a></li>
               <li><a href="/prods/returned">View Returned Products</a></li>
+            </ul>
+          </li>
+
+          {{-- Expenses --}}
+          <li class="has-sub">
+            <a class="o-head">
+              <i class="fas fa-money-check-alt"></i><span>Expenses</span>
+            </a>
+            <ul class="inul">
+              <li><a href="/expenses/create">Add Expenses</a></li>
+              <li><a href="/expenses">View Expenses</a></li>
             </ul>
           </li>
 

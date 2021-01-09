@@ -37,13 +37,19 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="form-group col-sm-12 col-md-6 col-lg-8">
-                        <label for="price">Price</label>
-                        <input required type="text" name="price" class="form-control" id="price">
+                    <div class="form-group col-sm-12 col-md-6 col-lg-4">
+                        <label for="CostPrice">Cost Price</label>
+                        <input required type="text" name="cost_price" class="form-control" id="CostPrice">
                     </div>
                     <div class="form-group col-sm-12 col-md-6 col-lg-4">
+                        <label for="price">Selling Price</label>
+                        <input required type="text" name="price" class="form-control" id="price">
+                    </div>
+                    
+                    <div class="form-group col-sm-12 col-md-6 col-lg-4">
                         <label for="stock">Stock</label>
-                        <input required type="text" name="stock" class="form-control" id="stock">
+                        <input disabled required value="0" type="text" name="stock" class="form-control" id="stock">
+                        <small>add stock in "stock in"</small>
                     </div>
                 </div>
 

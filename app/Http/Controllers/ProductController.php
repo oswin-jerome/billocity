@@ -48,7 +48,8 @@ class ProductController extends Controller
             'brand' => 'required',
             'category' => 'required',
             'price' => 'required',
-            'stock' => 'required',
+            'cost_price' => 'required',
+            // 'stock' => 'required',
         ]);
 
             
@@ -64,8 +65,9 @@ class ProductController extends Controller
             'barcode'=>$request->barcode,
             'brand'=>$request->brand,
             'category'=>$request->category,
+            'cost_price'=>$request->cost_price,
             'price'=>$request->price,
-            'stock'=>$request->stock,
+            'stock'=>0,
         ]);
 
         if($product){

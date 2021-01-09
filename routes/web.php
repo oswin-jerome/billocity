@@ -7,6 +7,8 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\ReportController;
 
 use App\Models\Product;
@@ -22,14 +24,13 @@ use App\Models\Customer;
 |
 */
 
-Route::get('/', function () {
-    return view('pages/home/home');
-});
+Route::resource('/',DashboardController::class);
 
 Route::get('/pos', function () {
     return view('pages/pos/pos',['products'=>Product::select('id','name')->get(),'customers'=>Customer::select('id','name','phone')->get()]);
 });
 
+Route::resource('expenses',ExpenseController::class);
 Route::resource('brands',BrandController::class);
 Route::resource('categories',CategoryController::class);
 Route::resource('products',ProductController::class);

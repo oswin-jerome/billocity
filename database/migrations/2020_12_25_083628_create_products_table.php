@@ -16,11 +16,12 @@ class CreateProductsTable extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('barcode');
+            $table->string('barcode')->nullable();
             $table->unsignedBigInteger('brand');
             $table->unsignedBigInteger('category');
+            $table->float('cost_price');
             $table->float('price');
-            $table->integer('stock'); //change to float for kg kind of stock
+            $table->integer('stock')->default(0); //change to float for kg kind of stock
             $table->foreign('brand')->references('id')->on('brands');
             $table->foreign('category')->references('id')->on('categories');
             $table->timestamps();

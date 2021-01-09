@@ -43,7 +43,7 @@ class InvoiceController extends Controller
 
         $totalPriceWithOutDiscounts = 0;
         $totalPriceWithDiscounts = 0;
-
+        $profitWithoutDiscount = 0;
         $invoice = new Invoice();
 
         // Calculate total and update stock
@@ -52,6 +52,11 @@ class InvoiceController extends Controller
             $product = Product::find($product);
             $totalPriceWithOutDiscounts = $totalPriceWithOutDiscounts + $product->price * $request->quantities[$key];
             
+
+            // calculate profit
+            $profitWithoutDiscount = ($product->price *$request->quantities[$key])- ($product->cost_price *$request->quantities[$key]);
+
+
             // update stock
             $product->stock = $product->stock - $request->quantities[$key];
             $product->save();
@@ -59,10 +64,12 @@ class InvoiceController extends Controller
             // add item to check out list
             
         }
-
+        // get discounts
+        $discount = 0;
         $totalPriceWithDiscounts = $totalPriceWithOutDiscounts;
         if($request->has('redeem') && $request->has('customer') && $request->redeem=='true'){
             $customer = Customer::find($request->customer);
+            $discount = $customer->points;
             $totalPriceWithDiscounts = $totalPriceWithOutDiscounts - $customer->points;
             $invoice->points_redeem = $customer->points;
             $customer->points = 0;
@@ -70,6 +77,8 @@ class InvoiceController extends Controller
         }
         $invoice->total = $totalPriceWithOutDiscounts;
         $invoice->final_price = $totalPriceWithDiscounts;
+        $invoice->profit_wd = $profitWithoutDiscount;
+        $invoice->profit = $profitWithoutDiscount - $discount; // subract discount
         $invoice->status = 'COMPLETED';
         $invoice->payment_method = 'CASH'; //TODO: link to accounts table 
         if($request->has('customer')){
@@ -95,6 +104,7 @@ class InvoiceController extends Controller
             $sold->product_price = $product->price;
             $sold->sold_price = $product->price - 0; // TODO: any discounts on product
             $sold->quantity = $request->quantities[$key];
+            $sold->profit = ($product->price *$request->quantities[$key])- ($product->cost_price *$request->quantities[$key]);
             $sold->status = "DONE";
 
             $sold->save();

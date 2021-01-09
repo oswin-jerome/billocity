@@ -17,6 +17,7 @@
                     <th scope="col">status</th>
                     <th scope="col">Customer</th>
                     <th scope="col">Final Price</th>
+                    <th scope="col">Profit</th>
                     <th scope="col">Handle</th>
                 </tr>
             </thead>
@@ -36,6 +37,7 @@
                             @endif
                         </td>
                         <td>{{$invoice->final_price}}</td>
+                        <td>{{$invoice->profit}}</td>
                         <td>
                             <a href="/invoices/{{$invoice->id}}" class="btn btn-primary m-0">View</a>
                         </td>
