@@ -155,6 +155,9 @@
             <ul class="inul">
               <li><a href="/expenses/create">Add Expenses</a></li>
               <li><a href="/expenses">View Expenses</a></li>
+              <li><a href="/expense-categories/create">Add Expense Category</a></li>
+              <li><a href="/expense-categories">View Expense Category</a></li>
+
             </ul>
           </li>
 
@@ -169,6 +172,7 @@
               <li><a href="/reports/stock">Stock Report</a></li>
               <li><a href="/reports/stockin">Stock IN Report</a></li>
               <li><a href="/reports/sales">Sales Report</a></li>
+              <li><a href="/reports/expense">Expense Report</a></li>
             </ul>
           </li>
 

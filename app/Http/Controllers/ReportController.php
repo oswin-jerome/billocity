@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Expense;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Invoice;
@@ -52,6 +53,25 @@ class ReportController extends Controller
         }
 
         return view('pages/report/stockin',['stocks'=>$stocks->get()]);
+
+    }
+
+    public function expense(Request $request){
+
+        // $stocks = Stock::all();
+
+        $stocks = [];
+        $stocks =  new Expense();
+
+        if(isset($request['from']) && isset($request['to'])){
+            
+            $stocks = Expense::whereDate('created_at','>=',$request['from'])->whereDate('created_at','<=',$request['to']);
+
+            // return $request['from'];
+
+        }
+
+        return view('pages/report/expense',['expenses'=>$stocks->get()]);
 
     }
     

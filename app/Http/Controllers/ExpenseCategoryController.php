@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Models\ExpenseCategory;
+use Illuminate\Support\Facades\Validator;
 class ExpenseCategoryController extends Controller
 {
     /**
@@ -13,7 +14,8 @@ class ExpenseCategoryController extends Controller
      */
     public function index()
     {
-        //
+        $categories = ExpenseCategory::all();
+        return view('pages/expense/category/view',['categories'=>$categories]);
     }
 
     /**
@@ -23,7 +25,7 @@ class ExpenseCategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages/expense/category/create');
     }
 
     /**
@@ -34,7 +36,28 @@ class ExpenseCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = Validator::make($request->all(),[
+            'name' => 'required|unique:categories',
+        ]);
+
+            
+        if($validated->fails()){
+            \Toastr::error($validated->errors(), 'Error', ["positionClass" => "toast-top-right"]);
+
+            return redirect()->back();
+        }
+
+        $category = ExpenseCategory::create([
+            'name'=>$request->name
+        ]);
+
+        if($category){
+            \Toastr::success('Expense Category added', 'Success', ["positionClass" => "toast-top-right"]);
+            return redirect()->back();
+        }
+
+        \Toastr::error('Unable to add Expense Category', 'Error', ["positionClass" => "toast-top-right"]);
+        return redirect()->back();
     }
 
     /**
@@ -68,7 +91,10 @@ class ExpenseCategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $category = ExpenseCategory::find($request->pid);
+        $category->name = $request->name;
+        $category->save();
+        return redirect()->back();
     }
 
     /**

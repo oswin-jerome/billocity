@@ -54,7 +54,7 @@ class InvoiceController extends Controller
             
 
             // calculate profit
-            $profitWithoutDiscount = ($product->price *$request->quantities[$key])- ($product->cost_price *$request->quantities[$key]);
+            $profitWithoutDiscount += ($product->price *$request->quantities[$key])- ($product->cost_price *$request->quantities[$key]);
 
 
             // update stock

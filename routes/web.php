@@ -9,6 +9,7 @@ use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ExpenseController;
+use App\Http\Controllers\ExpenseCategoryController;
 use App\Http\Controllers\ReportController;
 
 use App\Models\Product;
@@ -31,6 +32,7 @@ Route::get('/pos', function () {
 });
 
 Route::resource('expenses',ExpenseController::class);
+Route::resource('expense-categories',ExpenseCategoryController::class);
 Route::resource('brands',BrandController::class);
 Route::resource('categories',CategoryController::class);
 Route::resource('products',ProductController::class);
@@ -54,3 +56,4 @@ Route::get('/test',function(){
 Route::get('reports/stock','App\Http\Controllers\ReportController@stock');
 Route::get('reports/sales','App\Http\Controllers\ReportController@sales');
 Route::get('reports/stockin','App\Http\Controllers\ReportController@stockin');
+Route::get('reports/expense','App\Http\Controllers\ReportController@expense');
