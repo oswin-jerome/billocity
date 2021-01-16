@@ -39,7 +39,7 @@
 
 
     <div class="o-card p-4 mb-3">
-        <table id="table_id" class="display table-striped table-responsive-sm">
+        <table id="table_id" class="display table-striped  table-responsive-sm">
             <thead>
                 <tr>
                     <th>#</th>
@@ -82,7 +82,9 @@
             <div id="custData">
                 
             </div>
-            <input type="submit" id="submitInvoice" value="submit" class="btn btn-primary">
+
+            <a href="/pos" target="__blank" class="btn btn-warning">New Bill</a>
+            <input type="submit" id="submitInvoice" value="SUBMIT" class="btn btn-primary">
         </form>
     </div>
 

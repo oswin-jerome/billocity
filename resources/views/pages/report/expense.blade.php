@@ -15,7 +15,8 @@
                         <input required type="date" name="to" class="form-control" id="">
                     </div>
                 </div>
-                {{-- <input type="submit" value="GET" class="btn btn-primary"> --}}
+                {{-- <input type="submit" value="GET" class="btn btn-primary">
+                --}}
                 <button class="btn btn-primary">GET</button>
             </form>
         </div>
@@ -35,12 +36,13 @@
             <tbody>
                 @foreach ($expenses as $expense)
                     <tr>
-                        <td>{{$expense->id}}</td>
-                        <td>{{$expense->created_at->format('d/m/Y')}}</td>
-                        <td>{{$expense->getcategory->name}}</td>
-                        <td>{{$expense->amount}}</td>
+                        <td>{{ $expense->id }}</td>
+                        <td>{{ $expense->created_at->format('d/m/Y') }}</td>
+                        <td>{{ $expense->getcategory->name }}</td>
+                        <td>{{ $expense->amount }}</td>
                         {{-- <td class="">
-                            <form action="" class="m-0 p-0 d-inline"><button type="submit" class="btn btn-primary">View</button></form>
+                            <form action="" class="m-0 p-0 d-inline"><button type="submit"
+                                    class="btn btn-primary">View</button></form>
                         </td> --}}
                     </tr>
                 @endforeach
@@ -50,26 +52,37 @@
                     <th></th>
                     <th></th>
                     <th>Total : </th>
-                    <th>{{$expenses->sum('amount')}}</th>
+                    <th>{{ $expenses->sum('amount') }}</th>
                 </tr>
-                
+
             </tfoot>
         </table>
     </div>
+    <script src="/utils.js"></script>
     <script>
         var date = new Date();
-        $(document).ready( function () {
-        $('#table_id').DataTable({
-            dom: 'Bfrtip',
-            buttons: [
-                'csv', 'excel', 'pdf',{
-                    extend: 'print',
-                    text: 'Print',
-                    title: `<h1>Stock report</h1><p>${date}</p>`,
-                    footer: true
-                }
-        ]
+        $(document).ready(function() {
+            $('#table_id').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    'csv', 'excel', {
+                        extend: 'pdf',
+                        className:"btn-primary",
+                        title: `Billocity - Stock report \n ${date}`,
+                        // customize: function(doc) {
+                        //     doc.content[1].table.widths =
+                        //         Array(doc.content[1].table.body[0].length + 1).join('*').split('');
+                        // },
+                        footer:true
+                    }, {
+                        extend: 'print',
+                        text: 'Print',
+                        title: `<h1>Stock report</h1><p>${date}</p>`,
+                        footer: true
+                    }
+                ]
+            });
         });
-    });
+
     </script>
 @endsection

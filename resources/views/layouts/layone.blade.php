@@ -38,25 +38,44 @@
 <script src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.print.min.js"></script>
 
 
+
+<style>
+/* .hid{
+  display: block;
+} */
+@media only screen and (max-width: 600px){
+  .hid{
+    display: none !important;
+  }
+}
+</style>
+
   </head>
   <body>
     <header id="header">
       <div class="header-left">
-        <a href="/"><h2 class="o-logo">Billocity</h2></a>
+        <div>
+          <a href="/"><h2 class="o-logo">Billocity</h2></a>
+        </div>
+        
         <div class="left-menu">
           <i id="left-ham" class="fas fa-bars"></i>
-          <img id="gift" src="{{asset('images/gift.svg')}}" alt="" />
+          {{-- <img id="gift" src="{{asset('images/gift.svg')}}" alt="" /> --}}
         </div>
       </div>
-      <div class="header-right">
-        <div class="user-det">
-          <img
+      <div class="header-right ">
+        <div class="user-det hid">
+          {{-- <img
             src="https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png"
             alt=""
-          />
+          /> --}}
           <div class="dets">
             <p id="n">Alina Mclourd</p>
             <p>VP People Manager</p>
+          </div>
+          <div class="dets ml-4">
+            <p id="n">XYZ Softwares</p>
+            <p>V 1.0</p>
           </div>
         </div>
         {{-- <p class="m-0">POS</p> --}}

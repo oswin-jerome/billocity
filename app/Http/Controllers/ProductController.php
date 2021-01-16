@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Brand;
 use App\Models\Category;
+use App\Models\Payment;
 use App\Models\Product;
 use App\Models\Supplier;
 use App\Models\Stock;
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
@@ -54,7 +56,7 @@ class ProductController extends Controller
 
             
         if($validated->fails()){
-            \Toastr::error($validated->errors(), 'Error', ["positionClass" => "toast-top-right"]);
+            Toastr::error($validated->errors(), 'Error', ["positionClass" => "toast-top-right"]);
 
             return redirect()->back();
         }
@@ -71,11 +73,11 @@ class ProductController extends Controller
         ]);
 
         if($product){
-            \Toastr::success('Product added', 'Success', ["positionClass" => "toast-top-right"]);
+            Toastr::success('Product added', 'Success', ["positionClass" => "toast-top-right"]);
             return redirect()->back();
         }
 
-        \Toastr::error('Unable to add Product', 'Error', ["positionClass" => "toast-top-right"]);
+        Toastr::error('Unable to add Product', 'Error', ["positionClass" => "toast-top-right"]);
         return redirect()->back();
 
         
@@ -145,19 +147,30 @@ class ProductController extends Controller
         $stock->total = $request->stock * $product->price;
         $stock->paid = $request->amount;
         $stock->balance = ($product->price * $request->stock) - $request->amount;
+
+        
+
+
         if(!$stock->save()){
             $stock->delete();
-            \Toastr::success('Something went wrong (0)', 'error', ["positionClass" => "toast-top-right"]);
+            Toastr::success('Something went wrong (0)', 'error', ["positionClass" => "toast-top-right"]);
             return redirect()->back();
         }
+
+        // save transaction
+        $pay = new Payment();
+        $pay->amount = $request->amount;
+        $pay->supplier = $request->supplier;
+        $pay->stock_invoice =$stock->id;
+        $pay->save();
 
         $product->stock = $product->stock + $request->stock;
         if(!$product->save()){
-            \Toastr::success('Something went wrong (1)', 'error', ["positionClass" => "toast-top-right"]);
+            Toastr::success('Something went wrong (1)', 'error', ["positionClass" => "toast-top-right"]);
             return redirect()->back();
         }
 
-        \Toastr::success('Stock Updated', 'Success', ["positionClass" => "toast-top-right"]);
+        Toastr::success('Stock Updated', 'Success', ["positionClass" => "toast-top-right"]);
         return redirect()->back();
     }
 

@@ -1,11 +1,12 @@
 @extends('layouts/layone')
 
 @section('content')
+
     <div class="o-card p-4 mb-3">
         <h4 class="mb-5">Invoices</h4>
 
 
-        <table class="display" id="table_id">
+        <table class="display " id="table_id">
             <thead>
                 <tr>
                     {{-- <th scope="col"></th> --}}

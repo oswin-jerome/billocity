@@ -11,7 +11,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\ExpenseCategoryController;
 use App\Http\Controllers\ReportController;
-
+use App\Http\Controllers\StockController;
 use App\Models\Product;
 use App\Models\Customer;
 /*
@@ -39,6 +39,7 @@ Route::resource('products',ProductController::class);
 Route::resource('customers',CustomerController::class);
 Route::resource('suppliers',SupplierController::class);
 Route::resource('invoices',InvoiceController::class);
+Route::resource('stocks',StockController::class);
 Route::get('prods/stockin','App\Http\Controllers\ProductController@stock_in_view');
 Route::post('prods/stockin','App\Http\Controllers\ProductController@stock_in');
 Route::get('prods/returned','App\Http\Controllers\InvoiceController@viewreturned');

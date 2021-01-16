@@ -8,6 +8,8 @@
             padding: 10px;
             margin-bottom: 50px;
         }
+
+        
     </style>
 <div class="print">
     <button class="btn btn-primary" id="print">Print</button>
@@ -68,10 +70,10 @@
 
         {{-- {{$invoice}} --}}
         {{-- Product list --}}
-        <table class="table mt-5 table-striped">
+        <table class="table mt-5 table-striped " >
             <thead>
               <tr>
-                <th scope="col">#</th>
+                <th scope="col" >#</th>
                 <th scope="col">Product</th>
                 <th scope="col">Price</th>
                 <th scope="col">Discount</th>
@@ -81,7 +83,7 @@
             </thead>
             <tbody>
                 @foreach ($invoice->products->whereIn('status',['DONE','CANCLED']) as $key=>$product)
-                    <tr>
+                    <tr >
                         <th scope="row">{{$key+1}}</th>
                         <td>{{$product->prod->name}}</td>
                         <td>{{$product->product_price}}</td>
@@ -211,6 +213,7 @@
 
             mywindow.document.write('<html><head>');
             mywindow.document.write("<link href=\"https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css\" rel=\"stylesheet\"><link href=\"../css/core.css\" rel=\"stylesheet\"><link href=\"../css/components.css\" rel=\"stylesheet\"><link href=\"../css/icons.css\" rel=\"stylesheet\">")
+            mywindow.document.write(`<style>td,th{border-color: rgba(0, 0, 0,0.7) !important;}</style>`)
             mywindow.document.write('</head><body >');
             mywindow.document.write(document.getElementById('invoice').innerHTML);
             mywindow.document.write('</body></html>');
