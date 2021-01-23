@@ -21,6 +21,7 @@ class CreateSoldProductsTable extends Migration
             $table->float('product_price');
             $table->float('sold_price');
             $table->float('profit');
+            $table->float('gst');
             $table->integer('quantity'); //change to float if necessary
             $table->enum('status', array('DONE', 'CANCLED','RETURNED'));
             $table->timestamps();

@@ -51,6 +51,7 @@ class ProductController extends Controller
             'category' => 'required',
             'price' => 'required',
             'cost_price' => 'required',
+            'gst' => 'required',
             // 'stock' => 'required',
         ]);
 
@@ -69,6 +70,7 @@ class ProductController extends Controller
             'category'=>$request->category,
             'cost_price'=>$request->cost_price,
             'price'=>$request->price,
+            'gst'=>$request->gst,
             'stock'=>0,
         ]);
 

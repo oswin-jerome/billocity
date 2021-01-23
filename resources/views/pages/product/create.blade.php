@@ -37,20 +37,42 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="form-group col-sm-12 col-md-6 col-lg-4">
+                    <div class="form-group col-sm-12 col-md-6 col-lg-3">
                         <label for="CostPrice">Cost Price</label>
-                        <input required type="text" name="cost_price" class="form-control" id="CostPrice">
+                        <small>(Per unit)</small>
+                        <input required type="text" class="form-control" id="CostPrice">
                     </div>
-                    <div class="form-group col-sm-12 col-md-6 col-lg-4">
+                    <div class="form-group col-sm-12 col-md-6 col-lg-3">
+                        <label for="CostPrice">Cost Price</label>
+                        <small>(with GST)</small>
+                        <input tabindex="998" readonly required type="text" name="cost_price" class="form-control" id="CostPrice_ro">
+                    </div>                
+                    <div class="form-group col-sm-12 col-md-6 col-lg-3">
                         <label for="price">Selling Price</label>
-                        <input required type="text" name="price" class="form-control" id="price">
+                        <small>(Per unit)</small>
+                        <input required type="text" class="form-control" id="price">
                     </div>
-                    
-                    <div class="form-group col-sm-12 col-md-6 col-lg-4">
+                    <div class="form-group col-sm-12 col-md-6 col-lg-3">
+                        <label for="price">Selling Price</label>
+                        <small>(with GST)</small>
+                        <input tabindex="999" readonly required type="text" name="price" class="form-control" id="price_ro">
+                    </div>
+                    <div class="form-group col-sm-12 col-md-6 col-lg-3">
+                        <label for="gst">GST</label>
+                        <input required type="number" name="gst" value="0" class="form-control" id="gst">
+                    </div>
+                    <div class="form-group col-sm-12 col-md-6 col-lg-3">
                         <label for="stock">Stock</label>
                         <input disabled required value="0" type="text" name="stock" class="form-control" id="stock">
                         <small>add stock in "stock in"</small>
                     </div>
+                    
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="gst_chk">
+                    <label class="form-check-label" for="gst_chk">
+                      I'm entering price with GST
+                    </label>
                 </div>
 
                 <input type="submit" value="Add" class="btn btn-primary px-5 mt-4">
@@ -67,6 +89,64 @@
         //   <option>Ketchup</option>
         //   <option>Relish</option>
         // </select>
+
+        var costPrice = 0;
+        var costPriceGst = 0;
+        var sellingPrice = 0;
+        var sellingPriceGst = 0;
+        var gst = 0;
+        var enteringWithoutGst = true;
+        $(document).ready(()=>{
+            buildUi();
+            $('#CostPrice').on('keyup',function(){
+                buildUi()
+            })
+            $('#price').on('keyup',function(){
+                buildUi()
+            })
+            $('#gst').on('keyup',function(){
+                buildUi()
+            })
+            $('#gst_chk').on('click',function(){
+                buildUi()
+            })
+        })
+
+        
+
+
+        function buildUi(){
+
+            costPrice = parseFloat( $('#CostPrice').val());
+            costPriceGst =parseFloat( $('#CostPrice_ro').val());
+            sellingPrice = parseFloat($('#price').val());
+            sellingPriceGst = parseFloat($('#price_ro').val());
+            gst = parseFloat($('#gst').val());
+            enteringWithoutGst = $("#gst_chk").is(':checked');
+
+            if(!enteringWithoutGst){
+                costPriceGst = costPrice +( costPrice * gst /100);
+                sellingPriceGst = sellingPrice +( sellingPrice * gst /100);
+
+                
+                // set values to fields
+                $('#CostPrice_ro').val(costPriceGst).toFixed(2)
+                $('#price_ro').val(sellingPriceGst).toFixed(2)
+                
+            }else{
+                costPriceGst = costPrice ;
+                sellingPriceGst = sellingPrice;
+
+                
+                // set values to fields
+                $('#CostPrice_ro').val(costPriceGst).toFixed(2)
+                $('#price_ro').val(sellingPriceGst).toFixed(2)
+            }
+            
+        }
+
+
+        
 
     </script>
 @endsection

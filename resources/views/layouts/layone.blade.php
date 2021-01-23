@@ -70,11 +70,16 @@
             alt=""
           /> --}}
           <div class="dets">
-            <p id="n">Alina Mclourd</p>
-            <p>VP People Manager</p>
+            @auth
+              <p id="n">{{Auth::user()->name}}</p>
+              <p>{{Auth::user()->role}}</p>
+            @endauth
+          </div>
+          <div style="width: 30px">
+
           </div>
           <div class="dets ml-4">
-            <p id="n">XYZ Softwares</p>
+            <a href="https://oswinjerome.in" target="__blank"><p id="n">XYZ Softwares</p></a>
             <p>V 1.0</p>
           </div>
         </div>
@@ -99,6 +104,19 @@
               <li><a href="">Sales </a></li>
             </ul>
           </li> --}}
+          {{-- Brands --}}
+          @if (Auth::user()->role=="admin")
+          <li class="has-sub">
+            <a class="o-head">
+              <i class="fas fa-users"></i><span>Users</span>
+            </a>
+            <ul class="inul">
+              <li><a href="/users/create">Add Users</a></li>
+              <li><a href="/users">View Users</a></li>
+            </ul>
+          </li>
+          @endif
+          
           {{-- Brands --}}
           <li class="has-sub">
             <a class="o-head">

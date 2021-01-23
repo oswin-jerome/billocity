@@ -103,6 +103,7 @@ class InvoiceController extends Controller
             // TODO: add customer
             $sold->product_price = $product->price;
             $sold->sold_price = $product->price - 0; // TODO: any discounts on product
+            $sold->gst = $product->gst; // TODO: any discounts on product
             $sold->quantity = $request->quantities[$key];
             $sold->profit = ($product->price *$request->quantities[$key])- ($product->cost_price *$request->quantities[$key]);
             $sold->status = "DONE";

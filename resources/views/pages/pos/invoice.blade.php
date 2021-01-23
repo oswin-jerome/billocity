@@ -76,19 +76,23 @@
                 <th scope="col" >#</th>
                 <th scope="col">Product</th>
                 <th scope="col">Price</th>
+                <th scope="col">GST</th>
                 <th scope="col">Discount</th>
                 <th scope="col">Quantity</th>
                 <th scope="col">Total</th>
               </tr>
             </thead>
+            <?php $totalwg = 0?>
             <tbody>
                 @foreach ($invoice->products->whereIn('status',['DONE','CANCLED']) as $key=>$product)
                     <tr >
                         <th scope="row">{{$key+1}}</th>
                         <td>{{$product->prod->name}}</td>
                         <td>{{$product->product_price}}</td>
+                        <td>{{$product->gst}}%</td>
                         <td></td>
                         <td>{{$product->quantity}}</td>
+                        <?php $totalwg += ($product->sold_price * $product->quantity) ?>
                         <td>{{$product->sold_price * $product->quantity}}</td>
                     </tr>
                 @endforeach
@@ -105,16 +109,27 @@
                     <tbody>
                       <tr>
                         <th scope="row">Total </th>
-                        <td>{{$invoice->total}}</td>
+                        <td>Rs. {{$invoice->total}}</td>
                       </tr>
                       <tr>
+                        <th scope="row">GST </th>
+                        <td>
+                            Rs. {{ ($totalwg*($invoice->products->sum('gst')/$invoice->products->count('gst'))/100)}}
+                            <small>({{$invoice->products->whereIn('status',['DONE','CANCLED'])->sum('gst')/$invoice->products->whereIn('status',['DONE','CANCLED'])->count('gst')}} %)</small>
+                        </td>
+                      </tr>
+                      {{-- <tr>
                         <th scope="row">Points Redeemed </th>
                         <td> - {{$invoice->points_redeem}}</td>
                       </tr>
                       <tr>
                         <th scope="row">Coupon </th>
                         <td>{{$invoice->coupon}}</td>
-                      </tr>
+                      </tr> --}}
+                      {{-- <tr>
+                        <th scope="row">Discount</th>
+                        <td> - {{$invoice->points_redeem}}</td>
+                      </tr> --}}
                       <tr>
                         <th scope="row">Grand Total </th>
                         <td>{{$invoice->final_price}}</td>

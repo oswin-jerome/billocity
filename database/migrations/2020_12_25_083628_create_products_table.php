@@ -21,6 +21,7 @@ class CreateProductsTable extends Migration
             $table->unsignedBigInteger('category');
             $table->float('cost_price');
             $table->float('price');
+            $table->float('gst');
             $table->integer('stock')->default(0); //change to float for kg kind of stock
             $table->foreign('brand')->references('id')->on('brands');
             $table->foreign('category')->references('id')->on('categories');
