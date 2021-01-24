@@ -130,8 +130,8 @@
 
                 
                 // set values to fields
-                $('#CostPrice_ro').val(costPriceGst).toFixed(2)
-                $('#price_ro').val(sellingPriceGst).toFixed(2)
+                $('#CostPrice_ro').val(costPriceGst)
+                $('#price_ro').val(sellingPriceGst)
                 
             }else{
                 costPriceGst = costPrice ;
@@ -139,8 +139,8 @@
 
                 
                 // set values to fields
-                $('#CostPrice_ro').val(costPriceGst).toFixed(2)
-                $('#price_ro').val(sellingPriceGst).toFixed(2)
+                $('#CostPrice_ro').val(costPriceGst)
+                $('#price_ro').val(sellingPriceGst)
             }
             
         }
