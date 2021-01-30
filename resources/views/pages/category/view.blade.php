@@ -44,7 +44,7 @@
       
             <!-- Modal body -->
             <div class="modal-body" id="modbody">
-              <form method="POST" action="{{ route('categories.update',1)}}" enctype="multipart/form-data">
+              <form method="POST" action="{{ route('products.update',1)}}" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 {{ method_field('PUT') }}
                   <div class="form-group">

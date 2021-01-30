@@ -74,6 +74,43 @@ class ReportController extends Controller
         return view('pages/report/expense',['expenses'=>$stocks->get()]);
 
     }
+
+
+    public function c_credit(Request $request){
+        $invoices = [];
+        $invoices =  Invoice::where('status','=','PAUSED');
+
+        if(isset($request['from']) && isset($request['to'])){
+            
+            $invoices = Invoice::whereDate('created_at','>=',$request['from'])->whereDate('created_at','<=',$request['to']);
+
+            // return $request['from'];
+
+        }
+
+
+        return view('pages/report/customercredit',['invoices'=>$invoices->get()]);
+
+    }
+
+    public function s_debit(Request $request){
+
+        // $stocks = Stock::all();
+
+        $stocks = [];
+        $stocks =  Stock::where('balance','>','0');
+
+        if(isset($request['from']) && isset($request['to'])){
+            
+            $stocks = Stock::whereDate('created_at','>=',$request['from'])->whereDate('created_at','<=',$request['to']);
+
+            // return $request['from'];
+
+        }
+
+        return view('pages/report/stockin',['stocks'=>$stocks->get()]);
+
+    }
     
 
 }

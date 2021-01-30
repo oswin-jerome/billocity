@@ -4,21 +4,22 @@
     <div class="row">
         <div class="o-card p-4 col-13">
             
-            <h5 class="card-title">Add Product</h5>
-            <form method="POST" action="{{ route('products.store')}}" >
+            <h5 class="card-title">Edit Product</h5>
+            <form method="POST" action="{{ route('products.update',$product->id)}}" >
                 {{ csrf_field() }}
+                {{ method_field('PUT') }}
                 <div class="row">
                     <div class="form-group col-sm-12 col-md-6 col-lg-6">
                         <label for="name">Product Name</label>
-                        <input required type="text" name="name" class="form-control" id="name">
+                        <input required type="text" name="name" class="form-control" id="name" value="{{$product->name}}">
                     </div>
                     <div class="form-group col-sm-12 col-md-6 col-lg-3">
                         <label for="barcode">Barcode</label>
-                        <input required type="text" name="barcode" class="form-control" id="barcode">
+                        <input required type="text" name="barcode" class="form-control" id="barcode" value="{{$product->barcode}}">
                     </div>
                     <div class="form-group col-sm-12 col-md-6 col-lg-3">
                         <label for="hsn_code">HSN Code</label>
-                        <input required type="text" name="hsn_code" class="form-control" id="hsn_code">
+                        <input required type="text" name="hsn_code" class="form-control" id="hsn_code" value="{{$product->hsn_code}}">
                     </div>
                 </div>
                 <div class="row">
@@ -27,7 +28,9 @@
                         <select name="brand" class="form-control selectpicker" id="brand" data-live-search="true">
                             <option disabled selected>Select a brand</option>
                             @foreach ($brands as $brand)
-                                <option value="{{$brand->id}}">{{$brand->name}}</option>
+                                <option @if ($brand->id == $product->brand)
+                                    selected
+                                @endif value="{{$brand->id}}">{{$brand->name}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -36,7 +39,9 @@
                         <select name="category" class="form-control selectpicker" id="category" data-live-search="true">
                             <option disabled selected>Select a Category</option>
                             @foreach ($categories as $category)
-                                <option value="{{$category->id}}">{{$category->name}}</option>
+                                <option @if ($category->id == $product->category)
+                                    selected
+                                @endif value="{{$category->id}}">{{$category->name}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -45,7 +50,7 @@
                     <div class="form-group col-sm-12 col-md-6 col-lg-3">
                         <label for="CostPrice">Cost Price</label>
                         <small>(Per unit)</small>
-                        <input required type="text" class="form-control" id="CostPrice">
+                        <input required type="text" class="form-control" id="CostPrice"  value="{{$product->cost_price}}">
                     </div>
                     <div class="form-group col-sm-12 col-md-6 col-lg-3">
                         <label for="CostPrice">Cost Price</label>
@@ -55,7 +60,7 @@
                     <div class="form-group col-sm-12 col-md-6 col-lg-3">
                         <label for="price">Selling Price</label>
                         <small>(Per unit)</small>
-                        <input required type="text" class="form-control" id="price">
+                        <input required type="text" class="form-control" id="price"  value="{{$product->price}}">
                     </div>
                     <div class="form-group col-sm-12 col-md-6 col-lg-3">
                         <label for="price">Selling Price</label>
@@ -64,7 +69,7 @@
                     </div>
                     <div class="form-group col-sm-12 col-md-6 col-lg-3">
                         <label for="gst">GST</label>
-                        <input required type="number" name="gst" value="0" class="form-control" id="gst">
+                        <input required type="number" name="gst" class="form-control" id="gst"  value="{{$product->gst}}">
                     </div>
                     <div class="form-group col-sm-12 col-md-6 col-lg-3">
                         <label for="stock">Stock</label>
@@ -74,13 +79,13 @@
                     
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="gst_chk">
+                    <input class="form-check-input" type="checkbox" checked value="" id="gst_chk">
                     <label class="form-check-label" for="gst_chk">
                       I'm entering price with GST
                     </label>
                 </div>
 
-                <input type="submit" value="Add" class="btn btn-primary px-5 mt-4">
+                <input type="submit" value="UPDATE" class="btn btn-info px-5 mt-4">
             </form>
         </div>
     </div>

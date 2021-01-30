@@ -52,6 +52,7 @@ class ProductController extends Controller
             'price' => 'required',
             'cost_price' => 'required',
             'gst' => 'required',
+            
             // 'stock' => 'required',
         ]);
 
@@ -71,6 +72,7 @@ class ProductController extends Controller
             'cost_price'=>$request->cost_price,
             'price'=>$request->price,
             'gst'=>$request->gst,
+            'hsn_code'=>$request->hsn_code,
             'stock'=>0,
         ]);
 
@@ -104,7 +106,9 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
+        
+        return view('pages/product/edit',['product'=>Product::find($id), 'brands'=>Brand::all(),
+        'categories'=>Category::all()]);
     }
 
     /**
@@ -116,7 +120,9 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $product = Product::find($id);
+        $product->update($request->all());
+        return redirect()->back();
     }
 
     /**

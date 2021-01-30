@@ -9,15 +9,15 @@
                 <div class="row">
                     <div class="mb-3 col-sm-12 col-lg-6">
                         <label for="exampleInputEmail1" class="form-label">Customer Name</label>
-                        <input type="text" name="name" class="form-control" id="exampleInputEmail1" >
+                        <input type="text" name="name" class="form-control"  >
                     </div>
                     <div class="mb-3 col-sm-12 col-lg-6">
                         <label for="exampleInputEmail1" class="form-label">Phone #</label>
-                        <input type="text" name="phone" class="form-control" id="exampleInputEmail1" >
+                        <input type="number"  name="phone" class="form-control"  >
                     </div>
                     <div class="mb-3 col-sm-12 col-lg-12">
                         <label for="exampleInputEmail1" class="form-label">Email (optional)</label>
-                        <input type="email" name="mobile" class="form-control" id="exampleInputEmail1" >
+                        <input type="email" name="email" class="form-control"  >
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary">Add</button>

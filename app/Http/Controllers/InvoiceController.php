@@ -20,6 +20,11 @@ class InvoiceController extends Controller
         return view('pages/invoices/view',['invoices'=>Invoice::orderBy('created_at', 'DESC')->get()]);
     }
 
+    public function pending()
+    {
+        return view('pages/invoices/pendingpay',['invoices'=>Invoice::where('status','=','PENDING')->orderBy('created_at', 'DESC')->get()]);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -54,7 +59,7 @@ class InvoiceController extends Controller
             
 
             // calculate profit
-            $profitWithoutDiscount += ($product->price *$request->quantities[$key])- ($product->cost_price *$request->quantities[$key]);
+            $profitWithoutDiscount += (($product->price * $request->quantities[$key])- ($product->cost_price * $request->quantities[$key]));
 
 
             // update stock
@@ -69,17 +74,26 @@ class InvoiceController extends Controller
         $totalPriceWithDiscounts = $totalPriceWithOutDiscounts;
         if($request->has('redeem') && $request->has('customer') && $request->redeem=='true'){
             $customer = Customer::find($request->customer);
-            $discount = $customer->points;
+            $discount += $customer->points;
             $totalPriceWithDiscounts = $totalPriceWithOutDiscounts - $customer->points;
             $invoice->points_redeem = $customer->points;
             $customer->points = 0;
             $customer->save();
         }
+        $discount_pos = 0;
+        $discount_pos = $request->pos_discount;
+        $invoice->discount = $discount_pos;
+        $invoice->paid_amount = $request->paid_amount; //Change for credit
+
         $invoice->total = $totalPriceWithOutDiscounts;
-        $invoice->final_price = $totalPriceWithDiscounts;
+        $invoice->final_price = $totalPriceWithDiscounts - $discount_pos;
         $invoice->profit_wd = $profitWithoutDiscount;
-        $invoice->profit = $profitWithoutDiscount - $discount; // subract discount
-        $invoice->status = 'COMPLETED';
+        $invoice->profit = $profitWithoutDiscount - $discount_pos; // subract discount
+        $invoice->status = 'PENDING';
+        if($invoice->final_price==($invoice->paid_amount+$discount_pos)){
+            $invoice->status = 'COMPLETED';
+
+        }
         $invoice->payment_method = 'CASH'; //TODO: link to accounts table 
         if($request->has('customer')){
             $invoice->customer = $request->customer;
@@ -89,7 +103,6 @@ class InvoiceController extends Controller
             $customer->points = $customer->points + $totalPriceWithDiscounts * 0.1;
             $customer->save();
         }
-        $invoice->paid_amount = $totalPriceWithDiscounts; //Change for credit
         $invoice->save();
 
 
@@ -103,7 +116,7 @@ class InvoiceController extends Controller
             // TODO: add customer
             $sold->product_price = $product->price;
             $sold->sold_price = $product->price - 0; // TODO: any discounts on product
-            $sold->gst = $product->gst; // TODO: any discounts on product
+            $sold->gst = $product->gst; //
             $sold->quantity = $request->quantities[$key];
             $sold->profit = ($product->price *$request->quantities[$key])- ($product->cost_price *$request->quantities[$key]);
             $sold->status = "DONE";
@@ -151,9 +164,8 @@ class InvoiceController extends Controller
     public function update(Request $request, $id)
     {
 
+        
         // Salse return
-
-
         $invoice = Invoice::find($id);
 
         foreach ($request->deleted as $key => $value) {
@@ -164,6 +176,10 @@ class InvoiceController extends Controller
             $invoice->final_price = $invoice->final_price - ($soldProduct->sold_price * $soldProduct->quantity);
             $invoice->total = $invoice->total - ($soldProduct->sold_price * $soldProduct->quantity);
             $invoice->paid_amount = $invoice->paid_amount - ($soldProduct->sold_price * $soldProduct->quantity);
+            // if($invoice->final_price==($invoice->paid_amount)){
+            //     $invoice->status = 'COMPLETED';
+    
+            // }
             $invoice->save();
             $soldProduct->status = "RETURNED";
             $soldProduct->save();
@@ -209,5 +225,16 @@ class InvoiceController extends Controller
 
         return redirect()->back();
         // return view('pages/invoices/viewreturned',['products'=>ReturnedProduct::all()]);
+    }
+
+    public function get_pay(Request $request ){
+        $invoice = Invoice::find($request->pid);
+        $invoice->paid_amount = $invoice->paid_amount + $request->amount;
+        if($invoice->final_price==($invoice->paid_amount)){
+            $invoice->status = 'COMPLETED';
+
+        }
+        $invoice->save();
+        return redirect()->back();
     }
 }

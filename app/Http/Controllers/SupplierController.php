@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Supplier;
 use App\Models\Stock;
+use Brian2694\Toastr\Facades\Toastr;
+
 class SupplierController extends Controller
 {
     /**
@@ -45,7 +47,7 @@ class SupplierController extends Controller
 
             
         if($validated->fails()){
-            \Toastr::error($validated->errors(), 'Error', ["positionClass" => "toast-top-right"]);
+            Toastr::error($validated->errors(), 'Error', ["positionClass" => "toast-top-right"]);
 
             return redirect()->back();
         }
@@ -58,11 +60,11 @@ class SupplierController extends Controller
         ]);
 
         if($category){
-            \Toastr::success('Supplier added', 'Success', ["positionClass" => "toast-top-right"]);
+            Toastr::success('Supplier added', 'Success', ["positionClass" => "toast-top-right"]);
             return redirect()->back();
         }
 
-        \Toastr::error('Unable to add Supplier', 'Error', ["positionClass" => "toast-top-right"]);
+        Toastr::error('Unable to add Supplier', 'Error', ["positionClass" => "toast-top-right"]);
         return redirect()->back();
 
     }
@@ -102,7 +104,13 @@ class SupplierController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $supplier = Supplier::find($request->pid);
+        $supplier->name = $request->name;
+        $supplier->phone = $request->phone;
+        $supplier->email = $request->email;
+        $supplier->address = $request->address;
+        $supplier->save();
+        return redirect()->back();
     }
 
     /**

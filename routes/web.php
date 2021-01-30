@@ -48,6 +48,8 @@ Route::get('prods/stockin','App\Http\Controllers\ProductController@stock_in_view
 Route::post('prods/stockin','App\Http\Controllers\ProductController@stock_in')->middleware("auth");
 Route::get('prods/returned','App\Http\Controllers\InvoiceController@viewreturned')->middleware("auth");
 Route::post('invoice/cancel','App\Http\Controllers\InvoiceController@cancelProduct')->middleware("auth");
+Route::get('pending_customer_payment','App\Http\Controllers\InvoiceController@pending')->middleware("auth");
+Route::post('invoice/get_pay','App\Http\Controllers\InvoiceController@get_pay')->middleware("auth");
 Route::get("/login","App\Http\Controllers\AuthController@view_login")->name("login");
 Route::post("/login","App\Http\Controllers\AuthController@login");
 Route::get('/test',function(){
@@ -63,3 +65,5 @@ Route::get('reports/stock','App\Http\Controllers\ReportController@stock')->middl
 Route::get('reports/sales','App\Http\Controllers\ReportController@sales')->middleware("auth");
 Route::get('reports/stockin','App\Http\Controllers\ReportController@stockin')->middleware("auth");
 Route::get('reports/expense','App\Http\Controllers\ReportController@expense')->middleware("auth");
+Route::get('reports/c_credit','App\Http\Controllers\ReportController@c_credit')->middleware("auth");
+Route::get('reports/s_debit','App\Http\Controllers\ReportController@s_debit')->middleware("auth");

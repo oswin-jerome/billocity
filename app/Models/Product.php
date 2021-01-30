@@ -10,7 +10,7 @@ use App\Models\Categoey;
 class Product extends Model
 {
     use HasFactory;
-    protected $fillable = ['name','barcode','brand','category','price','cost_price','gst'];
+    protected $fillable = ['name','barcode','brand','category','price','cost_price','gst','hsn_code'];
 
     public function getcategory()
     {

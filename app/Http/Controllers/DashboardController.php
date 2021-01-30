@@ -25,8 +25,16 @@ class DashboardController extends Controller
         $todaysSales = Invoice::whereDate('created_at','=',now())->get()->count();
         $countSold = SoldProduct::whereDate('created_at','=',now())->get()->sum('quantity');
         $stockAddedToday = Stock::whereDate('created_at','=',now())->get()->count();
+
+        $totalFinal = Invoice::sum('final_price');
+        $totalPaid = Invoice::sum('paid_amount');
+        $debit = Stock::sum('balance');
+
         return view('pages/home/home',['todaysProfit'=>$todaysProfit,'countSold'=>$countSold,
-        'stockAddedToday'=>$stockAddedToday,'todaysSales'=>$todaysSales]);
+        'stockAddedToday'=>$stockAddedToday,'todaysSales'=>$todaysSales,
+        'credit'=>$totalFinal - $totalPaid,'debit'=>$debit
+            
+        ]);
     }
 
     /**

@@ -84,7 +84,7 @@
           </div>
         </div>
         {{-- <p class="m-0">POS</p> --}}
-        <a href="/pos" class="m-0">POS</a>
+        <a href="/pos" target="__blank" class="m-0">POS</a>
       </div>
     </header>
 
@@ -180,6 +180,7 @@
             </a>
             <ul class="inul">
               <li><a href="/invoices">View Sales</a></li>
+              <li><a href="/pending_customer_payment">View Pending payment</a></li>
               <li><a href="/prods/returned">View Returned Products</a></li>
             </ul>
           </li>
@@ -210,6 +211,8 @@
               <li><a href="/reports/stockin">Stock IN Report</a></li>
               <li><a href="/reports/sales">Sales Report</a></li>
               <li><a href="/reports/expense">Expense Report</a></li>
+              <li><a href="/reports/c_credit">Customer Credit</a></li>
+              <li><a href="/reports/s_debit">Supplier Debit</a></li>
             </ul>
           </li>
 

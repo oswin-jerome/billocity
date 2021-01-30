@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Customer;
+use App\Models\Invoice;
+use Brian2694\Toastr\Facades\Toastr;
+
 class CustomerController extends Controller
 {
     /**
@@ -42,7 +45,7 @@ class CustomerController extends Controller
 
             
         if($validated->fails()){
-            \Toastr::error($validated->errors(), 'Error', ["positionClass" => "toast-top-right"]);
+            Toastr::error($validated->errors(), 'Error', ["positionClass" => "toast-top-right"]);
 
             return redirect()->back();
         }
@@ -54,11 +57,11 @@ class CustomerController extends Controller
         ]);
 
         if($category){
-            \Toastr::success('Customer added', 'Success', ["positionClass" => "toast-top-right"]);
+            Toastr::success('Customer added', 'Success', ["positionClass" => "toast-top-right"]);
             return redirect()->back();
         }
 
-        \Toastr::error('Unable to add Customer', 'Error', ["positionClass" => "toast-top-right"]);
+        Toastr::error('Unable to add Customer', 'Error', ["positionClass" => "toast-top-right"]);
         return redirect()->back();
     }
 
@@ -70,7 +73,10 @@ class CustomerController extends Controller
      */
     public function show($id)
     {
-        //
+        $customer = Customer::find($id);
+        $invoices = Invoice::where('customer','=',$id)->get();
+
+        return view('pages/customer/details',['customer'=>$customer,'invoices'=>$invoices]);
     }
 
     /**
@@ -93,7 +99,12 @@ class CustomerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $customer = Customer::find($request->pid);
+        $customer->name = $request->name;
+        $customer->phone = $request->phone;
+        $customer->email = $request->email;
+        $customer->save();
+        return redirect()->back();
     }
 
     /**

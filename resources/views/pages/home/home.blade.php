@@ -26,6 +26,18 @@
             <h1 class="text-center text-primary mt-4">{{$stockAddedToday}}</h1>
         </div>
     </div>
+    <div class="o-cards col-sm-6 col-md-6 col-lg-3 mt-3">
+        <div class="o-card">
+            <h4 class="text-center text-secondary">Customer Credits</h4>
+            <h1 class="text-center text-primary mt-4">Rs.{{$credit}}</h1>
+        </div>
+    </div>
+    <div class="o-cards col-sm-6 col-md-6 col-lg-3 mt-3">
+        <div class="o-card">
+            <h4 class="text-center text-secondary">Supplier Debit</h4>
+            <h1 class="text-center text-primary mt-4">Rs.{{$debit}}</h1>
+        </div>
+    </div>
     
 </div>
 @endsection

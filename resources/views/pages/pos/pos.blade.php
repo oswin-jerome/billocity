@@ -71,7 +71,9 @@
             <div id="customer_point">
                 
             </div>
+            <h4>Discount : <span id="dis_dis"></span></h4>
             <h3>Grand Total : <span id="grand_total"></span></h3>
+            <h4>Balance : <span id="balance"></span></h4>
         </span>
         <form id="posSendData" method="POST" action="{{ route('invoices.store')}}" enctype="multipart/form-data">
             {{ csrf_field() }}
@@ -83,7 +85,17 @@
                 
             </div>
 
-            <a href="/pos" target="__blank" class="btn btn-warning">New Bill</a>
+            {{-- <a href="/pos" target="__blank" class="btn btn-warning">New Bill</a> --}}
+            <div class="row">
+                <div class="form-group">
+                    <label for="">Discount :</label>
+                    <input type="text" name="pos_discount" id="pos_discount" class="form-control">
+                </div>
+                <div class="form-group ml-3">
+                    <label for="">Amount recived :</label>
+                    <input type="text" name="paid_amount" id="paid_amount" class="form-control">
+                </div>
+            </div>
             <input type="submit" id="submitInvoice" value="SUBMIT" class="btn btn-primary">
         </form>
     </div>
@@ -104,8 +116,8 @@
                     </select>
                     
                 </div>
-                <div class="form-check ml-3">
-                    <input type="checkbox" class="form-check-input" id="redeem_points">
+                <div class="form-check ml-3 d-none">
+                    <input type="checkbox" class="form-check-input" id="redeem_points" disabled>
                     <label class="form-check-label" for="exampleCheck1">Redeem points</label>
                 </div>
                 <p class="mt-3" id="customer_name"></p>
@@ -131,6 +143,7 @@
         var modeOfInput = 0;
         var g_customer = null;
         var redeem_points = false;
+        var discount = 0;
         $(document).ready(function() {
 
             $('#product_name').selectpicker();
@@ -204,10 +217,11 @@
                             $('#customer_name').html(
                                 `
                                 <p><b>Name :</b> <span>${customer.name}</span></p>
-                                <p><b>Points :</b> <span>${customer.points}</span></p>
                                 <p><b>Credits :</b> <span>${customer.credit}</span></p>
                                 `
                             )
+                            // <p><b>Points :</b> <span>${customer.points}</span></p>
+
                             g_customer = customer;
 
                             buildBillables()
@@ -241,7 +255,13 @@
             redeem_points = $(this).prop('checked');
             buildBillables()
         })
+        $('#paid_amount').keyup(function(){
+            buildBillables()
+        })
 
+        $('#pos_discount').keyup(function(){
+            buildBillables()
+        })
         function reset(){
             currentProd = null;
             $('#quantity').val("");
@@ -269,7 +289,7 @@
             g_total = 0;
             $("#total").html(total)
 
-            if(billables.length>0){
+            if(billables.length>0 && $("#paid_amount").val()!=""){
                 $('#submitInvoice').prop('disabled', false)
             }else{
                 $('#submitInvoice').prop('disabled', true)
@@ -318,7 +338,10 @@
 
                 $('#list-body').append(el)
                 $("#total").html(total)
+                $("#dis_dis").html($("#pos_discount").val())
+                g_total = g_total - $("#pos_discount").val();
                 $('#grand_total').html(g_total)
+                $('#balance').html(g_total - $('#paid_amount').val())
 
 
                 var prd = `

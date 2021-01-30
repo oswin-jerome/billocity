@@ -13,7 +13,7 @@
     </style>
 <div class="print">
     <button class="btn btn-primary" id="print">Print</button>
-    @if ($invoice->total == $invoice->final_price )
+    @if ( $invoice->points_redeem <= 0 &&  $invoice->coupon_redeem <= 0 )
     <a href="/invoices/{{$invoice->id}}/edit" class="btn btn-warning" id="salesreturn">Return Product(s)</a>
     @else
         <p class="alert-danger mt-3 p-2 d-inline">This invoice has redeemed points/coupon thus cannot be returned</p>
@@ -29,10 +29,12 @@
     <div id="invoice" class="o-card">
         <div class="d-flex justify-content-between">
             <div class="col-sm-12 col-md-6 ">
-                <h4 class="text-primary ml-1">STORE NAME</h4>
-                <p class="m-1">1561 some tower</p>
-                <p class="m-1">Any street</p>
-                <p class="m-1">India</p>
+                <h4 class="text-primary ml-1">SHANMUGA PAINTS & TRADERS</h4>
+                <p class="m-1">315 8TH RAJAPALAYAM MAIN ROAD</p>
+                <p class="m-1">NEAR STATE BANK OF INDIA</p>
+                <p class="m-1">SANKARANKOVIL</p>
+                <p class="m-1">CELL: 9943958091</p>
+                <p class="m-1">GST# 33ATQFV7215B1Z</p>
             </div>
             <div class="col-sm-12 col-md-6 text-right">
                 <h5 class="text-primary ml-1">INVOICE #</h5>
@@ -75,6 +77,7 @@
               <tr>
                 <th scope="col" >#</th>
                 <th scope="col">Product</th>
+                <th scope="col">HSN</th>
                 <th scope="col">Price</th>
                 <th scope="col">GST</th>
                 <th scope="col">Discount</th>
@@ -85,9 +88,12 @@
             <?php $totalwg = 0?>
             <tbody>
                 @foreach ($invoice->products->whereIn('status',['DONE','CANCLED']) as $key=>$product)
+
+                    
                     <tr >
                         <th scope="row">{{$key+1}}</th>
                         <td>{{$product->prod->name}}</td>
+                        <td>{{$product->prod->hsn_code}}</td>
                         <td>{{$product->product_price}}</td>
                         <td>{{$product->gst}}%</td>
                         <td></td>
@@ -131,9 +137,14 @@
                         <td> - {{$invoice->points_redeem}}</td>
                       </tr> --}}
                       <tr>
+                        <th scope="row">Discount </th>
+                        <td>{{$invoice->discount}}</td>
+                      </tr>
+                      <tr>
                         <th scope="row">Grand Total </th>
                         <td>{{$invoice->final_price}}</td>
                       </tr>
+                      
                     </tbody>
                   </table>
               </div>

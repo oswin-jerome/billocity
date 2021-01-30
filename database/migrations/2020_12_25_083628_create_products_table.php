@@ -19,6 +19,7 @@ class CreateProductsTable extends Migration
             $table->string('barcode')->nullable();
             $table->unsignedBigInteger('brand');
             $table->unsignedBigInteger('category');
+            $table->integer('hsn_code');
             $table->float('cost_price');
             $table->float('price');
             $table->float('gst');
