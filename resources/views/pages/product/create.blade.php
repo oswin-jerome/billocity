@@ -14,7 +14,7 @@
                     </div>
                     <div class="form-group col-sm-12 col-md-6 col-lg-3">
                         <label for="barcode">Barcode</label>
-                        <input required type="text" name="barcode" class="form-control" id="barcode">
+                        <input value="" type="text" name="barcode" class="form-control" id="barcode">
                     </div>
                     <div class="form-group col-sm-12 col-md-6 col-lg-3">
                         <label for="hsn_code">HSN Code</label>

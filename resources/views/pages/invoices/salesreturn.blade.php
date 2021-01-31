@@ -48,7 +48,7 @@
             <div id="delete">
                 
             </div>
-            <input type="submit" value="Delete">
+            <input type="submit" class="btn btn-danger" value="Delete">
         </form>
 
         <h1>Amount to return: <span id="total"></span></h1>
@@ -62,7 +62,7 @@
                 // alert($(this).data('id'))
                 $(this).parent().parent().hide()
                 var el = `
-                <input type="text" name="deleted[]" value=${$(this).data('id')}>
+                <input hidden type="text" name="deleted[]" value=${$(this).data('id')}>
                 `
 
                 $('#delete').append(el);

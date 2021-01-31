@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Purchase;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Supplier;
@@ -79,9 +80,8 @@ class SupplierController extends Controller
     {
 
         $supplier = Supplier::find($id);
-        $stocks = Stock::where('supplier','=',$id)->get();
-
-        return view('pages/supplier/details',['supplier'=>$supplier,'stocks'=>$stocks]);
+        $purchases = Purchase::where('supplier','=',$id)->get();
+        return view('pages/supplier/details',['supplier'=>$supplier,'purchases'=>$purchases]);
     }
 
     /**

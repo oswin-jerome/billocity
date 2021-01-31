@@ -26,6 +26,7 @@
                     <th>ID</th>
                     <th>Date</th>
                     <th>Product</th>
+                    <th>Invoice #</th>
                     <th>Supplier</th>
                     <th>Stock</th>
                     <th>Total</th>
@@ -40,9 +41,24 @@
                         <td>{{$stock->id}}</td>
                         <td>{{$stock->created_at->format('d/m/Y')}}</td>
                         <td>{{$stock->getproduct->name}}</td>
-                        <td>{{$stock->getsupplier->name}}</td>
+                        <td>
+                            @if ($stock->getinvoice)
+                            {{$stock->getinvoice->invoice_no}}
+                            @endif
+                        </td>
+                        <td>
+                            @if ($stock->getinvoice)
+                            {{$stock->getinvoice->getsupplier->name}}
+                            @endif
+                        </td>
                         <td>{{$stock->stock}}</td>
-                        <td>{{$stock->total}}</td>
+                        <td>
+                            @if ( $stock->getinvoice)
+                            {{ $stock->getinvoice->products->sum('total') }}
+                            @else
+                            {{$stock->price}}
+                            @endif
+                        </td>
                         <td>{{$stock->paid}}</td>
                         <td>{{$stock->balance}}</td>
                         

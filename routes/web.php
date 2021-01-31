@@ -13,9 +13,13 @@ use App\Http\Controllers\ExpenseCategoryController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\UserController;
 use App\Models\Product;
 use App\Models\Customer;
+use GuzzleHttp\Psr7\Request;
+use Illuminate\Support\Facades\Auth;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -43,6 +47,7 @@ Route::resource('suppliers',SupplierController::class)->middleware("auth");
 Route::resource('invoices',InvoiceController::class)->middleware("auth");
 Route::resource('stocks',StockController::class)->middleware("auth");
 Route::resource('users',UserController::class)->middleware("auth");
+Route::resource('purchases',PurchaseController::class)->middleware("auth");
 
 Route::get('prods/stockin','App\Http\Controllers\ProductController@stock_in_view')->middleware("auth");
 Route::post('prods/stockin','App\Http\Controllers\ProductController@stock_in')->middleware("auth");
@@ -50,6 +55,7 @@ Route::get('prods/returned','App\Http\Controllers\InvoiceController@viewreturned
 Route::post('invoice/cancel','App\Http\Controllers\InvoiceController@cancelProduct')->middleware("auth");
 Route::get('pending_customer_payment','App\Http\Controllers\InvoiceController@pending')->middleware("auth");
 Route::post('invoice/get_pay','App\Http\Controllers\InvoiceController@get_pay')->middleware("auth");
+Route::post('purchases/get_pay','App\Http\Controllers\PurchaseController@get_pay')->middleware("auth");
 Route::get("/login","App\Http\Controllers\AuthController@view_login")->name("login");
 Route::post("/login","App\Http\Controllers\AuthController@login");
 Route::get('/test',function(){
@@ -67,3 +73,14 @@ Route::get('reports/stockin','App\Http\Controllers\ReportController@stockin')->m
 Route::get('reports/expense','App\Http\Controllers\ReportController@expense')->middleware("auth");
 Route::get('reports/c_credit','App\Http\Controllers\ReportController@c_credit')->middleware("auth");
 Route::get('reports/s_debit','App\Http\Controllers\ReportController@s_debit')->middleware("auth");
+
+
+Route::get('/logout',function(){
+    Auth::logout();
+
+    // $request->session()->invalidate();
+
+    // $request->session()->regenerateToken();
+
+    return redirect('/');
+});

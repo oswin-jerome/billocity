@@ -4,15 +4,35 @@
 
     <div class="o-card p-4 mb-3">
         <form  id="posform" class="row">
-            <div class="form-group col-sm-12 col-md-4">
-                <label for="">Barcode</label>
-                <input autocomplete="off" type="text" name="barcode" id="barcode" class="form-control">
-                <p id="barcode_error" class="text-danger alert"></p>
+            <div class="row col-12">
+                <div class="form-group col-sm-12 col-md-3">
+                    <label for="">Invoice #</label>
+                    <input autocomplete="off" type="text" name="invoice_no" id="invoice_no" class="form-control">
+                    <p id="barcode_error" class="text-danger alert"></p>
+                </div>
+                <div class="form-group col-sm-12 col-md-3">
+                    <label for="">Invoice Date</label>
+                    <input autocomplete="off" type="date" name="invoice_date" id="invoice_date" class="form-control">
+                    <p id="barcode_error" class="text-danger alert"></p>
+                </div>
+                <div class="form-group col-sm-12 col-md-3">
+                    <label for="">Reference #</label>
+                    <input autocomplete="off" type="text" name="ref_no" id="ref_no" class="form-control">
+                    <p id="barcode_error" class="text-danger alert"></p>
+                </div>
+                <div class="form-group col-sm-12 col-md-3">
+                    <label for="">Supplier</label>
+                    {{-- <input autocomplete="off" type="text" name="barcode" id="product_name" class="form-control"> --}}
+    
+                    <select name="supplier" id="supplier" class="form-control selectpicker" data-live-search="true">
+                        <option selected disabled value="">No supplier selected</option>
+                        @foreach ($suppliers as $customer)
+                            <option value="{{$customer->id}}">{{$customer->name}}</option>
+                        @endforeach
+                    </select>
+                    
+                </div>
             </div>
-            {{-- <div class="form-group col-sm-12 col-md-4">
-                <label for="">Product Name</label>
-                <input autocomplete="off" type="text" name="barcode" id="product_name" class="form-control">
-            </div> --}}
             <div class="form-group col-sm-12 col-md-4">
                 <label for="">Product Name</label>
                 {{-- <input autocomplete="off" type="text" name="barcode" id="product_name" class="form-control"> --}}
@@ -25,8 +45,12 @@
                 </select>
             </div>
             <div class="form-group col-sm-12 col-md-2">
+                <label for="">Discount <small>(in %)</small></label>
+                <input autocomplete="off" required type="text" value="0" name="discount" id="discount" class="form-control">
+            </div>
+            <div class="form-group col-sm-12 col-md-2">
                 <label for="">Quantity</label>
-                <input autocomplete="off" required type="text" name="barcode" id="quantity" class="form-control">
+                <input autocomplete="off" required type="text" name="" id="quantity" class="form-control">
             </div>
             <div class="form-group col-sm-6 col-md-2 mt-2">
                 <label for=""></label>
@@ -44,15 +68,21 @@
                 <tr>
                     <th>#</th>
                     <th>Product Name</th>
+                    <th>HSN</th>
                     <th>Quantity</th>
-                    <th>Price</th>
-                    <th>Total</th>
+                    <th>Rate</th>
+                    <th>value</th>
+                    <th>discount</th>
+                    <th>Amount</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody id="list-body">
                 <tr>
                     <td>Row 1 Data 1</td>
+                    <td>Row 1 Data 2</td>
+                    <td>Row 1 Data 2</td>
+                    <td>Row 1 Data 2</td>
                     <td>Row 1 Data 2</td>
                     <td>Row 1 Data 2</td>
                     <td>Row 1 Data 2</td>
@@ -67,15 +97,15 @@
 
     <div class="o-card p-4 mb-0 d-flex justify-content-between">
         <span>
-            <p class="m-1">Total: <span id="total"></span></p>
+            <h4 class="m-1">Total: <span id="total"></span></h4>
             <div id="customer_point">
                 
             </div>
-            <h4>Discount : <span id="dis_dis"></span></h4>
-            <h3>Grand Total : <span id="grand_total"></span></h3>
+            {{-- <h4>Discount : <span id="dis_dis"></span></h4> --}}
+            {{-- <h3>Grand Total : <span id="grand_total"></span></h3> --}}
             <h4>Balance : <span id="balance"></span></h4>
         </span>
-        <form id="posSendData" method="POST" action="{{ route('invoices.store')}}" enctype="multipart/form-data">
+        <form id="posSendData" method="POST" action="{{ route('purchases.store')}}" enctype="multipart/form-data">
             {{ csrf_field() }}
             <div id="posData">
             </div>
@@ -87,12 +117,8 @@
 
             {{-- <a href="/pos" target="__blank" class="btn btn-warning">New Bill</a> --}}
             <div class="row">
-                <div class="form-group">
-                    <label for="">Discount :</label>
-                    <input type="text" value="0" name="pos_discount" id="pos_discount" class="form-control">
-                </div>
                 <div class="form-group ml-3">
-                    <label for="">Amount recived :</label>
+                    <label for="">Amount Paid :</label>
                     <input type="text" name="paid_amount" id="paid_amount" class="form-control">
                 </div>
             </div>
@@ -100,36 +126,6 @@
         </form>
     </div>
 
-    <div class="row">
-        <div class=" pr-2 py-3 col-6">
-            <div class="o-card p-4">
-                <h4 class="card-title">Customer</h4>
-                <div class="form-group col-12">
-                    <label for="">Customer Phone #</label>
-                    {{-- <input autocomplete="off" type="text" name="barcode" id="product_name" class="form-control"> --}}
-    
-                    <select name="customer_name_select" id="customer_name_select" class="form-control selectpicker" data-live-search="true">
-                        <option selected disabled value="">No customer selected</option>
-                        @foreach ($customers as $customer)
-                            <option value="{{$customer->phone}}">{{$customer->phone}}</option>
-                        @endforeach
-                    </select>
-                    
-                </div>
-                <div class="form-check ml-3 d-none">
-                    <input type="checkbox" class="form-check-input" id="redeem_points" disabled>
-                    <label class="form-check-label" for="exampleCheck1">Redeem points</label>
-                </div>
-                <p class="mt-3" id="customer_name"></p>
-                
-            </div>
-        </div>
-        <div class=" pl-2 py-3 col-6">
-            <div class="o-card p-4">
-                <h4 class="card-title">Cupons</h4>
-            </div>
-        </div>
-    </div>
 
 
 
@@ -144,6 +140,7 @@
         var g_customer = null;
         var redeem_points = false;
         var discount = 0;
+        var totalDiscount = 0;
         $(document).ready(function() {
 
             $('#product_name').selectpicker();
@@ -157,29 +154,29 @@
 
             buildBillables()
 
-            $('#barcode').keyup(_.debounce(function(){
-                modeOfInput = 0;
-                $('#barcode_error').html("")
-                if($('#barcode').val()!=""){
-                    $.get('/api/barcode/'+$('#barcode').val(),function(data,status){
-                        if(data.data.length==0){
-                            console.log("sd")
-                            $('#barcode_error').html("No products found")
-                        }else{
-                            var prod = data.data[0];
-                            if(prod.stock<=0){
-                                reset()
-                                return alert("No stock / stock mismatch")
-                            }
-                            $('#product_name').val(prod.id)
-                            $('.selectpicker').selectpicker('refresh');
-                            $('#product_name').prop("readonly", true);
-                            $("#quantity").focus()
-                            currentProd = prod;
-                        }
-                    })
-                }
-            } , 300));
+            // $('#barcode').keyup(_.debounce(function(){
+            //     modeOfInput = 0;
+            //     $('#barcode_error').html("")
+            //     if($('#barcode').val()!=""){
+            //         $.get('/api/barcode/'+$('#barcode').val(),function(data,status){
+            //             if(data.data.length==0){
+            //                 console.log("sd")
+            //                 $('#barcode_error').html("No products found")
+            //             }else{
+            //                 var prod = data.data[0];
+            //                 if(prod.stock<=0){
+            //                     reset()
+            //                     return alert("No stock / stock mismatch")
+            //                 }
+            //                 $('#product_name').val(prod.id)
+            //                 $('.selectpicker').selectpicker('refresh');
+            //                 $('#product_name').prop("readonly", true);
+            //                 $("#quantity").focus()
+            //                 currentProd = prod;
+            //             }
+            //         })
+            //     }
+            // } , 300));
 
             $('#product_name').change(function(){
                 modeOfInput = 1;
@@ -193,14 +190,14 @@
                             $('#barcode_error').html("No products found")
                         }else{
                             var prod = data.data[0];
-                            if(prod.stock<=0){
-                                reset()
-                                return alert("No stock / stock mismatch")
-                            }
+                            // if(prod.stock<=0){
+                            //     reset()
+                            //     return alert("No stock / stock mismatch")
+                            // }
                             $('#product_name').val(prod.id)
                             $('#barcode').val(prod.barcode)
                             $('#product_name').prop("readonly", true);
-                            $("#quantity").focus()
+                            $("#discount").focus()
                             currentProd = prod;
                         }
                     })
@@ -233,14 +230,15 @@
             $('#posform').on('submit',function(e){
                 e.preventDefault();
 
-                if(currentProd.stock<$('#quantity').val()){
-                    reset()
-                    return alert("Quatity is greater than stock available")
-                }
+                // if(currentProd.stock<$('#quantity').val()){
+                //     reset()
+                //     return alert("Quatity is greater than stock available")
+                // }
 
                 billables.push({
                     product:currentProd,
-                    quantity:$('#quantity').val()
+                    quantity:$('#quantity').val(),
+                    discount:$('#discount').val(),
 
                 });
                 buildBillables()
@@ -266,6 +264,7 @@
             currentProd = null;
             $('#quantity').val("");
             $('#barcode').val("");
+            $('#discount').val("0");
             $('#product_name').val("");
             $('#product_name').prop("readonly", false);
             $('#product_name').selectpicker('refresh');
@@ -287,6 +286,7 @@
             $('#billData').html("")
             total = 0;
             g_total = 0;
+            totalDiscount = 0;
             $("#total").html(total)
 
             if(billables.length>0 && $("#paid_amount").val()!=""){
@@ -298,55 +298,61 @@
             
 
             billables.forEach((item,index)=>{
-
+                console.log(item.product,"sd")
+                var dis =parseFloat(item.discount * (item.product.cost_price * item.quantity)/100).toFixed(2)
                 var el = `
                 <tr>
                     <td>${index+1}</td>
                     <td>${item.product.name}</td>
+                    <td>${item.product.hsn_code}</td>
                     <td>${item.quantity}</td>
-                    <td>${item.product.price}</td>
-                    <td>${item.product.price * item.quantity}</td>
+                    <td>${item.product.cost_price}</td>
+                    <td>${(item.product.cost_price * item.quantity).toFixed(2)}</td>
+                    <td>${dis} <small>(${item.discount}%)</small> </td>
+                    <td>${((item.product.cost_price * item.quantity)-dis).toFixed(2)}</td>
                     <td>
                         <button class="delete-entry btn btn-danger" data-index=${index}>Remove</button>
                     </td>
                 </tr>
                 `
-                total +=item.product.price * item.quantity;
+                total +=((item.product.cost_price * item.quantity) - dis);
                 
                 g_total = total;
                 // customer point calc
-                if(g_customer!=null && g_customer.points < total && redeem_points ){ //Any condition regarding points
-                    g_total = total - g_customer.points;
-                    $('#customer_point').html(`
-                                <p class="m-1">Customer Points: <span>${g_customer.points}</span></p>
-                            `)
-                }
-                else{
-                    $('#customer_point').html("")
-                }
+                // if(g_customer!=null && g_customer.points < total && redeem_points ){ //Any condition regarding points
+                //     g_total = total - g_customer.points;
+                //     $('#customer_point').html(`
+                //                 <p class="m-1">Customer Points: <span>${g_customer.points}</span></p>
+                //             `)
+                // }
+                // else{
+                //     $('#customer_point').html("")
+                // }
 
 
                 // Add form data of customers
-                if(g_customer!=null){
-                    $('#custData').html(`
-                        <input type="text" hidden name="customer" value=${g_customer.id}>
-                        <input type="text" hidden name="redeem" value=${redeem_points}>
-                    `)
-                }
+                // if(g_customer!=null){
+                //     $('#custData').html(`
+                //         <input type="text" hidden name="customer" value=${g_customer.id}>
+                //         <input type="text" hidden name="redeem" value=${redeem_points}>
+                //     `)
+                // }
 
 
 
                 $('#list-body').append(el)
-                $("#total").html(total)
-                $("#dis_dis").html($("#pos_discount").val())
-                g_total = g_total - $("#pos_discount").val();
-                $('#grand_total').html(g_total)
-                $('#balance').html(g_total - $('#paid_amount').val())
+                $("#total").html(total.toFixed(2))
+                // $("#dis_dis").html($("#pos_discount").val())
+                // g_total = g_total - $("#pos_discount").val();
+                // $('#grand_total').html(g_total)
+                $('#balance').html((total - $('#paid_amount').val()).toFixed(2))
 
 
                 var prd = `
                 <input type="text" name="products[]" value="${item.product.id}" hidden>
                 <input type="text" name="quantities[]" value="${item.quantity}" hidden>
+                <input type="text" name="discount_per[]" value="${item.discount}" hidden>
+                <input type="text" name="final_price[]" value="${((item.product.cost_price * item.quantity)- dis).toFixed(2)}" hidden>
                 `
                 $('#billData').append(prd)
             })
@@ -362,6 +368,35 @@
             buildBillables()
         })
         }
+
+
+        $('#invoice_no').keyup(function(){
+            buildPosData();
+        })
+        $('#ref_no').keyup(function(){
+            buildPosData();
+        })
+
+        $('#invoice_date').change(function(){
+            buildPosData();
+        })
+
+        $('#supplier').change(function(){
+            buildPosData();
+        })
+
+
+
+
+        function buildPosData(){
+            $('#posData').html(`
+                <input type="text" hidden required name="invoice_no" value="${$('#invoice_no').val()}" />
+                <input type="text" hidden required name="ref_no" value="${$('#ref_no').val()}" />
+                <input type="text" hidden required name="invoice_date" value="${$('#invoice_date').val()}" />
+                <input type="text" hidden required name="supplier" value="${$('#supplier').val()}" />
+            `)
+        }
+
     </script>
 @endsection
 

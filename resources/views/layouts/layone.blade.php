@@ -75,13 +75,16 @@
               <p>{{Auth::user()->role}}</p>
             @endauth
           </div>
-          <div style="width: 30px">
+          <div>
+            <a href="logout" class="ml-5">Logout</a>
+          </div>
+          <div style="width: 0px">
 
           </div>
-          <div class="dets ml-4">
-            <a href="https://oswinjerome.in" target="__blank"><p id="n">XYZ Softwares</p></a>
+          {{-- <div class="dets ml-4">
+            <a href="https://oswinjerome.in" target="__blank"><p id="n">Billocity</p></a>
             <p>V 1.0</p>
-          </div>
+          </div> --}}
         </div>
         {{-- <p class="m-0">POS</p> --}}
         <a href="/pos" target="__blank" class="m-0">POS</a>
@@ -182,6 +185,17 @@
               <li><a href="/invoices">View Sales</a></li>
               <li><a href="/pending_customer_payment">View Pending payment</a></li>
               <li><a href="/prods/returned">View Returned Products</a></li>
+            </ul>
+          </li>
+          {{-- Purchase --}}
+          <li class="has-sub">
+            <a class="o-head">
+              <i class="fas fa-store-alt"></i><span>Purchase</span>
+            </a>
+            <ul class="inul">
+              <li><a href="/purchases/create">Add Pruchase</a></li>
+              <li><a href="/purchases">View Purchase</a></li>
+              {{-- <li><a href="/prods/returned">View Returned Products</a></li> --}}
             </ul>
           </li>
 

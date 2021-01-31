@@ -16,15 +16,15 @@ class CreateStocksTable extends Migration
         Schema::create('stocks', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('product');
-            $table->unsignedBigInteger('supplier')->nullable();
+            $table->unsignedBigInteger('purchase')->nullable();
             $table->integer('stock'); // change to float
+            $table->float('price')->default(0);
+            $table->float('discount')->default(0);
             $table->float('total')->default(0);
-            $table->float('paid')->default(0);
-            $table->float('balance')->default(0);
             $table->timestamps();
 
             $table->foreign('product')->references('id')->on('products');
-            $table->foreign('supplier')->references('id')->on('suppliers');
+            $table->foreign('purchase')->references('id')->on('purchases');
         });
     }
 

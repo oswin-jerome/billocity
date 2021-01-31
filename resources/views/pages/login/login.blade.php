@@ -39,7 +39,7 @@
         </div>
         <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Password</label>
-            <input required type="text" name="password" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+            <input required type="password" name="password" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
         </div>
         <button type="submit" class="btn btn-primary">Login</button>
     </form>

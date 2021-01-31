@@ -9,6 +9,7 @@ use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Customer;
 use App\Models\Product;
+use App\Models\Purchase;
 use App\Models\ReturnedProduct;
 use App\Models\Stock;
 use App\Models\Supplier;
@@ -28,11 +29,21 @@ class DashboardController extends Controller
 
         $totalFinal = Invoice::sum('final_price');
         $totalPaid = Invoice::sum('paid_amount');
-        $debit = Stock::sum('balance');
+        // $debit = Purchase::sum('total') - Purchase::sum('paid');
+        $prd = Purchase::all();
+        $debit = 0;
+        foreach ($prd as $key => $value) {
+            $t = $value->products->sum('total');
+            $pa = $value->sum('paid');
+            $debit+=$t - $pa;
+        }
 
+        $lowstocks= Product::where('stock','<',10)->get();
+        $pendingSupplier = Purchase::where('total','!=','paid')->get();
         return view('pages/home/home',['todaysProfit'=>$todaysProfit,'countSold'=>$countSold,
         'stockAddedToday'=>$stockAddedToday,'todaysSales'=>$todaysSales,
-        'credit'=>$totalFinal - $totalPaid,'debit'=>$debit
+        'credit'=>$totalFinal - $totalPaid,'debit'=>$debit,'lowstocks'=>$lowstocks,
+        'pendingsupplier'=>$pendingSupplier
             
         ]);
     }

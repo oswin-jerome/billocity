@@ -25,7 +25,7 @@ class CreateInvoicesTable extends Migration
             $table->float('profit_wd');
             $table->float('profit');
             $table->float('points_redeem')->default(0);
-            $table->float('discount')->default(0);
+            $table->float('discount')->nullable()->default(0);
             $table->float('coupon_redeem')->default(0);
             $table->timestamps();
             $table->foreign('customer')->references('id')->on('customers');

@@ -37,15 +37,15 @@
         <div class="o-card p-4" style="height:100%">
             <div class="d-flex  mb-2">
                 <h4>Balance : </h4>
-                <h4>{{$stocks->sum('balance')}}</h4>
+                <h4> &nbsp;{{$purchases->sum('total') - $purchases->sum('paid')}}</h4>
             </div>
             <div class="d-flex mb-2">
                 <h4>Amount Paid : </h4>
-                <h4>{{$stocks->sum('paid')}}</h4>
+                <h4>{{$purchases->sum('paid')}}</h4>
             </div>
             <div class="d-flex mb-2">
                 <h4>Total Purchase : </h4>
-                <h4>{{$stocks->sum('total')}}</h4>
+                <h4>{{$purchases->sum('total')}}</h4>
             </div>
         </div>
     </div>
@@ -53,7 +53,7 @@
 
     <div class=" pl-2 py-3 col-12">
         <div class="o-card p-4">
-            <table id="table_id" class="display">
+            {{-- <table id="table_id" class="display">
                 <thead>
                     <tr>
                         <th>Date</th>
@@ -82,6 +82,57 @@
                         </tr>
                     @endforeach
                 </tbody>
+            </table> --}}
+
+            <table class="display " id="table_id">
+                <thead>
+                    <tr>
+                        {{-- <th scope="col"></th> --}}
+                        <th scope="col">Purchase #</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Invoice #</th>
+                        <th scope="col">ref #</th>
+                        <th scope="col">Supplier</th>
+                        <th scope="col">No. of Products</th>
+                        <th scope="col">Total</th>
+                        <th scope="col">Amount paid</th>
+                        <th scope="col">Balance</th>
+                        <th scope="col">Handle</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($purchases as $key=>$invoice)
+                        <tr>
+                            
+                            {{-- <th width="100px" hidden scope="row">{{$key+1}}</th> --}}
+                            <td>{{$invoice->id}}</td>
+                            <td>{{$invoice->date}}</td>
+                            <td>{{$invoice->invoice_no}}</td>
+                            <td>{{$invoice->ref_no}}</td>
+                            <td>{{$invoice->getsupplier->name}}</td>
+                            <td>{{count($invoice->products)}}</td>
+                            <td>{{ $invoice->products->sum('total') }}</td>
+                            <td>{{$invoice->paid}}</td>
+                            {{-- <td>
+                                @if ($invoice->paid < $invoice->total)
+                                    <button class="btn btn-info">{{$invoice->total-$invoice->paid}}</button>
+                                @endif
+                            </td> --}}
+                            @if ($invoice->total - $invoice->paid >0)
+                             <td>
+                                 <button data-id={{$invoice->id}} data-amount="{{$invoice->total - $invoice->paid}}" type="button" class="btn btn-info payMod" data-toggle="modal" data-target="#exampleModal">{{$invoice->total - $invoice->paid}} </button>
+                             </td>
+                            @else
+                            <td>{{$invoice->total - $invoice->paid}} </td>
+                            @endif
+                            <td>
+                                <a href="/purchases/{{$invoice->id}}" class="btn btn-primary">View</a>
+                            </td>
+                            
+                        </tr>
+                    @endforeach
+                    
+                </tbody>
             </table>
         </div>
     </div>
@@ -100,9 +151,8 @@
         </div>
         <!-- Modal body -->
         <div class="modal-body" id="modbody">
-            <form method="POST" action="{{ route('stocks.update',1)}}" enctype="multipart/form-data">
+            <form method="POST" action="{{ ('/purchases/get_pay')}}" enctype="multipart/form-data">
               {{ csrf_field() }}
-              {{ method_field('PUT') }}
                 <div class="form-group">
                     <label for="amount">Amount :</label>
                     <input name="amount" id="modamount" class="form-control">

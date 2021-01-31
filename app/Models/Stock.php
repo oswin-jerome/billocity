@@ -12,9 +12,9 @@ class Stock extends Model
 {
     use HasFactory;
 
-    public function getsupplier()
+    public function getinvoice()
     {
-        return $this->hasOne(Supplier::class,'id','supplier');
+        return $this->hasOne(Purchase::class,'id','purchase');
     }
 
     public function getproduct()
