@@ -296,6 +296,7 @@
 
             }
             
+            
 
             billables.forEach((item,index)=>{
 
@@ -350,6 +351,10 @@
                 `
                 $('#billData').append(prd)
             })
+
+            if(g_customer==null && $("#paid_amount").val() < g_total ){
+                $('#submitInvoice').prop('disabled', true)
+            }
 
 
             // Delete

@@ -33,7 +33,7 @@
                             <td>{{$product->stock}}</td>
                             <td>{{$product->barcode}}</td>
                             <td class="">
-                                <form action="" class="m-0 p-0 d-inline"><button disabled type="submit" class="btn btn-primary">View</button></form>
+                                {{-- <form action="" class="m-0 p-0 d-inline"><button disabled type="submit" class="btn btn-primary">View</button></form> --}}
                                 <form action="" class="m-0 p-0 d-inline"><a href="/products/{{$product->id}}/edit" class="btn btn-warning">Edit</a></form>
                                 <form action="" class="m-0 p-0 d-inline"><button type="submit" class="btn btn-danger" disabled>DELETE</button></form>
                             </td>

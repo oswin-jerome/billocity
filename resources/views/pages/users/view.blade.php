@@ -22,9 +22,13 @@
                             <td>{{$user->email}}</td>
                             <td>{{$user->role}}</td>
                             <td class="">
-                                <form action="" class="m-0 p-0 d-inline"><button type="submit" class="btn btn-primary">View</button></form>
-                                <form action="" class="m-0 p-0 d-inline"><button type="submit" class="btn btn-warning">Edit</button></form>
-                                <form action="" class="m-0 p-0 d-inline"><button type="submit" class="btn btn-danger">DELETE</button></form>
+                                {{-- <form action="" class="m-0 p-0 d-inline"><button type="submit" class="btn btn-primary">View</button></form>
+                                <form action="" class="m-0 p-0 d-inline"><button type="submit" class="btn btn-warning">Edit</button></form> --}}
+                                <form action="{{route('users.destroy',$user->id)}}" method="POST" class="m-0 p-0 d-inline">
+                                    {{ csrf_field() }}
+                                    {{ method_field('DELETE') }}
+                                    <button type="submit" onclick="return confirm('Are you sure?')" class="btn btn-danger">DELETE</button>
+                                </form>
                             </td>
                         </tr>
                     @endforeach

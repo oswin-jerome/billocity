@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Validator;
 class CategoryController extends Controller
 {
@@ -43,7 +44,7 @@ class CategoryController extends Controller
 
             
         if($validated->fails()){
-            \Toastr::error($validated->errors(), 'Error', ["positionClass" => "toast-top-right"]);
+            Toastr::error($validated->errors(), 'Error', ["positionClass" => "toast-top-right"]);
 
             return redirect()->back();
         }
@@ -53,11 +54,11 @@ class CategoryController extends Controller
         ]);
 
         if($category){
-            \Toastr::success('Category added', 'Success', ["positionClass" => "toast-top-right"]);
+            Toastr::success('Category added', 'Success', ["positionClass" => "toast-top-right"]);
             return redirect()->back();
         }
 
-        \Toastr::error('Unable to add Category', 'Error', ["positionClass" => "toast-top-right"]);
+        Toastr::error('Unable to add Category', 'Error', ["positionClass" => "toast-top-right"]);
         return redirect()->back();
     }
 
@@ -107,6 +108,15 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $category = Category::find($id);
+        if(count($category->products)>0){
+
+            Toastr::error($category->name." is linked with some products", 'Unable to delete', ["positionClass" => "toast-top-right"]);
+            return redirect()->back();
+        }
+        $category->delete();
+        Toastr::warning("Category deleted", 'Deleted', ["positionClass" => "toast-top-right"]);
+
+        return redirect()->back();
     }
 }

@@ -3,7 +3,7 @@
 @section('content')
     <div class="o-card p-4">
         <div class="d-flex justify-content-between align-items-center align-self-center">
-            <h4 class="mb-5">Stock IN report</h4>
+            <h4 class="mb-5">Supplier Debit report</h4>
             <form action="">
                 <div class="d-flex">
                     <div class="form-group mr-2">
@@ -25,28 +25,33 @@
                 <tr>
                     <th>ID</th>
                     <th>Date</th>
-                    <th>Product</th>
                     <th>Supplier</th>
-                    <th>Stock</th>
+                    <th>Product</th>
                     <th>Total</th>
                     <th>Paid</th>
                     <th>Balance</th>
+                    {{-- <th>Paid</th>
+                    <th>Balance</th> --}}
                 </tr>
             </thead>
             <tbody>
-                @if (count($stocks)>0)
-                @foreach ($stocks as $stock)
-                    <tr>
-                        <td>{{$stock->id}}</td>
-                        <td>{{$stock->created_at->format('d/m/Y')}}</td>
-                        <td>{{$stock->getproduct->name}}</td>
-                        <td>{{$stock->getsupplier->name}}</td>
-                        <td>{{$stock->stock}}</td>
-                        <td>{{$stock->total}}</td>
-                        <td>{{$stock->paid}}</td>
-                        <td>{{$stock->balance}}</td>
-                        
-                    </tr>
+                @if (count($debits)>0)
+                @foreach ($debits as $stock)
+                @if (($stock->total - $stock->paid)>0)
+                <tr>
+                    <td>{{$stock->id}}</td>
+                    <td>{{$stock->created_at->format('d/m/Y')}}</td>
+                    <td><a href="/suppliers/{{$stock->getsupplier->id}}"> {{$stock->getsupplier->name}}</a></td>
+                    <td>{{count($stock->products)}}</td>
+                    <td>{{$stock->total}}</td>
+                    <td>{{$stock->paid}}</td>
+                    <td>{{ $stock->total - $stock->paid}}</td>
+                    {{-- <td>{{$stock->paid}}</td> --}}
+                    {{-- <td>{{}}</td> --}}
+                    
+                </tr>
+                @endif
+                    
                 @endforeach    
                 @endif
             </tbody>

@@ -18,7 +18,6 @@
                 <tbody>
                     @foreach ($customers as $customer)
                         <tr>
-                            {{$customer->invoices}}
                             <td>{{$customer->id}}</td>
                             <td>{{$customer->name}}</td>
                             <td>{{$customer->phone}}</td>

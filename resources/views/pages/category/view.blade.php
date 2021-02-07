@@ -23,7 +23,11 @@
                                 {{-- <form action="" class="m-0 p-0 d-inline"><button type="submit" class="btn btn-primary">View</button></form> --}}
                                 {{-- <form action="" class="m-0 p-0 d-inline"><button type="submit" class="btn btn-warning">Edit</button></form> --}}
                                  <button data-toggle="modal" data-id={{$category->id}} data-name={{$category->name}} id="editMod" data-target="#myModal" class="btn btn-warning">EDIT</button>
-                                <form action="" class="m-0 p-0 d-inline"><button type="submit" class="btn btn-danger">DELETE</button></form>
+                                 <form action="{{route('categories.destroy',$category->id)}}" method="POST" class="m-0 p-0 d-inline">
+                                  {{ csrf_field() }}
+                                  {{ method_field('DELETE') }}
+                                  <button type="submit" onclick="return confirm('Are you sure?')" class="btn btn-danger">DELETE</button>
+                              </form>
                             </td>
                         </tr>
                     @endforeach

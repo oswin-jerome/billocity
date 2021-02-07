@@ -52,40 +52,58 @@
 </style>
 <div class="row">
     <div class="o-cards col-sm-6 col-md-6 col-lg-3 mt-4">
-        <div class="o-card het">
-            <h4 class="text-center text-secondary">Today's Sales</h4>
-            <h3 class="text-center text-primary mt-4">{{$todaysSales}}</h3>
-        </div>
+        <a id="rep_today" href="">
+
+            <div class="o-card het">
+                <h4 class="text-center text-secondary">Today's Sales</h4>
+                <h3 class="text-center text-primary mt-4">{{$todaysSales}}</h3>
+            </div>
+        </a>
     </div>
     <div class="o-cards col-sm-6 col-md-6 col-lg-3 mt-4">
-        <div class="o-card het">
-            <h4 class="text-center text-secondary">Today's Profit</h4>
-            <h3 class="text-center text-primary mt-4">₹{{$todaysProfit}}</h3>
-        </div>
+        <a href="" id="rep_profit">
+            
+            <div class="o-card het">
+                <h4 class="text-center text-secondary">Today's Profit</h4>
+                <h3 class="text-center text-primary mt-4">₹{{$todaysProfit}}</h3>
+            </div>
+        </a>
     </div>
     <div class="o-cards col-sm-6 col-md-6 col-lg-3 mt-4">
-        <div class="o-card het">
-            <h4 class="text-center text-secondary">Products Sold Today</h4>
-            <h3 class="text-center text-primary mt-4">{{$countSold}}</h3>
-        </div>
+        <a href="" id="rep_stock">
+
+            <div class="o-card het">
+                <h4 class="text-center text-secondary">Products Sold Today</h4>
+                <h3 class="text-center text-primary mt-4">{{$countSold}}</h3>
+            </div>
+        </a>
     </div>
     <div class="o-cards col-sm-6 col-md-6 col-lg-3 mt-4">
-        <div class="o-card het">
-            <h4 class="text-center text-secondary">Stock added today</h4>
-            <h3 class="text-center text-primary mt-4">{{$stockAddedToday}}</h3>
-        </div>
+        <a href="" id="rep_sale">
+
+            <div class="o-card het">
+                <h4 class="text-center text-secondary">Stock added today</h4>
+                <h3 class="text-center text-primary mt-4">{{$stockAddedToday}}</h3>
+            </div>
+        </a>
     </div>
     <div class="o-cards col-sm-6 col-md-6 col-lg-3 mt-4">
-        <div class="o-card het">
-            <h4 class="text-center text-secondary">Customer Credits</h4>
-            <h3 class="text-center text-primary mt-4">₹{{$credit}}</h3>
-        </div>
+        <a href="reports/c_credit">
+
+            <div class="o-card het">
+                <h4 class="text-center text-secondary">Customer Credits</h4>
+                <h3 class="text-center text-primary mt-4">₹{{$credit}}</h3>
+            </div>
+        </a>
     </div>
     <div class="o-cards col-sm-6 col-md-6 col-lg-3 mt-4">
-        <div class="o-card het">
-            <h4 class="text-center text-secondary">Supplier Debit</h4>
-            <h3 class="text-center text-primary mt-4">₹{{$debit}}</h3>
-        </div>
+        <a href="reports/s_debit">
+
+            <div class="o-card het">
+                <h4 class="text-center text-secondary">Supplier Debit</h4>
+                <h3 class="text-center text-primary mt-4">₹{{$debit}}</h3>
+            </div>
+        </a>
     </div>
 
     <div class="col-12 row p-0 m-0">
@@ -161,4 +179,25 @@
     </div>
     
 </div>
+
+<script>
+    var today = new Date();
+    var rep_today = document.getElementById('rep_today');
+    rep_today.setAttribute('href',`reports/sales?from=${today.getFullYear()}-${pad(today.getMonth()+1,2)}-${pad(today.getDate(),2)}&to=${today.getFullYear()}-${pad(today.getMonth()+1,2)}-${pad(today.getDate(),2)}`)
+    var rep_profit = document.getElementById('rep_profit');
+    rep_profit.setAttribute('href',`reports/sales?from=${today.getFullYear()}-${pad(today.getMonth()+1,2)}-${pad(today.getDate(),2)}&to=${today.getFullYear()}-${pad(today.getMonth()+1,2)}-${pad(today.getDate(),2)}`)
+
+    var rep_sale = document.getElementById('rep_sale');
+    rep_sale.setAttribute('href',`reports/sales?from=${today.getFullYear()}-${pad(today.getMonth()+1,2)}-${pad(today.getDate(),2)}&to=${today.getFullYear()}-${pad(today.getMonth()+1,2)}-${pad(today.getDate(),2)}`)
+
+    var rep_stock = document.getElementById('rep_stock');
+    rep_stock.setAttribute('href',`reports/stockin?from=${today.getFullYear()}-${pad(today.getMonth()+1,2)}-${pad(today.getDate(),2)}&to=${today.getFullYear()}-${pad(today.getMonth()+1,2)}-${pad(today.getDate(),2)}`)
+
+    function pad(n, width, z) {
+        z = z || '0';
+        n = n + '';
+        return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+    }
+
+</script>
 @endsection

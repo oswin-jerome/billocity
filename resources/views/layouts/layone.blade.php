@@ -150,7 +150,7 @@
             <ul class="inul">
               <li><a href="/products/create">Add Products</a></li>
               <li><a href="/products">View Products</a></li>
-              <li><a href="/prods/stockin">Stock IN</a></li>
+              {{-- <li><a href="/prods/stockin">Stock IN</a></li> --}}
             </ul>
           </li>
 

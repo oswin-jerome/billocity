@@ -6,7 +6,10 @@ use App\Models\Expense;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Invoice;
+use App\Models\Purchase;
 use App\Models\Stock;
+use App\Models\Supplier;
+
 class ReportController extends Controller
 {
     
@@ -97,18 +100,18 @@ class ReportController extends Controller
 
         // $stocks = Stock::all();
 
-        $stocks = [];
-        $stocks =  Stock::where('balance','>','0');
+        $debits = [];
+        $debits =  Purchase::where('total','>','paid');
 
         if(isset($request['from']) && isset($request['to'])){
             
-            $stocks = Stock::whereDate('created_at','>=',$request['from'])->whereDate('created_at','<=',$request['to']);
+            $debits = Purchase::whereDate('created_at','>=',$request['from'])->whereDate('created_at','<=',$request['to'])->where('total','>','paid');
 
             // return $request['from'];
 
         }
 
-        return view('pages/report/stockin',['stocks'=>$stocks->get()]);
+        return view('pages/report/supplierdebit',['debits'=>$debits->get()]);
 
     }
     

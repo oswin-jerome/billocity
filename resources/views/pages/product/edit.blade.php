@@ -61,11 +61,13 @@
                         <label for="price">Selling Price</label>
                         <small>(Per unit)</small>
                         <input required type="text" class="form-control" id="price"  value="{{$product->price}}">
+                        <small>Type % to calculate</small>
                     </div>
                     <div class="form-group col-sm-12 col-md-6 col-lg-3">
                         <label for="price">Selling Price</label>
                         <small>(with GST)</small>
                         <input tabindex="999" readonly required type="text" name="price" class="form-control" id="price_ro">
+                        <small id="er1"></small>
                     </div>
                     <div class="form-group col-sm-12 col-md-6 col-lg-3">
                         <label for="gst">GST</label>
@@ -106,6 +108,8 @@
         var sellingPriceGst = 0;
         var gst = 0;
         var enteringWithoutGst = true;
+        var percentEntered = false;
+        var percent = 0;
         $(document).ready(()=>{
             buildUi();
             $('#CostPrice').on('keyup',function(){
@@ -119,6 +123,21 @@
             })
             $('#gst_chk').on('click',function(){
                 buildUi()
+            })
+            $('#price').on('keyup',function(e){
+                if(e.key==='%'){
+                    console.log("🔥",e.key)
+                    let th = $(this).val();
+                    th = parseFloat( th.replace('%',''))
+                    percent = th;
+                    let cost = parseFloat($('#CostPrice').val());
+                    let n = (th/100) * cost;
+
+                    $(this).val((cost + n).toFixed(2))
+                    percentEntered = true;
+                    $('#er1').html('<p class="alert alert-danger p-2 m-1">GST will not affect this field</p>')
+                    buildUi();
+                }
             })
         })
 
@@ -136,7 +155,11 @@
 
             if(!enteringWithoutGst){
                 costPriceGst = costPrice +( costPrice * gst /100);
-                sellingPriceGst = sellingPrice +( sellingPrice * gst /100);
+                if(!percentEntered){ //Only when % is not entered
+                    sellingPriceGst = sellingPrice +( sellingPrice * gst /100);
+                }else{
+                sellingPriceGst = sellingPrice;
+                }
 
                 
                 // set values to fields

@@ -117,6 +117,10 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::find($id);
+        $user->delete();
+        Toastr::warning("User deleted", 'Deleted', ["positionClass" => "toast-top-right"]);
+
+        return redirect()->back();
     }
 }

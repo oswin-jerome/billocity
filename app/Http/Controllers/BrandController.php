@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Brand;
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Validator;
 class BrandController extends Controller
 {
@@ -46,7 +47,7 @@ class BrandController extends Controller
 
             
         if($validated->fails()){
-            \Toastr::error($validated->errors(), 'Error', ["positionClass" => "toast-top-right"]);
+            Toastr::error($validated->errors(), 'Error', ["positionClass" => "toast-top-right"]);
             // foreach($validated->errors() as $err){
             //     \Toastr::error('Please fill in name field', 'Error', ["positionClass" => "toast-top-right"]);
             // }
@@ -58,11 +59,11 @@ class BrandController extends Controller
         ]);
 
         if($brand){
-            \Toastr::success('Brand added', 'Success', ["positionClass" => "toast-top-right"]);
+            Toastr::success('Brand added', 'Success', ["positionClass" => "toast-top-right"]);
             return redirect()->back();
         }
 
-        \Toastr::error('Unable to add brand', 'Error', ["positionClass" => "toast-top-right"]);
+        Toastr::error('Unable to add brand', 'Error', ["positionClass" => "toast-top-right"]);
         return redirect()->back();
     }
 
@@ -114,6 +115,15 @@ class BrandController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $brand = Brand::find($id);
+        if(count($brand->products)>0){
+
+            Toastr::error($brand->name." is linked with some products", 'Unable to delete', ["positionClass" => "toast-top-right"]);
+            return redirect()->back();
+        }
+        $brand->delete();
+        Toastr::warning("Brand deleted", 'Deleted', ["positionClass" => "toast-top-right"]);
+
+        return redirect()->back();
     }
 }
