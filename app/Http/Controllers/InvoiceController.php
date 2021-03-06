@@ -63,7 +63,8 @@ class InvoiceController extends Controller
 
 
             // update stock
-            $product->stock = $product->stock - $request->quantities[$key];
+            if($product->type =="product")
+                $product->stock = $product->stock - $request->quantities[$key];
             $product->save();
 
             // add item to check out list
