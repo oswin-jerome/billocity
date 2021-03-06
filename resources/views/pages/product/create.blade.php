@@ -22,7 +22,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="form-group col-sm-12 col-md-6 col-lg-6">
+                    <div class="form-group col-sm-12 col-md-6 col-lg-4">
                         <label for="brand">Brand</label>
                         <select name="brand" class="form-control selectpicker" id="brand" data-live-search="true">
                             <option disabled selected>Select a brand</option>
@@ -31,13 +31,21 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="form-group col-sm-12 col-md-6 col-lg-6">
+                    <div class="form-group col-sm-12 col-md-6 col-lg-4">
                         <label for="barcode">Category</label>
                         <select name="category" class="form-control selectpicker" id="category" data-live-search="true">
                             <option disabled selected>Select a Category</option>
                             @foreach ($categories as $category)
                                 <option value="{{$category->id}}">{{$category->name}}</option>
                             @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group col-sm-12 col-md-6 col-lg-4">
+                        <label for="barcode">Product Type:</label>
+                        <select name="type" class="form-control selectpicker" id="type" data-live-search="true">
+                            {{-- <option disabled selected>Select a Category</option> --}}
+                            <option value="product">Product</option>
+                            <option value="service">Service</option>
                         </select>
                     </div>
                 </div>
@@ -124,7 +132,7 @@
                     console.log("🔥",e.key)
                     let th = $(this).val();
                     th = parseFloat( th.replace('%',''))
-                    let cost = parseFloat($('#CostPrice').val());
+                    let cost = parseFloat($('#CostPrice_ro').val());
                     let n = (th/100) * cost;
 
                     $(this).val((cost + n).toFixed(2))

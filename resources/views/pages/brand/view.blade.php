@@ -22,7 +22,7 @@
                                 <a href="brands/{{$brand->id}}" class="btn btn-primary">View</a>
                                 {{-- <form action="" class="m-0 p-0 d-inline"><button type="submit" class="btn btn-primary">View</button></form> --}}
                                 {{-- <form action="" class="m-0 p-0 d-inline"><button type="submit" class="btn btn-warning">Edit</button></form> --}}
-                                <button data-toggle="modal" data-id={{$brand->id}} data-name={{$brand->name}} id="editMod" data-target="#myModal" class="btn btn-warning">EDIT</button>
+                                <button data-toggle="modal" data-id={{$brand->id}} data-name="{{$brand->name}}" id="editMod" data-target="#myModal" class="btn btn-warning">EDIT</button>
                                 
                                 <form action="{{route('brands.destroy',$brand->id)}}" method="POST" class="m-0 p-0 d-inline">
                                   {{ csrf_field() }}

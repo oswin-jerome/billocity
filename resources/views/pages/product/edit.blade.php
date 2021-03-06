@@ -23,7 +23,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="form-group col-sm-12 col-md-6 col-lg-6">
+                    <div class="form-group col-sm-12 col-md-6 col-lg-4">
                         <label for="brand">Brand</label>
                         <select name="brand" class="form-control selectpicker" id="brand" data-live-search="true">
                             <option disabled selected>Select a brand</option>
@@ -34,7 +34,7 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="form-group col-sm-12 col-md-6 col-lg-6">
+                    <div class="form-group col-sm-12 col-md-6 col-lg-4">
                         <label for="barcode">Category</label>
                         <select name="category" class="form-control selectpicker" id="category" data-live-search="true">
                             <option disabled selected>Select a Category</option>
@@ -43,6 +43,18 @@
                                     selected
                                 @endif value="{{$category->id}}">{{$category->name}}</option>
                             @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group col-sm-12 col-md-6 col-lg-4">
+                        <label for="barcode">Product Type:</label>
+                        <select name="type" class="form-control selectpicker" id="type" data-live-search="true">
+                            {{-- <option disabled selected>Select a Category</option> --}}
+                            <option @if ($product->type == "product")
+                                selected
+                            @endif value="product">Product</option>
+                            <option @if ($product->type == "service")
+                                selected
+                            @endif value="service">Service</option>
                         </select>
                     </div>
                 </div>

@@ -167,7 +167,7 @@
                             $('#barcode_error').html("No products found")
                         }else{
                             var prod = data.data[0];
-                            if(prod.stock<=0){
+                            if(prod.stock<=0 && prod.type=="product"){
                                 reset()
                                 return alert("No stock / stock mismatch")
                             }
@@ -193,7 +193,7 @@
                             $('#barcode_error').html("No products found")
                         }else{
                             var prod = data.data[0];
-                            if(prod.stock<=0){
+                            if(prod.stock<=0 && prod.type=="product"){
                                 reset()
                                 return alert("No stock / stock mismatch")
                             }
@@ -233,7 +233,7 @@
             $('#posform').on('submit',function(e){
                 e.preventDefault();
 
-                if(currentProd.stock<$('#quantity').val()){
+                if(currentProd.stock<$('#quantity').val() && currentProd.type=="product"){
                     reset()
                     return alert("Quatity is greater than stock available")
                 }

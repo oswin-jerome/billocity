@@ -26,7 +26,7 @@
                             <td>{{$customer->credit}}</td>
                             <td class="">
                                 <a  href="customers/{{$customer->id}}" type="submit" class="btn btn-primary">View</a>
-                                <button data-toggle="modal" data-id="{{$customer->id}}" data-name="{{$customer->name}}" data-phone="{{$customer->phone}}" data-email="{{$customer->email}}" id="editMod" data-target="#myModal" type="submit" class="btn btn-warning">Edit</button>
+                                <button data-toggle="modal" data-id="{{$customer->id}}" data-name="{{$customer->name}}" data-phone="{{$customer->phone}}" data-email="{{$customer->email}}" id="editMod" data-target="#myModal" type="submit" class="btn btn-warning editMod">Edit</button>
                                 <form action="" class="m-0 p-0 d-inline"><button type="submit" class="btn btn-danger" disabled>DELETE</button></form>
                             </td>
                         </tr>
@@ -83,14 +83,14 @@
    
     <script>
         $(document).ready( function () {
-    $('#table_id').DataTable();
-    $('#editMod').on('click',function(){
-        console.log("sdsd")
-        $('#mod_name').val($(this).data('name'))
-        $('#mod_email').val($(this).data('email'))
-        $('#mod_phone').val($(this).data('phone'))
-        $('#modid').val($(this).data('id'))
-    })
+        $('#table_id').DataTable();
+        $('.editMod').on('click',function(){
+            console.log("sdsd")
+            $('#mod_name').val($(this).data('name'))
+            $('#mod_email').val($(this).data('email'))
+            $('#mod_phone').val($(this).data('phone'))
+            $('#modid').val($(this).data('id'))
+        })
 } );
     </script>
 @endsection

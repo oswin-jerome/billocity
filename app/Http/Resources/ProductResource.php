@@ -25,6 +25,7 @@ class productResource extends JsonResource
             "stock"=>$this->stock,
             'brand'=>$this->getbrand,
             'image'=>$this->product_image,
+            'type'=>$this->type,
             'category'=>$this->getcategory,
         ];
     }

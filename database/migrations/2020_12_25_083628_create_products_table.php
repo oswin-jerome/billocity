@@ -19,10 +19,11 @@ class CreateProductsTable extends Migration
             $table->string('barcode')->nullable();
             $table->unsignedBigInteger('brand');
             $table->unsignedBigInteger('category');
-            $table->integer('hsn_code');
+            $table->integer('hsn_code')->default(0);
             $table->float('cost_price');
             $table->float('price');
-            $table->float('gst');
+            $table->enum("type",array("product","service"))->default("product");
+            $table->float('gst')->default(0);
             $table->integer('stock')->default(0); //change to float for kg kind of stock
             $table->foreign('brand')->references('id')->on('brands');
             $table->foreign('category')->references('id')->on('categories');

@@ -74,6 +74,7 @@ class ProductController extends Controller
             'gst'=>$request->gst,
             'hsn_code'=>$request->hsn_code,
             'stock'=>0,
+            'type'=>$request->type,
         ]);
 
         if($product){
