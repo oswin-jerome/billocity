@@ -26,7 +26,14 @@
                             <td>{{$customer->credit}}</td>
                             <td class="">
                                 <a  href="customers/{{$customer->id}}" type="submit" class="btn btn-primary">View</a>
-                                <button data-toggle="modal" data-id="{{$customer->id}}" data-name="{{$customer->name}}" data-phone="{{$customer->phone}}" data-email="{{$customer->email}}" id="editMod" data-target="#myModal" type="submit" class="btn btn-warning editMod">Edit</button>
+                                <button data-toggle="modal" data-id="{{$customer->id}}" 
+                                    data-name="{{$customer->name}}" 
+                                    data-phone="{{$customer->phone}}" 
+                                    data-email="{{$customer->email}}" 
+                                    data-dob="{{$customer->dob}}" 
+                                    data-address="{{$customer->address}}" 
+                                    data-gst="{{$customer->gst}}" 
+                                    id="editMod" data-target="#myModal" type="submit" class="btn btn-warning editMod">Edit</button>
                                 <form action="" class="m-0 p-0 d-inline"><button type="submit" class="btn btn-danger" disabled>DELETE</button></form>
                             </td>
                         </tr>
@@ -65,6 +72,18 @@
                         <label for="mod_email" class="form-label">Email (optional)</label>
                         <input type="email" name="email" class="form-control" id="mod_email" >
                     </div>
+                    <div class="mb-3 col-sm-12 col-lg-12">
+                        <label for="mod_gst" class="form-label">GST (optional)</label>
+                        <input type="text" name="gst" class="form-control" id="mod_gst" >
+                    </div>
+                    <div class="mb-3 col-sm-12 col-lg-12">
+                        <label for="mod_dob" class="form-label">date of birth (optional)</label>
+                        <input type="date" name="dob" class="form-control" id="mod_dob" >
+                    </div>
+                    <div class="mb-3 col-sm-12 col-lg-12">
+                        <label for="mod_address" class="form-label">Address (optional)</label>
+                        <textarea name="address" id="mod_address" class="form-control"></textarea>
+                    </div>
                 </div>
                 <input type="submit" value="UPDATE" class="btn btn-warning">
                 <input name="pid" id="modid" class="form-control" hidden>
@@ -89,6 +108,9 @@
             $('#mod_name').val($(this).data('name'))
             $('#mod_email').val($(this).data('email'))
             $('#mod_phone').val($(this).data('phone'))
+            $('#mod_gst').val($(this).data('gst'))
+            $('#mod_dob').val($(this).data('dob'))
+            $('#mod_address').val($(this).data('address'))
             $('#modid').val($(this).data('id'))
         })
 } );

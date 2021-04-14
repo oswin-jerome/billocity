@@ -18,6 +18,7 @@ use App\Http\Controllers\UserController;
 use App\Models\Product;
 use App\Models\Customer;
 use GuzzleHttp\Psr7\Request;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -83,4 +84,9 @@ Route::get('/logout',function(){
     // $request->session()->regenerateToken();
 
     return redirect('/');
+});
+
+
+Route::get('/migrate',function(){
+    return Artisan::call('migrate');
 });

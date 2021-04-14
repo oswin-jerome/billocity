@@ -27,18 +27,31 @@
 </div>
 <br>
     <div id="invoice" class="o-card">
-        <div class="d-flex justify-content-between">
-            <div class="col-sm-12 col-md-6 ">
+        <div class="col-sm-12 col-md-12 text-right">
+            <h5 class="text-primary ml-1">INVOICE #</h5>
+            <p class="m-1">{{$invoice->id}}</p>
+        </div>
+        <div class="d-flex justify-content-between mt-4">
+            <div class="col-sm-12 col-md-7 ">
+                <p>From</p>
                 <h4 class="text-primary ml-1">SHANMUGA PAINTS & TRADERS</h4>
                 <p class="m-1">315 8TH RAJAPALAYAM MAIN ROAD</p>
                 <p class="m-1">NEAR STATE BANK OF INDIA</p>
                 <p class="m-1">SANKARANKOVIL</p>
                 <p class="m-1">CELL: 9943958091</p>
-                <p class="m-1">GST# 33ATQFV7215B1Z</p>
+                <p class="m-1">GST# 33ATQPV7215B1ZL</p>
             </div>
-            <div class="col-sm-12 col-md-6 text-right">
-                <h5 class="text-primary ml-1">INVOICE #</h5>
-                <p class="m-1">{{$invoice->id}}</p>
+            <div class="col-sm-12 col-md-5 text-left">
+                @if ($invoice->custo)
+                    
+                <p>To</p>
+                <h4 class="text-primary ml-1">{{$invoice->custo->name}}</h4>
+                <p class="m-1">{{$invoice->custo->address}}</p>
+                @if ($invoice->custo->gst)
+                    
+                <p class="m-1">GST# {{$invoice->custo->gst}}</p>
+                @endif
+                @endif
             </div>
         </div>
 
@@ -216,7 +229,7 @@
 
            setTimeout(()=>{
             document.body.innerHTML = originalContents;
-           },500)
+           },3000)
         }
 
         // define a handler
@@ -247,11 +260,14 @@
             mywindow.document.close(); // necessary for IE >= 10
             mywindow.focus(); // necessary for IE >= 10*/
 
-
+            $(mywindow).ready(function(){
+                mywindow.print();
+            // mywindow.close();
+            })
             setTimeout(function () {
-            mywindow.print();
+            // mywindow.print();
             mywindow.close();
-            }, 500)
+            }, 3000)
             return true;
         }
     </script>

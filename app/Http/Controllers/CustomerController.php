@@ -38,6 +38,8 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
+
+        // dd($request->all());
         $validated = Validator::make($request->all(),[
             'name' => 'required',
             'phone' => 'required|unique:customers',
@@ -50,13 +52,18 @@ class CustomerController extends Controller
             return redirect()->back();
         }
 
-        $category = Customer::create([
+        $customer = Customer::create([
             'name'=>$request->name,
             'phone'=>$request->phone,
             'email'=>$request->email,
+            'dob'=>$request->dob,
+            'gst'=>$request->gst,
+            'address'=>$request->address,
         ]);
 
-        if($category){
+        
+
+        if($customer){
             Toastr::success('Customer added', 'Success', ["positionClass" => "toast-top-right"]);
             return redirect()->back();
         }
@@ -103,6 +110,9 @@ class CustomerController extends Controller
         $customer->name = $request->name;
         $customer->phone = $request->phone;
         $customer->email = $request->email;
+        $customer->gst = $request->gst;
+        $customer->address = $request->address;
+        $customer->dob = $request->dob;
         $customer->save();
         return redirect()->back();
     }

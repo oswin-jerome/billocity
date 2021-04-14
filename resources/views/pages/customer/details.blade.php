@@ -5,7 +5,7 @@
 <div class="row">
     <div class=" pr-2 py-3 col-sm-12 col-md-8">
         <div class="o-card p-4">
-            <h4>Supplier Details</h4>
+            <h4>Customer Details</h4>
             <form>
                 {{-- {{ csrf_field() }} --}}
 
@@ -22,11 +22,18 @@
                         <label for="exampleInputEmail1" class="form-label">Email (optional)</label>
                         <input disabled type="email" value="{{$customer->email}}" name="mobile" class="form-control" id="exampleInputEmail1" >
                     </div>
-
-                    {{-- <div class="mb-3 col-sm-12 col-lg-12">
+                    <div class="mb-3 col-sm-12 col-lg-6">
+                        <label for="exampleInputEmail1" class="form-label">GST #</label>
+                        <input disabled type="text" value="{{$customer->gst}}" name="name" class="form-control" id="exampleInputEmail1" >
+                    </div>
+                    <div class="mb-3 col-sm-12 col-lg-6">
+                        <label for="exampleInputEmail1" class="form-label">Date of Birth</label>
+                        <input disabled type="text" value="{{$customer->dob}}" name="phone" class="form-control" id="exampleInputEmail1" >
+                    </div>
+                    <div class="mb-3 col-sm-12 col-lg-12">
                         <label for="exampleInputEmail1" class="form-label">Address</label>
-                        <textarea disabled name="address" value="{{$customer->address}}" id=""  class="form-control">{{$supplier->address}}</textarea>
-                    </div> --}}
+                        <textarea disabled name="address" value="{{$customer->address}}" id=""  class="form-control">{{$customer->address}}</textarea>
+                    </div>
                 </div>
                 
                 {{-- <button type="submit" class="btn btn-primary">Add</button> --}}
