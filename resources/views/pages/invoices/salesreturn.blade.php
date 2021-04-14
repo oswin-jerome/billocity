@@ -17,6 +17,7 @@
                     <th scope="col">Price</th>
                     <th scope="col">Sold price</th>
                     <th scope="col">Quantity</th>
+                    <th scope="col">Total</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -28,6 +29,7 @@
                         <td>{{ $item->product_price }}</td>
                         <td>{{ $item->sold_price }}</td>
                         <td>{{ $item->quantity }}</td>
+                        <td>{{ $item->sold_price * $item->quantity }}</td>
                         <td>
                             <button data-id={{$item->id}} data-price={{$item->sold_price}} class="btn btn-danger del-btn">RETURN</button>
                         </td>
@@ -60,13 +62,23 @@
         $(document).ready(function(){
             $('.del-btn').on('click',function(){
                 // alert($(this).data('id'))
-                $(this).parent().parent().hide()
+                var quantity = prompt("Quantities to return");
+
+                var domQty = $(this).parent().parent()[0].querySelector('td:nth-child(5)');
+                var domTotal = $(this).parent().parent()[0].querySelector('td:nth-child(6)');
+                var domQtyVal = domQty.innerHTML;
+                var domTotalVal = domTotal.innerHTML;
+                
+                domQty.innerHTML = domQtyVal - quantity;
+                domTotal.innerHTML = domTotalVal - $(this).data('price') * quantity;
+                // $(this).parent().parent().hide()
                 var el = `
                 <input hidden type="text" name="deleted[]" value=${$(this).data('id')}>
+                <input hidden type="text" name="qty[]" value=${quantity}>
                 `
 
                 $('#delete').append(el);
-                total += $(this).data('price')
+                total += $(this).data('price') * quantity;
                 $('#total').html(total);
             })
         })

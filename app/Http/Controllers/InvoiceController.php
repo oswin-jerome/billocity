@@ -172,17 +172,25 @@ class InvoiceController extends Controller
         foreach ($request->deleted as $key => $value) {
             $soldProduct = SoldProduct::find($value);
             $product = Product::find($soldProduct->product);
-            $product->stock = $product->stock +  $soldProduct->quantity;
+            // $product->stock = $product->stock +  $soldProduct->quantity;
+            $product->stock = $product->stock +  $request->qty[$key];
             $product->save();
-            $invoice->final_price = $invoice->final_price - ($soldProduct->sold_price * $soldProduct->quantity);
-            $invoice->total = $invoice->total - ($soldProduct->sold_price * $soldProduct->quantity);
-            $invoice->paid_amount = $invoice->paid_amount - ($soldProduct->sold_price * $soldProduct->quantity);
+            // $invoice->final_price = $invoice->final_price - ($soldProduct->sold_price * $soldProduct->quantity);
+            $invoice->final_price = $invoice->final_price - ($soldProduct->sold_price * $request->qty[$key]);
+            // $invoice->total = $invoice->total - ($soldProduct->sold_price * $soldProduct->quantity);
+            $invoice->total = $invoice->total - ($soldProduct->sold_price * $request->qty[$key]);
+            // $invoice->paid_amount = $invoice->paid_amount - ($soldProduct->sold_price * $soldProduct->quantity);
+            $invoice->paid_amount = $invoice->paid_amount - ($soldProduct->sold_price * $request->qty[$key]);
             // if($invoice->final_price==($invoice->paid_amount)){
             //     $invoice->status = 'COMPLETED';
     
             // }
             $invoice->save();
-            $soldProduct->status = "RETURNED";
+            $soldProduct->quantity = $soldProduct->quantity - $request->qty[$key];
+            if($soldProduct->quantity<1){
+
+                $soldProduct->status = "RETURNED";
+            }
             $soldProduct->save();
             echo($soldProduct);
         }
