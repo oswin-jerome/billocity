@@ -25917,20 +25917,13 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
 /***/ }),
 
 /***/ 0:
-/*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** multi ./resources/js/app.js ./https:/cdn.datatables.net/buttons/1.6.5/js/dataTables.buttons.min.js ./https:/cdn.datatables.net/buttons/1.6.5/js/buttons.flash.min.js ./https:/cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js ./https:/cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js ./https:/cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js ./https:/cdn.datatables.net/buttons/1.6.5/js/buttons.html5.min.js ./https:/cdn.datatables.net/buttons/1.6.5/js/buttons.print.min.js ./resources/css/app.css ***!
-  \***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!***********************************************************!*\
+  !*** multi ./resources/js/app.js ./resources/css/app.css ***!
+  \***********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(/*! D:\Projects\laravel\billocity\resources\js\app.js */"./resources/js/app.js");
-!(function webpackMissingModule() { var e = new Error("Cannot find module 'D:\\Projects\\laravel\\billocity\\https:\\cdn.datatables.net\\buttons\\1.6.5\\js\\dataTables.buttons.min.js'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
-!(function webpackMissingModule() { var e = new Error("Cannot find module 'D:\\Projects\\laravel\\billocity\\https:\\cdn.datatables.net\\buttons\\1.6.5\\js\\buttons.flash.min.js'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
-!(function webpackMissingModule() { var e = new Error("Cannot find module 'D:\\Projects\\laravel\\billocity\\https:\\cdnjs.cloudflare.com\\ajax\\libs\\jszip\\3.1.3\\jszip.min.js'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
-!(function webpackMissingModule() { var e = new Error("Cannot find module 'D:\\Projects\\laravel\\billocity\\https:\\cdnjs.cloudflare.com\\ajax\\libs\\pdfmake\\0.1.53\\pdfmake.min.js'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
-!(function webpackMissingModule() { var e = new Error("Cannot find module 'D:\\Projects\\laravel\\billocity\\https:\\cdnjs.cloudflare.com\\ajax\\libs\\pdfmake\\0.1.53\\vfs_fonts.js'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
-!(function webpackMissingModule() { var e = new Error("Cannot find module 'D:\\Projects\\laravel\\billocity\\https:\\cdn.datatables.net\\buttons\\1.6.5\\js\\buttons.html5.min.js'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
-!(function webpackMissingModule() { var e = new Error("Cannot find module 'D:\\Projects\\laravel\\billocity\\https:\\cdn.datatables.net\\buttons\\1.6.5\\js\\buttons.print.min.js'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
 module.exports = __webpack_require__(/*! D:\Projects\laravel\billocity\resources\css\app.css */"./resources/css/app.css");
 
 

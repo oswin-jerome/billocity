@@ -9724,7 +9724,11 @@ a.text-dark:hover, a.text-dark:focus {
     color: inherit;
     border-color: #dee2e6;
   }
-}@charset "UTF-8";
+}/*
+ *   Copyright (c) 2021 
+ *   All rights reserved.
+ */
+@charset "UTF-8";
 body, * {
   margin: 0;
   padding: 0;
@@ -9954,8 +9958,17 @@ main {
 
 main #contents {
   width: 100%;
-  margin-top: 70px;
+  padding-top: 70px;
+  height: 100vh;
+  overflow:hidden !important;
+}
+
+#dyna {
+  height: calc(100vh - 130px) !important;
   padding: 30px;
+
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 .o-card {

@@ -233,7 +233,14 @@
         </ul>
       </aside>
       <section id="contents">
-          @yield('content')
+          <div id="dyna">
+            @yield('content')
+          </div>
+          <div class="o-card d-flex justify-content-center align-items-center" style="height: 60px;">
+            <p class="text-center p-0 m-0">
+              Powered by, <span class="text-bold text-primary"><a class="text-bold text-primary" target="_blank" href="http://ideaux.in">IDEAUX Technalogies</a></span>
+            </p>
+          </div>
       </section>
     </main>
   </body>
