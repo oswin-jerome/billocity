@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Billocity</title>
+    <title>Billocity - IDEAUX</title>
     <link rel="stylesheet" href="{{asset('css/app.css')}}" />
     <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
 
@@ -213,6 +213,15 @@
             </ul>
           </li>
 
+          <li class="has-sub">
+            <a class="o-head">
+              <i class="fas fa-barcode"></i><span>Barcode</span>
+            </a>
+            <ul class="inul">
+              {{-- <li><a href="/invoices">Sales Report</a></li> --}}
+              <li><a href="/barcode">Generate</a></li>
+            </ul>
+          </li>
 
           {{-- Report --}}
           <li class="has-sub">
@@ -223,6 +232,7 @@
               {{-- <li><a href="/invoices">Sales Report</a></li> --}}
               <li><a href="/reports/stock">Stock Report</a></li>
               <li><a href="/reports/stockin">Stock IN Report</a></li>
+              <li><a href="/reports/stock_out">Stock Out Report</a></li>
               <li><a href="/reports/sales">Sales Report</a></li>
               <li><a href="/reports/expense">Expense Report</a></li>
               <li><a href="/reports/c_credit">Customer Credit</a></li>

@@ -20,4 +20,9 @@ class Product extends Model
     {
         return $this->hasOne(Brand::class,'id','brand');
     }
+
+    public function sold()
+    {
+        return $this->hasMany(SoldProduct::class,'product','id');
+    }
 }

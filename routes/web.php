@@ -17,7 +17,7 @@ use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\UserController;
 use App\Models\Product;
 use App\Models\Customer;
-use GuzzleHttp\Psr7\Request;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 
@@ -74,7 +74,15 @@ Route::get('reports/stockin','App\Http\Controllers\ReportController@stockin')->m
 Route::get('reports/expense','App\Http\Controllers\ReportController@expense')->middleware("auth");
 Route::get('reports/c_credit','App\Http\Controllers\ReportController@c_credit')->middleware("auth");
 Route::get('reports/s_debit','App\Http\Controllers\ReportController@s_debit')->middleware("auth");
+Route::get('reports/stock_out','App\Http\Controllers\ReportController@stock_out')->middleware("auth");
 
+Route::get("barcode",function(){
+    return view('pages/barcode/create');
+});
+
+Route::post("barcode",function(Request $request){
+    return view('pages/barcode/view',["code"=>$request->code]);
+})->name("barcode.generate");
 
 Route::get('/logout',function(){
     Auth::logout();

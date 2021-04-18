@@ -22,6 +22,14 @@ class ReportController extends Controller
 
     }
 
+    public function stock_out(){
+
+        $products = Product::all();
+
+        return view('pages/report/stockout',['products'=>$products]);
+
+    }
+
 
     public function sales(Request $request){
         $invoices = [];
