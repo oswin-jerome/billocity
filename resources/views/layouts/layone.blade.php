@@ -88,6 +88,7 @@
         </div>
         {{-- <p class="m-0">POS</p> --}}
         <a href="/pos" target="__blank" class="m-0">POS</a>
+        <a href="/settings" class="ml-4"><i class="fas fa-sliders-h"></i></a>
       </div>
     </header>
 
