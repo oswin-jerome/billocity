@@ -14,6 +14,7 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\UserController;
 use App\Models\Product;
 use App\Models\Customer;
@@ -75,7 +76,8 @@ Route::get('reports/expense','App\Http\Controllers\ReportController@expense')->m
 Route::get('reports/c_credit','App\Http\Controllers\ReportController@c_credit')->middleware("auth");
 Route::get('reports/s_debit','App\Http\Controllers\ReportController@s_debit')->middleware("auth");
 Route::get('reports/stock_out','App\Http\Controllers\ReportController@stock_out')->middleware("auth");
-
+Route::get('settings',[SettingController::class,"index"]);
+Route::put('settings/{id}',[SettingController::class,"update"])->name("settings.update");
 Route::get("barcode",function(){
     return view('pages/barcode/create');
 });

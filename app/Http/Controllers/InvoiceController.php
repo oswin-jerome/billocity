@@ -8,6 +8,8 @@ use App\Models\Product;
 use App\Models\SoldProduct;
 use App\Models\ReturnedProduct;
 use App\Models\Customer;
+use App\Models\Setting;
+
 class InvoiceController extends Controller
 {
     /**
@@ -138,7 +140,9 @@ class InvoiceController extends Controller
      */
     public function show($id)
     {
-        return view('pages/pos/invoice',['invoice'=>Invoice::find($id),'ret_products'=>SoldProduct::where('invoice','=',$id)->where('status','=','RETURNED')->get()]);
+        return view('pages/pos/invoice',['invoice'=>Invoice::find($id),
+        "setting"=>Setting::first(),
+        'ret_products'=>SoldProduct::where('invoice','=',$id)->where('status','=','RETURNED')->get()]);
     }
 
     /**

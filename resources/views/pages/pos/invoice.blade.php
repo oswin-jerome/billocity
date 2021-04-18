@@ -11,6 +11,8 @@
 
         
     </style>
+
+
 <div class="print">
     <button class="btn btn-primary" id="print">Print</button>
     @if ( $invoice->points_redeem <= 0 &&  $invoice->coupon_redeem <= 0 )
@@ -34,12 +36,13 @@
         <div class="d-flex justify-content-between mt-4">
             <div class="col-sm-12 col-md-7 ">
                 <p>From</p>
-                <h4 class="text-primary ml-1">SHANMUGA PAINTS & TRADERS</h4>
-                <p class="m-1">315 8TH RAJAPALAYAM MAIN ROAD</p>
-                <p class="m-1">NEAR STATE BANK OF INDIA</p>
-                <p class="m-1">SANKARANKOVIL</p>
-                <p class="m-1">CELL: 9943958091</p>
-                <p class="m-1">GST# 33ATQPV7215B1ZL</p>
+                <h4 class="text-primary ml-1">{{$setting->name}}</h4>
+                <pre class="m-1">{{$setting->address}}</pre>
+                {{-- <p class="m-1">NEAR STATE BANK OF INDIA</p>
+                <p class="m-1">SANKARANKOVIL</p> --}}
+                
+                <p class="m-1">CELL: {{$setting->phone}}</p>
+                <p class="m-1">GST# {{$setting->gst}}</p>
             </div>
             <div class="col-sm-12 col-md-5 text-left">
                 @if ($invoice->custo)
