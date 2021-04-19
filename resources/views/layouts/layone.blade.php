@@ -89,11 +89,18 @@
             </div>
             <div class="app-header__content">
                 <div class="app-header-left">
-                    <ul class="header-menu nav">
+                    <ul class="header-menu nav d-flex">
                         <li class="dropdown nav-item">
                             <a href="/settings" class="nav-link">
                                 <i class="nav-link-icon fa fa-cog"></i>
                                 Settings
+                            </a>
+                        </li>
+                        <li class="dropdown nav-item">
+                            <a href="/pos" class="nav-link">
+                                {{-- <i class=" fa fa-cog"></i> --}}
+                                <i class="nav-link-icon fas fa-file-invoice"></i>
+                                POS
                             </a>
                         </li>
                     </ul>
@@ -106,15 +113,17 @@
                                     <div class="btn-group">
                                         <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                                             class="p-0 btn">
-                                            <img width="42" class="rounded-circle" src="assets/images/avatars/1.jpg"
-                                                alt="" />
+                                            {{-- <img width="42" class="rounded-circle" src="/assets/images/avatars/1.jpg"
+                                                alt="" /> --}}
                                             <i class="fa fa-angle-down ml-2 opacity-8"></i>
                                         </a>
                                         <div tabindex="-1" role="menu" aria-hidden="true"
                                             class="dropdown-menu dropdown-menu-right">
-                                            <button type="button" tabindex="0" class="dropdown-item">
-                                                Logout
-                                            </button>
+                                            <a href="/logout">
+                                                <button type="button" tabindex="0" class="dropdown-item">
+                                                    Logout
+                                                </button>
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -329,8 +338,8 @@
                 
                 <div class="app-wrapper-footer">
                     <div class="app-footer">
-                        <div class="app-footer__inner">
-                            <div class="app-footer-left">
+                        <div class="app-footer__inner ml-0">
+                            {{-- <div class="app-footer-left">
                                 <!-- <ul class="nav">
                     <li class="nav-item">
                       <a href="javascript:void(0);" class="nav-link">
@@ -343,15 +352,11 @@
                       </a>
                     </li>
                   </ul> -->
-                            </div>
-                            <div class="app-footer-right">
-                                <ul class="nav">
-                                    <li class="nav-item">
-                                        <a href="javascript:void(0);" class="nav-link">
-                                            Powered by, IDEAUX
-                                        </a>
-                                    </li>
-                                </ul>
+                            </div> --}}
+                            <div class="app-footer-right d-flex justify-content-center align-items-center m-0 text-center w-100">
+                                <a href="javascript:void(0);" class="nav-link">
+                                     <span class="text-small font-italic font-weight-normal">Powered by,</span> IDEAUX
+                                </a>
                             </div>
                         </div>
                     </div>
