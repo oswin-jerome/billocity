@@ -56,7 +56,7 @@
     <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header fixed-footer body-tabs-shadow">
         <div class="app-header header-shadow">
             <div class="app-header__logo">
-                <div class="logo-src"></div>
+                <a href="/"><h2 class="o-logo" style="font-family: 'Pacifico', cursive;">Billocity</h2></a>
                 <div class="header__pane ml-auto">
                     <div>
                         <button type="button" class="hamburger close-sidebar-btn hamburger--elastic"
