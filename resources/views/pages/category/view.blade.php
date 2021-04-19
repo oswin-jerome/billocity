@@ -2,8 +2,9 @@
 
 @section('content')
     <div class="row">
-        <div class="o-card p-4 col-12">
-            <table id="table_id" class="display">
+        <div class="col-12">
+          <div class="o-card p-4 ">
+            <table id="table_id" class="display table-responsive-sm">
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -33,6 +34,7 @@
                     @endforeach
                 </tbody>
             </table>
+        </div>
         </div>
     </div>
 

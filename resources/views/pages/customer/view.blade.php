@@ -2,44 +2,46 @@
 
 @section('content')
     <div class="row">
-        <div class="o-card p-4 col-12">
-            <table id="table_id" class="display">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Phone</th>
-                        <th>Email</th>
-                        <th>Points</th>
-                        <th>Credit</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($customers as $customer)
+        <div class="col-12">
+            <div class="card p-4">
+                <table id="table_id" class="display table-responsive-sm">
+                    <thead>
                         <tr>
-                            <td>{{$customer->id}}</td>
-                            <td>{{$customer->name}}</td>
-                            <td>{{$customer->phone}}</td>
-                            <td>{{$customer->email}}</td>
-                            <td>{{$customer->points}}</td>
-                            <td>{{$customer->credit}}</td>
-                            <td class="">
-                                <a  href="customers/{{$customer->id}}" type="submit" class="btn btn-primary">View</a>
-                                <button data-toggle="modal" data-id="{{$customer->id}}" 
-                                    data-name="{{$customer->name}}" 
-                                    data-phone="{{$customer->phone}}" 
-                                    data-email="{{$customer->email}}" 
-                                    data-dob="{{$customer->dob}}" 
-                                    data-address="{{$customer->address}}" 
-                                    data-gst="{{$customer->gst}}" 
-                                    id="editMod" data-target="#myModal" type="submit" class="btn btn-warning editMod">Edit</button>
-                                <form action="" class="m-0 p-0 d-inline"><button type="submit" class="btn btn-danger" disabled>DELETE</button></form>
-                            </td>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Phone</th>
+                            <th>Email</th>
+                            <th>Points</th>
+                            <th>Credit</th>
+                            <th>Actions</th>
                         </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @foreach ($customers as $customer)
+                            <tr>
+                                <td>{{$customer->id}}</td>
+                                <td>{{$customer->name}}</td>
+                                <td>{{$customer->phone}}</td>
+                                <td>{{$customer->email}}</td>
+                                <td>{{$customer->points}}</td>
+                                <td>{{$customer->credit}}</td>
+                                <td class="">
+                                    <a  href="customers/{{$customer->id}}" type="submit" class="btn btn-primary">View</a>
+                                    <button data-toggle="modal" data-id="{{$customer->id}}" 
+                                        data-name="{{$customer->name}}" 
+                                        data-phone="{{$customer->phone}}" 
+                                        data-email="{{$customer->email}}" 
+                                        data-dob="{{$customer->dob}}" 
+                                        data-address="{{$customer->address}}" 
+                                        data-gst="{{$customer->gst}}" 
+                                        id="editMod" data-target="#myModal" type="submit" class="btn btn-warning editMod">Edit</button>
+                                    <form action="" class="m-0 p-0 d-inline"><button type="submit" class="btn btn-danger" disabled>DELETE</button></form>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 

@@ -2,37 +2,39 @@
 
 @section('content')
     <div class="row">
-        <div class="o-card p-4 col-12">
-            <table id="table_id" class="display">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Phone</th>
-                        <th>Email</th>
-                        <th>Address</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($suppliers as $supplier)
+        <div class="col-12">
+            <div class="o-card p-4 ">
+                <table id="table_id" class="display table-responsive-sm">
+                    <thead>
                         <tr>
-                            <td>{{$supplier->id}}</td>
-                            <td>{{$supplier->name}}</td>
-                            <td>{{$supplier->phone}}</td>
-                            <td>{{$supplier->email}}</td>
-                            <td>{{$supplier->address}}</td>
-                            <td class="">
-                                <a href="/suppliers/{{$supplier->id}}" class="btn btn-primary">View</a>
-                                {{-- <form action="" class="m-0 p-0 d-inline"><button type="submit" class="btn btn-primary">View</button></form> --}}
-                                <button data-toggle="modal" data-id="{{$supplier->id}}" data-name="{{$supplier->name}}" data-address="{{$supplier->address}}" data-phone="{{$supplier->phone}}" data-email="{{$supplier->email}}" id="editMod" data-target="#myModal" type="submit" class="btn btn-warning">Edit</button>
-                                {{-- <form action="" class="m-0 p-0 d-inline"><button type="submit" class="btn btn-warning">Edit</button></form> --}}
-                                <form action="" class="m-0 p-0 d-inline"><button type="submit" class="btn btn-danger" disabled>DELETE</button></form>
-                            </td>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Phone</th>
+                            <th>Email</th>
+                            <th>Address</th>
+                            <th>Actions</th>
                         </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @foreach ($suppliers as $supplier)
+                            <tr>
+                                <td>{{$supplier->id}}</td>
+                                <td>{{$supplier->name}}</td>
+                                <td>{{$supplier->phone}}</td>
+                                <td>{{$supplier->email}}</td>
+                                <td>{{$supplier->address}}</td>
+                                <td class="">
+                                    <a href="/suppliers/{{$supplier->id}}" class="btn btn-primary">View</a>
+                                    {{-- <form action="" class="m-0 p-0 d-inline"><button type="submit" class="btn btn-primary">View</button></form> --}}
+                                    <button data-toggle="modal" data-id="{{$supplier->id}}" data-name="{{$supplier->name}}" data-address="{{$supplier->address}}" data-phone="{{$supplier->phone}}" data-email="{{$supplier->email}}" id="editMod" data-target="#myModal" type="submit" class="btn btn-warning">Edit</button>
+                                    {{-- <form action="" class="m-0 p-0 d-inline"><button type="submit" class="btn btn-warning">Edit</button></form> --}}
+                                    <form action="" class="m-0 p-0 d-inline"><button type="submit" class="btn btn-danger" disabled>DELETE</button></form>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
   {{-- MD --}}

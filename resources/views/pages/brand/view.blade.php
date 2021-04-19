@@ -2,8 +2,9 @@
 
 @section('content')
     <div class="row">
-        <div class="o-card p-4 col-12">
-            <table id="table_id" class="display">
+        <div class="col-12">
+          <div class="card p-4 ">
+            <table id="table_id" class="display table-responsive-sm">
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -35,12 +36,13 @@
                 </tbody>
             </table>
         </div>
+        </div>
     </div>
 
 
-    <div class="modal" id="myModal">
+    <div class="modal" id="myModal" style="">
         <div class="modal-dialog">
-          <div class="modal-content">
+          <div class="modal-content" style="z-index: 9999;">
       
             <!-- Modal Header -->
             <div class="modal-header">
@@ -78,6 +80,7 @@
     $('#table_id').DataTable();
 
     $('#editMod').on('click',function(){
+      $('#myModal').appendTo("body").modal('show');
         $('#modname').val($(this).data('name'))
         $('#modid').val($(this).data('id'))
     })

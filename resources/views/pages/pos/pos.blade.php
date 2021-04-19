@@ -2,70 +2,80 @@
 
 @section('content')
 
-    <div class="o-card p-4 mb-3">
-        <form  id="posform" class="row">
-            <div class="form-group col-sm-12 col-md-4">
-                <label for="">Barcode</label>
-                <input autocomplete="off" type="text" name="barcode" id="barcode" class="form-control">
-                <p id="barcode_error" class="text-danger alert"></p>
+    <div class="row">
+        <div class="col-12">
+            <div class="card p-4 mb-3">
+                <form  id="posform" class="row">
+                    <div class="form-group col-sm-12 col-md-4">
+                        <label for="">Barcode</label>
+                        <input autocomplete="off" type="text" name="barcode" id="barcode" class="form-control">
+                        <p id="barcode_error" class="text-danger alert"></p>
+                    </div>
+                    {{-- <div class="form-group col-sm-12 col-md-4">
+                        <label for="">Product Name</label>
+                        <input autocomplete="off" type="text" name="barcode" id="product_name" class="form-control">
+                    </div> --}}
+                    <div class="form-group col-sm-12 col-md-4">
+                        <label for="">Product Name</label>
+                        {{-- <input autocomplete="off" type="text" name="barcode" id="product_name" class="form-control"> --}}
+        
+                        <select name="product_name" id="product_name" class="form-control selectpicker" data-live-search="true">
+                            <option selected disabled value="">No product selected</option>
+                            @foreach ($products as $product)
+                                <option value="{{$product->id}}">{{$product->name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group col-sm-12 col-md-2">
+                        <label for="">Quantity</label>
+                        <input autocomplete="off" required type="text" name="barcode" id="quantity" class="form-control">
+                    </div>
+                    <div class="form-group col-sm-6 col-md-2 mt-2">
+                        <label for=""></label>
+                        <input type="submit" name="barcode" id="submit" class="form-control">
+                    </div>
+                </form>
             </div>
-            {{-- <div class="form-group col-sm-12 col-md-4">
-                <label for="">Product Name</label>
-                <input autocomplete="off" type="text" name="barcode" id="product_name" class="form-control">
-            </div> --}}
-            <div class="form-group col-sm-12 col-md-4">
-                <label for="">Product Name</label>
-                {{-- <input autocomplete="off" type="text" name="barcode" id="product_name" class="form-control"> --}}
-
-                <select name="product_name" id="product_name" class="form-control selectpicker" data-live-search="true">
-                    <option selected disabled value="">No product selected</option>
-                    @foreach ($products as $product)
-                        <option value="{{$product->id}}">{{$product->name}}</option>
-                    @endforeach
-                </select>
-            </div>
-            <div class="form-group col-sm-12 col-md-2">
-                <label for="">Quantity</label>
-                <input autocomplete="off" required type="text" name="barcode" id="quantity" class="form-control">
-            </div>
-            <div class="form-group col-sm-6 col-md-2 mt-2">
-                <label for=""></label>
-                <input type="submit" name="barcode" id="submit" class="form-control">
-            </div>
-        </form>
+        </div>
     </div>
 
 
 
 
-    <div class="o-card p-4 mb-3">
-        <table id="table_id" class="display table-striped  table-responsive-sm">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Product Name</th>
-                    <th>Quantity</th>
-                    <th>Price</th>
-                    <th>Total</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody id="list-body">
-                <tr>
-                    <td>Row 1 Data 1</td>
-                    <td>Row 1 Data 2</td>
-                    <td>Row 1 Data 2</td>
-                    <td>Row 1 Data 2</td>
-                    <td>Row 1 Data 2</td>
-                    <td>Row 1 Data 2</td>
-                </tr>
-            </tbody>
-        </table>
+    <div class="row">
+        <div class="col-12">
+            <div class="card p-4 mb-3">
+                <table id="table_id" class="display table-striped  table-responsive-sm">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Product Name</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Total</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="list-body">
+                        <tr>
+                            <td>Row 1 Data 1</td>
+                            <td>Row 1 Data 2</td>
+                            <td>Row 1 Data 2</td>
+                            <td>Row 1 Data 2</td>
+                            <td>Row 1 Data 2</td>
+                            <td>Row 1 Data 2</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 
 
 
-    <div class="o-card p-4 mb-0 d-flex justify-content-between">
+    <div class="row">
+        <div class="col-12">
+            <div class="o-card p-4 mb-0 d-flex justify-content-between">
         <span>
             <p class="m-1">Total: <span id="total"></span></p>
             <div id="customer_point">
@@ -99,10 +109,12 @@
             <input type="submit" id="submitInvoice" value="SUBMIT" class="btn btn-primary">
         </form>
     </div>
+        </div>
+    </div>
 
     <div class="row">
         <div class=" pr-2 py-3 col-6">
-            <div class="o-card p-4">
+            <div class="card p-4">
                 <h4 class="card-title">Customer</h4>
                 <div class="form-group col-12">
                     <label for="">Customer Phone #</label>
@@ -125,7 +137,7 @@
             </div>
         </div>
         <div class=" pl-2 py-3 col-6">
-            <div class="o-card p-4">
+            <div class="card p-4">
                 <h4 class="card-title">Cupons</h4>
             </div>
         </div>

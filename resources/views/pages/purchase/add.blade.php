@@ -95,7 +95,7 @@
 
 
 
-    <div class="o-card p-4 mb-0 d-flex justify-content-between">
+    <div class="o-card p-4 mb-0 d-block d-md-flex justify-content-between">
         <span>
             <h4 class="m-1">Total: <span id="total"></span></h4>
             <div id="customer_point">

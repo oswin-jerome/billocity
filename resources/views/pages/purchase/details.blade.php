@@ -22,7 +22,7 @@
 
         {{-- {{$invoice->products}} --}}
 
-        <table class="table table-striped mt-4">
+        <table class="table table-striped mt-4 table-responsive-sm">
             <thead>
                 <tr>
                     <th scope="col">#</th>

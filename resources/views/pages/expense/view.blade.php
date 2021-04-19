@@ -2,41 +2,43 @@
 
 @section('content')
     <div class="row">
-        <div class="o-card p-4 col-12">
-            <table id="table_id" class="display">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Category</th>
-                        <th>Amount</th>
-                        <th>Created</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($expenses as $expense)
+        <div class="col-12">
+            <div class="o-card p-4 ">
+                <table id="table_id" class="display table-responsive-sm">
+                    <thead>
                         <tr>
-                            <td>{{ $expense->id }}</td>
-                            <td>{{ $expense->getcategory->name }}</td>
-                            <td>{{ $expense->amount }}</td>
-                            <td>{{ $expense->created_at }}</td>
-                            <td class="">
-                                <a href="categories/{{ $expense->id }}" class="btn btn-primary">View</a>
-                                {{-- <form action="" class="m-0 p-0 d-inline"><button
-                                        type="submit" class="btn btn-primary">View</button></form>
-                                --}}
-                                {{-- <form action="" class="m-0 p-0 d-inline"><button
-                                        type="submit" class="btn btn-warning">Edit</button></form>
-                                --}}
-                                <button data-toggle="modal" data-id={{ $expense->id }} data-category={{ $expense->category }} data-amount={{ $expense->amount }}
-                                    id="editMod" data-target="#myModal" class="btn btn-warning">EDIT</button>
-                                <form action="" class="m-0 p-0 d-inline"><button type="submit"
-                                        class="btn btn-danger">DELETE</button></form>
-                            </td>
+                            <th>ID</th>
+                            <th>Category</th>
+                            <th>Amount</th>
+                            <th>Created</th>
+                            <th>Actions</th>
                         </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @foreach ($expenses as $expense)
+                            <tr>
+                                <td>{{ $expense->id }}</td>
+                                <td>{{ $expense->getcategory->name }}</td>
+                                <td>{{ $expense->amount }}</td>
+                                <td>{{ $expense->created_at }}</td>
+                                <td class="">
+                                    <a href="categories/{{ $expense->id }}" class="btn btn-primary">View</a>
+                                    {{-- <form action="" class="m-0 p-0 d-inline"><button
+                                            type="submit" class="btn btn-primary">View</button></form>
+                                    --}}
+                                    {{-- <form action="" class="m-0 p-0 d-inline"><button
+                                            type="submit" class="btn btn-warning">Edit</button></form>
+                                    --}}
+                                    <button data-toggle="modal" data-id={{ $expense->id }} data-category={{ $expense->category }} data-amount={{ $expense->amount }}
+                                        id="editMod" data-target="#myModal" class="btn btn-warning">EDIT</button>
+                                    <form action="" class="m-0 p-0 d-inline"><button type="submit"
+                                            class="btn btn-danger">DELETE</button></form>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 

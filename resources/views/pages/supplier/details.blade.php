@@ -4,7 +4,7 @@
 
 <div class="row">
     <div class=" pr-2 py-3 col-sm-12 col-md-8">
-        <div class="o-card p-4">
+        <div class="card p-4">
             <h4>Supplier Details</h4>
             <form>
                 {{-- {{ csrf_field() }} --}}
@@ -34,7 +34,7 @@
         </div>
     </div>
     <div class=" pl-2 py-3 col-sm-12 col-md-4 h-100" style="grid-row: 0/2 !important"  >
-        <div class="o-card p-4" style="height:100%">
+        <div class="card p-4" style="height:100%">
             <div class="d-flex  mb-2">
                 <h4>Balance : </h4>
                 <h4> &nbsp;{{$purchases->sum('total') - $purchases->sum('paid')}}</h4>
@@ -52,7 +52,7 @@
 
 
     <div class=" pl-2 py-3 col-12">
-        <div class="o-card p-4">
+        <div class="card p-4">
             {{-- <table id="table_id" class="display">
                 <thead>
                     <tr>
@@ -84,7 +84,7 @@
                 </tbody>
             </table> --}}
 
-            <table class="display " id="table_id">
+            <table class="display table-responsive-sm " id="table_id">
                 <thead>
                     <tr>
                         {{-- <th scope="col"></th> --}}

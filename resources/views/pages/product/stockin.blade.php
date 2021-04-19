@@ -3,7 +3,7 @@
 @section('content')
 <div class="row">
     <div class="mb-3  pr-2 pl-0 py-1 col-sm-12 col-md-12 col-lg-6">
-        <div class="o-card p-4 ">
+        <div class="card p-4 ">
             <h4 class="text-primary mb-3">Stock IN</h4>
             <form method="POST" action="/prods/stockin">
                 {{ csrf_field() }}

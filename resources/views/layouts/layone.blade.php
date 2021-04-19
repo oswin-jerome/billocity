@@ -1,12 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Billocity - IDEAUX</title>
-    <link rel="stylesheet" href="{{asset('css/app.css')}}" />
-    <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
 
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Language" content="en" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Billocity - IDEAUX</title>
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
+    <meta name="description" content="Billing solution powered by IDEAUX" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <!--
+    =========================================================
+    * ArchitectUI HTML Theme Dashboard - v1.0.0
+    =========================================================
+    * Product Page: https://dashboardpack.com
+    * Copyright 2019 DashboardPack (https://dashboardpack.com)
+    * Licensed under MIT (https://github.com/DashboardPack/architectui-html-theme-free/blob/master/LICENSE)
+    =========================================================
+    * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+    -->
+    <link href="/main.css" rel="stylesheet" />
+    <link rel="stylesheet" href="{{asset('css/app.css')}}" />
     <script
     src="https://code.jquery.com/jquery-3.5.1.min.js"
     integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
@@ -19,10 +35,6 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
-
-
-
-
 {{-- To --}}
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.5/css/buttons.dataTables.min.css">
@@ -36,285 +48,320 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.html5.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.print.min.js"></script>
+<link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
 
+</head>
 
-
-<style>
-/* .hid{
-  display: block;
-} */
-@media only screen and (max-width: 600px){
-  .hid{
-    display: none !important;
-  }
-}
-</style>
-
-  </head>
-  <body>
-    <header id="header">
-      <div class="header-left">
-        <div>
-          <a href="/"><h2 class="o-logo">Billocity</h2></a>
+<body>
+    <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header fixed-footer body-tabs-shadow">
+        <div class="app-header header-shadow">
+            <div class="app-header__logo">
+                <div class="logo-src"></div>
+                <div class="header__pane ml-auto">
+                    <div>
+                        <button type="button" class="hamburger close-sidebar-btn hamburger--elastic"
+                            data-class="closed-sidebar">
+                            <span class="hamburger-box">
+                                <span class="hamburger-inner"></span>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="app-header__mobile-menu">
+                <div>
+                    <button type="button" class="hamburger hamburger--elastic mobile-toggle-nav">
+                        <span class="hamburger-box">
+                            <span class="hamburger-inner"></span>
+                        </span>
+                    </button>
+                </div>
+            </div>
+            <div class="app-header__menu">
+                <span>
+                    <button type="button"
+                        class="btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav">
+                        <span class="btn-icon-wrapper">
+                            <i class="fa fa-ellipsis-v fa-w-6"></i>
+                        </span>
+                    </button>
+                </span>
+            </div>
+            <div class="app-header__content">
+                <div class="app-header-left">
+                    <ul class="header-menu nav">
+                        <li class="dropdown nav-item">
+                            <a href="/settings" class="nav-link">
+                                <i class="nav-link-icon fa fa-cog"></i>
+                                Settings
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="app-header-right">
+                    <div class="header-btn-lg pr-0">
+                        <div class="widget-content p-0">
+                            <div class="widget-content-wrapper">
+                                <div class="widget-content-left">
+                                    <div class="btn-group">
+                                        <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                            class="p-0 btn">
+                                            <img width="42" class="rounded-circle" src="assets/images/avatars/1.jpg"
+                                                alt="" />
+                                            <i class="fa fa-angle-down ml-2 opacity-8"></i>
+                                        </a>
+                                        <div tabindex="-1" role="menu" aria-hidden="true"
+                                            class="dropdown-menu dropdown-menu-right">
+                                            <button type="button" tabindex="0" class="dropdown-item">
+                                                Logout
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="widget-content-left ml-3 header-user-info">
+                                    <div class="widget-heading">Alina Mclourd</div>
+                                    <div class="widget-subheading">VP People Manager</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        
-        <div class="left-menu">
-          <i id="left-ham" class="fas fa-bars"></i>
-          {{-- <img id="gift" src="{{asset('images/gift.svg')}}" alt="" /> --}}
+        <div class="app-main">
+            <div class="app-sidebar sidebar-shadow">
+                <div class="app-header__logo">
+                    <div class="logo-src"></div>
+                    <div class="header__pane ml-auto">
+                        <div>
+                            <button type="button" class="hamburger close-sidebar-btn hamburger--elastic"
+                                data-class="closed-sidebar">
+                                <span class="hamburger-box">
+                                    <span class="hamburger-inner"></span>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="app-header__mobile-menu">
+                    <div>
+                        <button type="button" class="hamburger hamburger--elastic mobile-toggle-nav">
+                            <span class="hamburger-box">
+                                <span class="hamburger-inner"></span>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+                <div class="app-header__menu">
+                    <span>
+                        <button type="button"
+                            class="btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav">
+                            <span class="btn-icon-wrapper">
+                                <i class="fa fa-ellipsis-v fa-w-6"></i>
+                            </span>
+                        </button>
+                    </span>
+                </div>
+                <div class="scrollbar-sidebar">
+                    <div class="app-sidebar__inner">
+                        <ul class="vertical-nav-menu">
+                            <li class="app-sidebar__heading">Dashboards</li>
+                            <li>
+                                <a href="/" class="mm-active">
+                                    <i class="metismenu-icon pe-7s-rocket"></i>
+                                    Dashboard
+                                </a>
+                            </li>
+                            <li class="app-sidebar__heading">UI Components</li>
+                            @if (Auth::user()->role=="admin")
+                                <li>
+                                    <a href="#">
+                                        <i class="metismenu-icon pe-7s-diamond"></i>
+                                        Users
+                                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                                    </a>
+                                    <ul>
+                                        <li><a href="/users/create">Add Users</a></li>
+                                        <li><a href="/users">View Users</a></li>
+                                    </ul>
+                                </li>
+                             @endif
+                            <li>
+                                <a href="#">
+                                    <i class="metismenu-icon pe-7s-diamond"></i>
+                                    Brands
+                                    <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                                </a>
+                                <ul>
+                                    <li><a href="/brands/create">Add Brand</a></li>
+                                    <li><a href="/brands">View Brands</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="metismenu-icon pe-7s-diamond"></i>
+                                    Categories
+                                    <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                                </a>
+                                <ul>
+                                    <li><a href="/categories/create">Add Category</a></li>
+                                    <li><a href="/categories">View Categories</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="metismenu-icon pe-7s-diamond"></i>
+                                    Products
+                                    <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                                </a>
+                                <ul>
+                                    <li><a href="/products/create">Add Products</a></li>
+                                    <li><a href="/products">View Products</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="metismenu-icon pe-7s-diamond"></i>
+                                    Customers
+                                    <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                                </a>
+                                <ul>
+                                    <li><a href="/customers/create">Add Customer</a></li>
+                                    <li><a href="/customers">View Customers</a></li>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <a href="#">
+                                    <i class="metismenu-icon pe-7s-diamond"></i>
+                                    Suppliers
+                                    <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                                </a>
+                                <ul>
+                                    <li><a href="/suppliers/create">Add Supplier</a></li>
+                                    <li><a href="/suppliers">View Suppliers</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="metismenu-icon pe-7s-diamond"></i>
+                                    Sales
+                                    <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                                </a>
+                                <ul>
+                                    <li><a href="/invoices">View Sales</a></li>
+                                    <li><a href="/pending_customer_payment">View Pending payment</a></li>
+                                    <li><a href="/prods/returned">View Returned Products</a></li>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <a href="#">
+                                    <i class="metismenu-icon pe-7s-diamond"></i>
+                                    Purchase
+                                    <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                                </a>
+                                <ul>
+                                    <li><a href="/purchases/create">Add Pruchase</a></li>
+                                    <li><a href="/purchases">View Purchase</a></li>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <a href="#">
+                                    <i class="metismenu-icon pe-7s-diamond"></i>
+                                    Expenses
+                                    <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                                </a>
+                                <ul>
+                                    <li><a href="/expenses/create">Add Expenses</a></li>
+                                    <li><a href="/expenses">View Expenses</a></li>
+                                    <li><a href="/expense-categories/create">Add Expense Category</a></li>
+                                    <li><a href="/expense-categories">View Expense Category</a></li>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <a href="#">
+                                    <i class="metismenu-icon pe-7s-diamond"></i>
+                                    Barcode
+                                    <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                                </a>
+                                <ul>
+                                    <li><a href="/barcode">Generate</a></li>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <a href="#">
+                                    <i class="metismenu-icon pe-7s-diamond"></i>
+                                    Reports
+                                    <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                                </a>
+                                <ul>
+                                    <li><a href="/reports/stock">Stock Report</a></li>
+                                    <li><a href="/reports/stockin">Stock IN Report</a></li>
+                                    <li><a href="/reports/stock_out">Stock Out Report</a></li>
+                                    <li><a href="/reports/sales">Sales Report</a></li>
+                                    <li><a href="/reports/expense">Expense Report</a></li>
+                                    <li><a href="/reports/c_credit">Customer Credit</a></li>
+                                    <li><a href="/reports/s_debit">Supplier Debit</a></li>
+                                </ul>
+                            </li>
+                           
+                            {{-- <li>
+                                <a href="tables-regular.html">
+                                    <i class="metismenu-icon pe-7s-display2"></i>
+                                    Tables
+                                </a>
+                            </li> --}}
+                            
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="app-main__outer">
+                <div class="app-main__inner">
+                    
+                        @yield('content')
+                    
+                </div>
+                
+                <div class="app-wrapper-footer">
+                    <div class="app-footer">
+                        <div class="app-footer__inner">
+                            <div class="app-footer-left">
+                                <!-- <ul class="nav">
+                    <li class="nav-item">
+                      <a href="javascript:void(0);" class="nav-link">
+                        Footer Link 1
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a href="javascript:void(0);" class="nav-link">
+                        Footer Link 2
+                      </a>
+                    </li>
+                  </ul> -->
+                            </div>
+                            <div class="app-footer-right">
+                                <ul class="nav">
+                                    <li class="nav-item">
+                                        <a href="javascript:void(0);" class="nav-link">
+                                            Powered by, IDEAUX
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="header-right ">
-        <div class="user-det hid">
-          {{-- <img
-            src="https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png"
-            alt=""
-          /> --}}
-          <div class="dets">
-            @auth
-              <p id="n">{{Auth::user()->name}}</p>
-              <p>{{Auth::user()->role}}</p>
-            @endauth
-          </div>
-          <div>
-            <a href="logout" class="ml-5">Logout</a>
-          </div>
-          <div style="width: 0px">
+    </div>
+    <script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+    {!! \Toastr::message() !!}
+    <script type="text/javascript" src="/assets/scripts/main.js"></script>
+</body>
 
-          </div>
-          {{-- <div class="dets ml-4">
-            <a href="https://oswinjerome.in" target="__blank"><p id="n">Billocity</p></a>
-            <p>V 1.0</p>
-          </div> --}}
-        </div>
-        {{-- <p class="m-0">POS</p> --}}
-        <a href="/pos" target="__blank" class="m-0">POS</a>
-        <a href="/settings" class="ml-4"><i class="fas fa-sliders-h"></i></a>
-      </div>
-    </header>
-
-    <main>
-      <aside class="left-drawer">
-        <p class="nav-title ">MENU</p>
-        <ul>
-          <li>
-            <a href="/" class="o-head"><i class="fas fa-tachometer-alt">
-            </i> <span>Dashboard</span></a>
-          </li>
-          {{-- <li class="has-sub">
-            <a class="o-head"><i class="fas fa-tachometer-alt">
-                </i> <span>Dashboard</span></a>
-            <ul class="inul">
-              <li><a href="">Analytisc</a></li>
-              <li><a href="">Sales </a></li>
-            </ul>
-          </li> --}}
-          {{-- Brands --}}
-          @if (Auth::user()->role=="admin")
-          <li class="has-sub">
-            <a class="o-head">
-              <i class="fas fa-users"></i><span>Users</span>
-            </a>
-            <ul class="inul">
-              <li><a href="/users/create">Add Users</a></li>
-              <li><a href="/users">View Users</a></li>
-            </ul>
-          </li>
-          @endif
-          
-          {{-- Brands --}}
-          <li class="has-sub">
-            <a class="o-head">
-                <i class="fab fa-buysellads"></i><span>Brands</span>
-            </a>
-            <ul class="inul">
-              <li><a href="/brands/create">Add Brand</a></li>
-              <li><a href="/brands">View Brands</a></li>
-            </ul>
-          </li>
-
-          {{-- Categories --}}
-          <li class="has-sub">
-            <a class="o-head">
-              <i class="fas fa-list"></i><span>Categories</span>
-            </a>
-            <ul class="inul">
-              <li><a href="/categories/create">Add Category</a></li>
-              <li><a href="/categories">View Categories</a></li>
-            </ul>
-          </li>
-
-          {{-- Products --}}
-          <li class="has-sub">
-            <a class="o-head">
-              <i class="fas fa-shopping-cart"></i><span>Products</span>
-            </a>
-            <ul class="inul">
-              <li><a href="/products/create">Add Products</a></li>
-              <li><a href="/products">View Products</a></li>
-              {{-- <li><a href="/prods/stockin">Stock IN</a></li> --}}
-            </ul>
-          </li>
-
-          {{-- Customers --}}
-          <li class="has-sub">
-            <a class="o-head">
-              <i class="fas fa-users"></i><span>Customers</span>
-            </a>
-            <ul class="inul">
-              <li><a href="/customers/create">Add Customer</a></li>
-              <li><a href="/customers">View Customers</a></li>
-            </ul>
-          </li>
-
-          {{-- Suppliers --}}
-          <li class="has-sub">
-            <a class="o-head">
-              <i class="fas fa-users"></i><span>Suppliers</span>
-            </a>
-            <ul class="inul">
-              <li><a href="/suppliers/create">Add Supplier</a></li>
-              <li><a href="/suppliers">View Suppliers</a></li>
-            </ul>
-          </li>
-
-          {{-- Sales --}}
-          <li class="has-sub">
-            <a class="o-head">
-              <i class="fas fa-cart-plus"></i><span>Sales</span>
-            </a>
-            <ul class="inul">
-              <li><a href="/invoices">View Sales</a></li>
-              <li><a href="/pending_customer_payment">View Pending payment</a></li>
-              <li><a href="/prods/returned">View Returned Products</a></li>
-            </ul>
-          </li>
-          {{-- Purchase --}}
-          <li class="has-sub">
-            <a class="o-head">
-              <i class="fas fa-store-alt"></i><span>Purchase</span>
-            </a>
-            <ul class="inul">
-              <li><a href="/purchases/create">Add Pruchase</a></li>
-              <li><a href="/purchases">View Purchase</a></li>
-              {{-- <li><a href="/prods/returned">View Returned Products</a></li> --}}
-            </ul>
-          </li>
-
-          {{-- Expenses --}}
-          <li class="has-sub">
-            <a class="o-head">
-              <i class="fas fa-money-check-alt"></i><span>Expenses</span>
-            </a>
-            <ul class="inul">
-              <li><a href="/expenses/create">Add Expenses</a></li>
-              <li><a href="/expenses">View Expenses</a></li>
-              <li><a href="/expense-categories/create">Add Expense Category</a></li>
-              <li><a href="/expense-categories">View Expense Category</a></li>
-
-            </ul>
-          </li>
-
-          <li class="has-sub">
-            <a class="o-head">
-              <i class="fas fa-barcode"></i><span>Barcode</span>
-            </a>
-            <ul class="inul">
-              {{-- <li><a href="/invoices">Sales Report</a></li> --}}
-              <li><a href="/barcode">Generate</a></li>
-            </ul>
-          </li>
-
-          {{-- Report --}}
-          <li class="has-sub">
-            <a class="o-head">
-              <i class="fas fa-clipboard"></i><span>Report</span>
-            </a>
-            <ul class="inul">
-              {{-- <li><a href="/invoices">Sales Report</a></li> --}}
-              <li><a href="/reports/stock">Stock Report</a></li>
-              <li><a href="/reports/stockin">Stock IN Report</a></li>
-              <li><a href="/reports/stock_out">Stock Out Report</a></li>
-              <li><a href="/reports/sales">Sales Report</a></li>
-              <li><a href="/reports/expense">Expense Report</a></li>
-              <li><a href="/reports/c_credit">Customer Credit</a></li>
-              <li><a href="/reports/s_debit">Supplier Debit</a></li>
-            </ul>
-          </li>
-
-        </ul>
-      </aside>
-      <section id="contents">
-          <div id="dyna">
-            @yield('content')
-          </div>
-          <div class="o-card d-flex justify-content-center align-items-center" style="height: 60px;">
-            <p class="text-center p-0 m-0">
-              Powered by, <span class="text-bold text-primary"><a class="text-bold text-primary" target="_blank" href="http://ideaux.in">IDEAUX Technalogies</a></span>
-            </p>
-          </div>
-      </section>
-    </main>
-  </body>
- 
-  <script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
-  {!! \Toastr::message() !!}
-
-
-  <script>
-
-    var navMinimized = window.localStorage.getItem('minz');
-    if(navMinimized=="true"){
-    console.log(navMinimized)
-      $('.left-drawer').toggleClass('closed-state')
-    }
-    $(document).ready(() => {
-      $(".has-sub").click(function () {
-        
-        // Close all drops
-        $(".has-sub")
-          .not(this)
-          .each(function () {
-            $(this).removeClass("tap");
-            if (!$(this).hasClass("tap")) {
-              $(this).children("ul").slideUp(300);
-            } else {
-              $(this).children("ul").slideDown(300);
-            }
-          });
-
-        //   open current drop
-        $(this).toggleClass("tap");
-        if (!$(this).hasClass("tap")) {
-          $(this).children("ul").slideUp(300);
-        } else {
-          $(this).children("ul").slideDown(300);
-        }
-      });
-    });
-
-
-
-
-    // Left ham
-    $('#left-ham').on('click',function(){
-        $('.left-drawer').toggleClass('closed-state')
-        if($('.left-drawer').hasClass('closed-state')){
-            navMinimized = true;
-            window.localStorage.setItem("minz", true);
-
-        }else{
-            navMinimized = false;
-            window.localStorage.setItem("minz", false);
-
-        }
-    })
-
-    // Open on hover
-    $('.left-drawer').hover(function(){
-        if(navMinimized=='true'){
-            $('.left-drawer').toggleClass('closed-state')
-
-        }
-    })
-  </script>
 </html>

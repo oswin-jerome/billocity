@@ -6,7 +6,7 @@
         <h4 class="mb-5">Purchases</h4>
 
 
-        <table class="display " id="table_id">
+        <table class="display  table-responsive-sm " id="table_id">
             <thead>
                 <tr>
                     {{-- <th scope="col"></th> --}}

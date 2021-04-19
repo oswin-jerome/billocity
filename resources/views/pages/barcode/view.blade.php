@@ -2,12 +2,14 @@
 
 @section('content')
     <div class="row">
-        <div class="o-card p-4 col-sm-12 col-lg-6">
-            <h5 class="card-title">Generate Barcode</h5>
-            <div id="divtoprint">
-                <img src="data:image/png;base64, {{DNS1D::getBarcodePNG($code, 'C39')}}" alt="barcode"   />
+        <div class="col-sm-12 col-lg-6">
+            <div class="o-card p-4 ">
+                <h5 class="card-title">Generate Barcode</h5>
+                <div id="divtoprint">
+                    <img src="data:image/png;base64, {{DNS1D::getBarcodePNG($code, 'C39')}}" alt="barcode"   />
+                </div>
+                <button id="print" class="btn btn-primary mt-4">PRINT</button>
             </div>
-            <button id="print" class="btn btn-primary mt-4">PRINT</button>
         </div>
     </div>
 

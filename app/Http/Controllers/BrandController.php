@@ -122,7 +122,7 @@ class BrandController extends Controller
             return redirect()->back();
         }
         $brand->delete();
-        Toastr::warning("Brand deleted", 'Deleted', ["positionClass" => "toast-top-right"]);
+        Toastr::warning("Brand deleted", 'Deleted', ["positionClass" => "toast-top-right","class" => "toast-error"]);
 
         return redirect()->back();
     }

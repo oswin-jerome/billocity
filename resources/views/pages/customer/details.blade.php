@@ -3,7 +3,8 @@
 @section('content')
 
 <div class="row">
-    <div class=" pr-2 py-3 col-sm-12 col-md-8">
+   <div class="col-sm-12 col-md-8">
+    <div class=" pr-2 py-3 ">
         <div class="o-card p-4">
             <h4>Customer Details</h4>
             <form>
@@ -40,6 +41,7 @@
             </form>
         </div>
     </div>
+   </div>
     <div class=" pl-2 py-3 col-sm-12 col-md-4 h-100" style="grid-row: 0/2 !important"  >
         {{-- <div class="o-card p-4" style="height:100%">
             <div class="d-flex  mb-2">
@@ -59,8 +61,8 @@
 
 
     <div class=" pl-2 py-3 col-12">
-        <div class="o-card p-4">
-            <table id="table_id" class="display">
+        <div class="card p-4">
+            <table id="table_id" class="display table-responsive-sm">
                 <thead>
                     <tr>
                         <th>Invoice #</th>
