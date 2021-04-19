@@ -158,7 +158,7 @@
         var discount = 0;
         $(document).ready(function() {
 
-            $('#product_name').selectpicker();
+            // $('#product_name').selectpicker();
 
             $('#table_id').DataTable({
                 searching: false,
