@@ -29,17 +29,17 @@ class DashboardController extends Controller
 
         $totalFinal = Invoice::sum('final_price');
         $totalPaid = Invoice::sum('paid_amount');
-        // $debit = Purchase::sum('total') - Purchase::sum('paid');
+        $debit = Purchase::sum('total') - Purchase::sum('paid');
         $prd = Purchase::all();
-        $debit = 0;
-        foreach ($prd as $key => $value) {
-            $t = $value->products->sum('total');
-            $pa = $value->sum('paid');
-            $debit+=$t - $pa;
-        }
+        // $debit = 0;
+        // foreach ($prd as $key => $value) {
+        //     $t = $value->products->sum('total');
+        //     $pa = $value->sum('paid');
+        //     $debit+=$t - $pa;
+        // }
 
-        $lowstocks= Product::where('stock','<',10)->get();
-        $pendingSupplier = Purchase::where('total','!=','paid')->get();
+        $lowstocks= Product::where('stock','<',10)->with(["getbrand"])->get();
+        $pendingSupplier = Purchase::where('total','!=','paid')->with(["getsupplier"])->get();
         return view('pages/home/home',['todaysProfit'=>$todaysProfit,'countSold'=>$countSold,
         'stockAddedToday'=>$stockAddedToday,'todaysSales'=>$todaysSales,
         'credit'=>$totalFinal - $totalPaid,'debit'=>$debit,'lowstocks'=>$lowstocks,

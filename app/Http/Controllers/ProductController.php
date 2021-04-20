@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\ProductDataTable;
 use Illuminate\Http\Request;
 use App\Models\Brand;
 use App\Models\Category;
@@ -19,9 +20,11 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(ProductDataTable $dataTable)
     {
-        return view('pages/product/view',['products'=>Product::all()]);
+        // $products = Product::with(["getcategory","getbrand"])->get();
+        // return view('pages/product/view',['products'=>$products]);
+        return $dataTable->render('pages/product/view');
     }
 
     /**

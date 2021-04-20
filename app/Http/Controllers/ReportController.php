@@ -16,7 +16,7 @@ class ReportController extends Controller
 
     public function stock(){
 
-        $products = Product::all();
+        $products = Product::with(["getcategory","getbrand"])->get();
 
         return view('pages/report/stock',['products'=>$products]);
 
@@ -24,8 +24,8 @@ class ReportController extends Controller
 
     public function stock_out(){
 
-        $products = Product::all();
-
+        // $products = Product::all();
+        $products = Product::with(["getcategory","getbrand","sold","sold.prod"])->get();
         return view('pages/report/stockout',['products'=>$products]);
 
     }

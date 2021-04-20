@@ -5,7 +5,7 @@
         
         <div class="col-12">
             <div class="card p-4 ">
-                <table id="table_id" class="display">
+                <table id="table_id" class="display table-responsive-sm">
                     <thead>
                         <tr>
                             <th>ID</th>

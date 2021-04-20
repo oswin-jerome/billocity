@@ -19,7 +19,8 @@ class InvoiceController extends Controller
      */
     public function index()
     {
-        return view('pages/invoices/view',['invoices'=>Invoice::orderBy('created_at', 'DESC')->get()]);
+        $invoices = Invoice::with(["products","custo"])->orderBy('created_at', 'DESC')->get();
+        return view('pages/invoices/view',['invoices'=>$invoices]);
     }
 
     public function pending()

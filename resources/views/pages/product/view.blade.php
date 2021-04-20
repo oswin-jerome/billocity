@@ -4,51 +4,13 @@
     <div class="row">
        <div class="col-12">
         <div class="card p-4">
-            <table id="table_id" class="display table-responsive-sm">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Brand</th>
-                        <th>Category</th>
-                        <th>HSN</th>
-                        <th>Cost Price</th>
-                        <th>Selling Price</th>
-                        <th>GST</th>
-                        <th>Stock</th>
-                        <th>Barcode</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($products as $product)
-                        <tr>
-                            <td>{{$product->id}}</td>
-                            <td>{{$product->name}}</td>
-                            <td>{{$product->getbrand->name}}</td>
-                            <td>{{$product->getcategory->name}}</td>
-                            <td>{{$product->hsn_code}}</td>
-                            <td>{{$product->cost_price}}</td>
-                            <td>{{$product->price}}</td>
-                            <td>{{$product->gst}}</td>
-                            <td>{{$product->stock}}</td>
-                            <td>{{$product->barcode}}</td>
-                            <td class="">
-                                {{-- <form action="" class="m-0 p-0 d-inline"><button disabled type="submit" class="btn btn-primary">View</button></form> --}}
-                                <form action="" class="m-0 p-0 d-inline"><a href="/products/{{$product->id}}/edit" class="btn btn-warning">Edit</a></form>
-                                <form action="" class="m-0 p-0 d-inline"><button type="submit" class="btn btn-danger" disabled>DELETE</button></form>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+            {!! $dataTable->table(['class' => 'table-responsive-sm display','width' => '100%']) !!}
         </div>
        </div>
     </div>
 
-    <script>
-        $(document).ready( function () {
-            $('#table_id').DataTable();
-        });
-    </script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.0.3/css/buttons.dataTables.min.css">
+    <script src="https://cdn.datatables.net/buttons/1.0.3/js/dataTables.buttons.min.js"></script>
+    <script src="/vendor/datatables/buttons.server-side.js"></script>
+    {!! $dataTable->scripts() !!}
 @endsection
