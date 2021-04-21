@@ -73,6 +73,8 @@
 
 
             $('#editMod').on('click',function(){
+            $('#myModal').appendTo("body").modal('show');
+
                 $('#modname').val($(this).data('name'))
                 $('#modid').val($(this).data('id'))
             })

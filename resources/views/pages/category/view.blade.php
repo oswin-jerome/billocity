@@ -40,7 +40,7 @@
 
     <div class="modal" id="myModal">
         <div class="modal-dialog">
-          <div class="modal-content">
+          <div class="modal-content" style="z-index: 9999;">
       
             <!-- Modal Header -->
             <div class="modal-header">
@@ -77,6 +77,7 @@
 
 
     $('#editMod').on('click',function(){
+      $('#myModal').appendTo("body").modal('show');
         $('#modname').val($(this).data('name'))
         $('#modid').val($(this).data('id'))
     })

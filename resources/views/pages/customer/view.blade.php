@@ -106,6 +106,7 @@
         $(document).ready( function () {
         $('#table_id').DataTable();
         $('.editMod').on('click',function(){
+            $('#myModal').appendTo("body").modal('show');
             console.log("sdsd")
             $('#mod_name').val($(this).data('name'))
             $('#mod_email').val($(this).data('email'))

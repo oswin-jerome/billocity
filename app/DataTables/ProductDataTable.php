@@ -21,7 +21,12 @@ class ProductDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->addColumn('action', 'product.action');
+            ->addColumn('action', function ($data){
+                return "
+                <form action='' class='m-0 p-0 d-inline'><a href='/products/".$data->id."/edit' class='btn btn-warning'>Edit</a></form>
+                <form action='' class='m-0 p-0 d-inline'><button type='submit' class='btn btn-danger' disabled>DELETE</button></form>
+                ";
+            });
     }
 
     /**
@@ -32,7 +37,7 @@ class ProductDataTable extends DataTable
      */
     public function query(Product $model)
     {
-        return $model->newQuery();
+        return $model->newQuery()->with(["getbrand","getcategory"]);
     }
 
     /**
@@ -47,16 +52,18 @@ class ProductDataTable extends DataTable
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     ->dom('Bfrtip')
-                    ->orderBy(1)
+                    // ->orderBy(1)
                     ->buttons(
                         Button::make('create'),
                         Button::make('export'),
                         Button::make('print'),
                         Button::make('reset'),
-                        Button::make('reload')
+                        Button::make('reload'),
+                        
                     )->parameters([
                         'responsive' => true,
-                        'autoWidth' => false
+                        'autoWidth' => false,
+                        
                     ]);
     }
 
@@ -72,6 +79,10 @@ class ProductDataTable extends DataTable
             Column::make('name'),
             Column::make('price'),
             Column::make('stock'),
+            "getbrand"=>  new \Yajra\DataTables\Html\Column(['title' => 'Brand', 'data' => 'getbrand.name', 'name' => 'getbrand.name']),
+            "getcategory"=>  new \Yajra\DataTables\Html\Column(['title' => 'Catergory', 'data' => 'getcategory.name', 'name' => 'getcategory.name']),
+            
+            Column::make("action")->printable(false),
         ];
     }
 

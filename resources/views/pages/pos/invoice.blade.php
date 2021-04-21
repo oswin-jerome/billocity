@@ -168,7 +168,7 @@
     
     
     
-    
+          <p style="font-style: italic">Powered by, <span style="font-weight: bold;font-style: normal">IDEAUX Technologies</span></p>
 
         </div>
 

@@ -90,6 +90,8 @@
 
 
             $('#editMod').on('click', function() {
+            $('#myModal').appendTo("body").modal('show');
+
                 $('#modamount').val($(this).data('amount'))
                 $('#modcategory').val($(this).data('category'))
                 $('#modid').val($(this).data('id'))

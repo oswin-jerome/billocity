@@ -93,6 +93,7 @@
 
 $('#editMod').on('click',function(){
         console.log("sdsd")
+        $('#myModal').appendTo("body").modal('show');
         $('#mod_name').val($(this).data('name'))
         $('#mod_email').val($(this).data('email'))
         $('#mod_phone').val($(this).data('phone'))

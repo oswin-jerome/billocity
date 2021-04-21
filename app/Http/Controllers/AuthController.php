@@ -16,6 +16,7 @@ class AuthController extends Controller
     public function login(Request $request){
         $credentials = $request->only('email', 'password');
         if(Auth::attempt($credentials,true)){
+            Toastr::success('Successfully logged in', 'Success', ["positionClass" => "toast-top-right"]);
             return redirect('/');
         }else{
             Toastr::error('Login failed', 'Error', ["positionClass" => "toast-top-right"]);

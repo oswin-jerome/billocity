@@ -22,8 +22,6 @@ class ProductController extends Controller
      */
     public function index(ProductDataTable $dataTable)
     {
-        // $products = Product::with(["getcategory","getbrand"])->get();
-        // return view('pages/product/view',['products'=>$products]);
         return $dataTable->render('pages/product/view');
     }
 

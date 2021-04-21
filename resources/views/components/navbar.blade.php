@@ -6,7 +6,7 @@
             Dashboard
         </a>
     </li>
-    <li class="app-sidebar__heading">UI Components</li>
+    <li class="app-sidebar__heading">Menus</li>
     @if (Auth::user()->role=="admin")
         <li>
             <a href="#">
