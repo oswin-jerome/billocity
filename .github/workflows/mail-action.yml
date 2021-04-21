@@ -11,8 +11,6 @@ jobs:
     subject: Github Actions job result
     # Literal body:
     body: Build job of ${{github.repository}} completed successfully!
-    # Read file contents as body:
-    body: file://README.md
     to: oswinjeromej@gmail.com
     from: IDEAUX  # <user@example.com>
     # Optional unsigned/invalid certificates allowance:
