@@ -18,6 +18,7 @@ use App\Http\Controllers\SettingController;
 use App\Http\Controllers\UserController;
 use App\Models\Product;
 use App\Models\Customer;
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
@@ -78,13 +79,30 @@ Route::get('reports/s_debit','App\Http\Controllers\ReportController@s_debit')->m
 Route::get('reports/stock_out','App\Http\Controllers\ReportController@stock_out')->middleware("auth");
 Route::get('settings',[SettingController::class,"index"]);
 Route::put('settings/{id}',[SettingController::class,"update"])->name("settings.update");
+
 Route::get("barcode",function(){
     return view('pages/barcode/create');
+});
+
+Route::get("barcode-with-product",function(){
+    $products = Product::all();
+    return view('pages/barcode/create_with_product',['products'=>$products]);
 });
 
 Route::post("barcode",function(Request $request){
     return view('pages/barcode/view',["code"=>$request->code]);
 })->name("barcode.generate");
+
+Route::post("barcode_with_product",function(Request $request){
+        
+        $product = Product::find($request->product);
+        if($product->barcode == "" || $product->barcode ==null){
+            Toastr::error("Product has no barcode");
+            return redirect()->back();
+        }
+
+    return view('pages/barcode/view_with_product',["product"=>$product]);
+})->name("barcode.generate_with_product");
 
 Route::get('/logout',function(){
     Auth::logout();

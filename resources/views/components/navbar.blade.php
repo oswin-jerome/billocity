@@ -123,6 +123,7 @@
         </a>
         <ul>
             <li><a href="/barcode">Generate</a></li>
+            <li><a href="/barcode-with-product">Generate from product</a></li>
         </ul>
     </li>
 
