@@ -10,9 +10,15 @@ jobs:
     - name: 🚚 Getting Latest code
       uses: actions/checkout@v2
     - name: 🎀 Setting up environment
-      uses: nick-zh/composer-php@master
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '7.4'
+    - name: Speed up the packages installation process
+      run: composer global require hirak/prestissimo
     - name: 💣 Installing dependencies
-      run: composer install
+      run: composer install --no-dev
+    - name: Listing files
+      run: ls
     - name: 📂 Sync files to server
       uses: SamKirkland/FTP-Deploy-Action@4.0.0
       with:
