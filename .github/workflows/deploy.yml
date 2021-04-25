@@ -1,0 +1,23 @@
+name: Deploy Action
+on: 
+  push: 
+    branches:
+      - main
+jobs: 
+  deploy-to-server:
+    runs-on: ubuntu-latest
+    steps:
+    - name: 🚚 Getting Latest code
+      uses: actions/checkout@v2
+    - name: 🎀 Setting up environment
+      uses: nick-zh/composer-php@master
+    - name: 💣 Installing dependencies
+      run: composer install
+    - name: 📂 Sync files to server
+      uses: SamKirkland/FTP-Deploy-Action@4.0.0
+      with:
+        server: ideaux.in
+        username: ${{ secrets.FTP_USER }}
+        password: ${{ secrets.FTP_PASSWORD }}
+        server-dir: ./public_html/billocity/
+        local-dir: ./
