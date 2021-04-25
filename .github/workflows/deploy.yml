@@ -9,10 +9,14 @@ jobs:
     steps:
     - name: 🚚 Getting Latest code
       uses: actions/checkout@v2
-    - name: 🎀 Setting up environment
-      uses: php-actions/composer@v5
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
       with:
-        command: install
+        php-version: 7.3
+        extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite
+        coverage: none
+    - name: Install Composer dependencies
+      run: composer install --prefer-dist --no-interaction --no-suggest
     - name: Listing files
       run: ls
     - name: 📂 Sync files to server
