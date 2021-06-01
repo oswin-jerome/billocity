@@ -154,7 +154,7 @@
                       </tr> --}}
                       <tr>
                         <th scope="row">Discount </th>
-                        <td>{{$invoice->discount}}</td>
+                        <td>Rs.{{$invoice->discount}}</td>
                       </tr>
                       <tr>
                         <th scope="row">Grand Total </th>

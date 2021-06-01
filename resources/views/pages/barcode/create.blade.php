@@ -11,7 +11,7 @@
                         <label for="exampleInputEmail1" class="form-label">barcode number</label>
                         <input type="text" name="code" class="form-control" id="exampleInputEmail1" >
                     </div>
-                    <button type="submit" class="btn btn-primary">Create</button>
+                    <button type="submit" class="btn btn-primary mt-3">Create</button>
                 </form>
             </div>
         </div>

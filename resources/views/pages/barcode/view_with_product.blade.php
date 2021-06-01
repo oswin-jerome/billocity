@@ -5,10 +5,39 @@
         <div class="col-sm-12 col-lg-6">
             <div class="o-card p-4 ">
                 <h5 class="card-title">Generate Barcode</h5>
-                <div id="divtoprint">
-                    <p>{{$product->name}}</p>
-                    <img src="data:image/png;base64, {{DNS1D::getBarcodePNG($product->barcode, 'C39')}}" alt="barcode"   />
-                    <p>{{$product->price}}</p>
+                <div id="divtoprint" >
+                   <div class="row" style="display:grid; grid-template-columns: 1fr 1fr 1fr;">
+                    <div class="col-4">
+                        {{-- <p>{{$product->name}}</p> --}}
+                        <img src="data:image/png;base64, {{DNS1D::getBarcodePNG($product->barcode, 'C39')}}" alt="barcode"   />
+                        <p>{{$product->price}}</p>
+                       </div>
+                       <div class="col-4">
+                        {{-- <p>{{$product->name}}</p> --}}
+                        <img src="data:image/png;base64, {{DNS1D::getBarcodePNG($product->barcode, 'C39')}}" alt="barcode"   />
+                        <p>{{$product->price}}</p>
+                       </div>
+                       <div class="col-4">
+                        {{-- <p>{{$product->name}}</p> --}}
+                        <img src="data:image/png;base64, {{DNS1D::getBarcodePNG($product->barcode, 'C39')}}" alt="barcode"   />
+                        <p>{{$product->price}}</p>
+                       </div>
+                       <div class="col-4">
+                        {{-- <p>{{$product->name}}</p> --}}
+                        <img src="data:image/png;base64, {{DNS1D::getBarcodePNG($product->barcode, 'C39')}}" alt="barcode"   />
+                        <p>{{$product->price}}</p>
+                       </div>
+                       <div class="col-4">
+                        {{-- <p>{{$product->name}}</p> --}}
+                        <img src="data:image/png;base64, {{DNS1D::getBarcodePNG($product->barcode, 'C39')}}" alt="barcode"   />
+                        <p>{{$product->price}}</p>
+                       </div>
+                       <div class="col-4">
+                        {{-- <p>{{$product->name}}</p> --}}
+                        <img src="data:image/png;base64, {{DNS1D::getBarcodePNG($product->barcode, 'C39')}}" alt="barcode"   />
+                        <p>{{$product->price}}</p>
+                       </div>
+                   </div>
                 </div>
                 <button id="print" class="btn btn-primary mt-4">PRINT</button>
             </div>
