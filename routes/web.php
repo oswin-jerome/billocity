@@ -16,12 +16,14 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\UserController;
+use App\Mail\DailyReport;
 use App\Models\Product;
 use App\Models\Customer;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +35,10 @@ use Illuminate\Support\Facades\Auth;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get("/mail", function(Request $request){
+    Mail::to("oswinjeromej@gmail.com")->send(new DailyReport());
+});
 
 Route::resource('/',DashboardController::class)->middleware("auth");
 
@@ -101,7 +107,7 @@ Route::post("barcode_with_product",function(Request $request){
             return redirect()->back();
         }
 
-    return view('pages/barcode/view_with_product',["product"=>$product]);
+    return view('pages/barcode/view_with_product',["product"=>$product,"count"=> $request->count]);
 })->name("barcode.generate_with_product");
 
 Route::get('/logout',function(){

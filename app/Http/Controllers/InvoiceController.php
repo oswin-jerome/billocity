@@ -9,6 +9,7 @@ use App\Models\SoldProduct;
 use App\Models\ReturnedProduct;
 use App\Models\Customer;
 use App\Models\Setting;
+use Illuminate\Support\Facades\Auth;
 
 class InvoiceController extends Controller
 {
@@ -107,6 +108,8 @@ class InvoiceController extends Controller
             $customer->points = $customer->points + $totalPriceWithDiscounts * 0.1;
             $customer->save();
         }
+
+        $invoice->user_id = Auth::user()->id;
         $invoice->save();
 
 
