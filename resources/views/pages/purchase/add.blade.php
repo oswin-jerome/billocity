@@ -33,17 +33,7 @@
                     
                 </div>
             </div>
-            <div class="form-group col-sm-12 col-md-4">
-                <label for="">Product Name</label>
-                {{-- <input autocomplete="off" type="text" name="barcode" id="product_name" class="form-control"> --}}
-
-                <select name="product_name" id="product_name" class="form-control selectpicker" data-live-search="true">
-                    <option selected disabled value="">No product selected</option>
-                    @foreach ($products as $product)
-                        <option value="{{$product->id}}">{{$product->name}}</option>
-                    @endforeach
-                </select>
-            </div>
+            <livewire:productselect /> 
             <div class="form-group col-sm-12 col-md-2">
                 <label for="">Discount <small>(in %)</small></label>
                 <input autocomplete="off" required type="text" value="0" name="discount" id="discount" class="form-control">

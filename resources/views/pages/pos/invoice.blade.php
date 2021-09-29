@@ -34,8 +34,8 @@
             <p class="m-1">{{$invoice->id}}</p>
         </div>
         <div class="d-flex justify-content-between mt-4">
-            <div class="col-sm-12 col-md-7 ">
-                <p>From</p>
+            <div class="col-sm-7 col-md-7 ">
+                <p class="d-none d-md-block">From</p>
                 <h4 class="text-primary ml-1">{{$setting->name}}</h4>
                 <pre class="m-1">{{$setting->address}}</pre>
                 {{-- <p class="m-1">NEAR STATE BANK OF INDIA</p>
@@ -44,7 +44,7 @@
                 <p class="m-1">CELL: {{$setting->phone}}</p>
                 <p class="m-1">GST# {{$setting->gst}}</p>
             </div>
-            <div class="col-sm-12 col-md-5 text-left">
+            <div class="col-sm-7 col-md-5 text-left">
                 @if ($invoice->custo)
                     
                 <p>To</p>
@@ -59,7 +59,7 @@
         </div>
 
         {{-- second --}}
-        <div class="d-flex mt-5 row mx-3">
+        <div class="d-flex mt-1 mt-md-5 row mx-3">
             <div class="col-sm-6 col-md-3 col-lg-3 mb-3">
                 <h5 class="d-inline text-primary">Date : </h5>
                 <p class="d-inline">{{date('d-M-Y', strtotime($invoice->created_at))}}</p>
@@ -88,12 +88,12 @@
 
         {{-- {{$invoice}} --}}
         {{-- Product list --}}
-        <table class="table mt-5 table-striped " >
+        <table class="table mt-1 mt-md-5 table-striped table-responsive-sm table-condensed" >
             <thead>
               <tr>
                 <th scope="col" >#</th>
                 <th scope="col">Product</th>
-                <th scope="col">HSN</th>
+                <th scope="col" class="d-none d-md-block">HSN</th>
                 <th scope="col">Price</th>
                 <th scope="col">GST</th>
                 <th scope="col">Discount</th>
@@ -109,7 +109,7 @@
                     <tr >
                         <th scope="row">{{$key+1}}</th>
                         <td>{{$product->prod->name}}</td>
-                        <td>{{$product->prod->hsn_code}}</td>
+                        <td class="d-none d-md-block">{{$product->prod->hsn_code}}</td>
                         <td>{{$product->product_price}}</td>
                         <td>{{$product->gst}}%</td>
                         <td></td>
@@ -124,10 +124,10 @@
     
     
     
-          <div class="row d-flexjustify-content-between">
-              <div class="col-7"></div>
-              <div class="col-5 text-right pr-5">
-                <table class="table mr-4">
+          <div class="row d-flex justify-content-md-end justify-content-sm-start">
+              {{-- <div class="col-7"></div> --}}
+              <div class="col-7 text-left pr-5">
+                <table class="table mr-4 table-rewsponsive-sm">
                     <tbody>
                       <tr>
                         <th scope="row">Total </th>
@@ -168,7 +168,7 @@
     
     
     
-          <p style="font-style: italic">Powered by, <span style="font-weight: bold;font-style: normal">IDEAUX Technologies</span></p>
+          <p style="font-style: italic" class="ml-3">Powered by, <span style="font-weight: bold;font-style: normal">IDEAUX Technologies</span></p>
 
         </div>
 
@@ -247,16 +247,14 @@
         document.addEventListener('keyup', doc_keyUp, false);
 
 
-
-        // PrintElem(document.getElementById("invoice"))
         function PrintElem(elem)
         {
             var mywindow = window.open('', 'PRINT');
 
             mywindow.document.write('<html><head>');
-            mywindow.document.write("<link href=\"https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css\" rel=\"stylesheet\"><link href=\"../css/core.css\" rel=\"stylesheet\"><link href=\"../css/components.css\" rel=\"stylesheet\"><link href=\"../css/icons.css\" rel=\"stylesheet\">")
-            mywindow.document.write(`<style>td,th{border-color: rgba(0, 0, 0,0.7) !important;}</style>`)
-            mywindow.document.write('</head><body >');
+            mywindow.document.write('<link href=\"https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css\" rel=\"stylesheet\"><link href=\"../css/core.css\" rel=\"stylesheet\"><link href=\"../css/components.css\" rel=\"stylesheet\"><link href=\"../css/icons.css\" rel=\"stylesheet\">')
+            mywindow.document.write(`<style>td,th{border-color: rgba(0, 0, 0,0.7) !important;font-size:0.8em}</style>`)
+            mywindow.document.write('</head><body>');
             mywindow.document.write(document.getElementById('invoice').innerHTML);
             mywindow.document.write('</body></html>');
 

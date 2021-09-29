@@ -100,6 +100,17 @@
             <li><a href="/purchases">View Purchase</a></li>
         </ul>
     </li>
+    <li>
+        <a href="#">
+            <i class="metismenu-icon pe-7s-plugin"></i>
+            EMI Manager
+            <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+        </a>
+        <ul>
+            <li><a href="/emi/create">Add emi</a></li>
+            <li><a href="/emi">View emi</a></li>
+        </ul>
+    </li>
 
     <li>
         <a href="#">

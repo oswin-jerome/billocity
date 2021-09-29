@@ -11,7 +11,8 @@
                     <p>{{$product->price}}</p>
                 </div>
                 {{-- <button id="print" class="btn btn-primary mt-4">PRINT</button> --}}
-                <a href="billocity://\{{$count}}\{{$product->name.' '.$product->price}}\{{$product->barcode}}" class="btn btn-primary">Print</a>
+                <a href="billocity-barcode://copies={{$count}}&code={{$product->barcode}}&label={{$product->name.' '.$product->price}}" class="btn btn-primary">Print</a>
+                {{-- <a href="billocity://\{{$count}}\{{$product->name.' '.$product->price}}\{{$product->barcode}}" class="btn btn-primary">Print</a> --}}
             </div>
         </div>
     </div>
