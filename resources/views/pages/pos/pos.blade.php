@@ -18,7 +18,6 @@
                     <div class="form-group col-sm-12 col-md-4">
                         <label for="">Product Name</label>
                         {{-- <input autocomplete="off" type="text" name="barcode" id="product_name" class="form-control"> --}}
-        
                         <select name="product_name" id="product_name" class="form-control selectpicker" data-live-search="true">
                             <option selected disabled value="">No product selected</option>
                             @foreach ($products as $product)

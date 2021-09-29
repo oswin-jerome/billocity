@@ -65,7 +65,7 @@
                             <label for="price">Selling Price</label>
                             <small>(Per unit)</small>
                             <input required type="text" class="form-control" id="price">
-                            <small>Type % to calculate</small>
+                            <small>Type % to calculate <button id="calc_percent" class="btn btn-primary btn-sm">Calculate %</button></small>
                         </div>
                         <div class="form-group col-sm-12 col-md-6 col-lg-3">
                             <label for="price">Selling Price</label>
@@ -129,6 +129,12 @@
                 buildUi()
             })
 
+            $("#calc_percent").on('click',function(e){
+                e.preventDefault()
+                calculatePercentage();
+                // buildUi();
+            })
+
             $('#price').on('keyup',function(e){
                 if(e.key==='%'){
                     console.log("🔥",e.key)
@@ -143,6 +149,17 @@
                 }
             })
         })
+
+        function calculatePercentage(e){
+            let th = $("#price").val();
+            th = parseFloat( th.replace('%',''))
+            let cost = parseFloat($('#CostPrice_ro').val());
+            let n = (th/100) * cost;
+
+            $("#price").val((cost + n).toFixed(2))
+            percentEntered = true;
+            $('#er1').html('<p class="alert alert-danger p-2 m-1">GST will not affect this field</p>')
+        }
 
         
 
