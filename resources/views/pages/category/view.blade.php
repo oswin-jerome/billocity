@@ -23,7 +23,7 @@
                                 <a href="categories/{{$category->id}}" class="btn btn-primary">View</a>
                                 {{-- <form action="" class="m-0 p-0 d-inline"><button type="submit" class="btn btn-primary">View</button></form> --}}
                                 {{-- <form action="" class="m-0 p-0 d-inline"><button type="submit" class="btn btn-warning">Edit</button></form> --}}
-                                 <button data-toggle="modal" data-id={{$category->id}} data-name="{{$category->name}}" id="editMod" data-target="#myModal" class="btn btn-warning">EDIT</button>
+                                 <button data-toggle="modal" data-id="{{$category->id}}" data-name="{{$category->name}}" id="editMod" data-target="#myModal" class="btn btn-warning editMod">EDIT</button>
                                  <form action="{{route('categories.destroy',$category->id)}}" method="POST" class="m-0 p-0 d-inline">
                                   {{ csrf_field() }}
                                   {{ method_field('DELETE') }}
@@ -76,7 +76,7 @@
     $('#table_id').DataTable();
 
 
-    $('#editMod').on('click',function(){
+    $('.editMod').on('click',function(){
       $('#myModal').appendTo("body").modal('show');
         $('#modname').val($(this).data('name'))
         $('#modid').val($(this).data('id'))
