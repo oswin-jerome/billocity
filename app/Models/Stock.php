@@ -11,7 +11,7 @@ use App\Models\Product;
 class Stock extends Model
 {
     use HasFactory;
-
+    protected $guarded = [];
     public function getinvoice()
     {
         return $this->hasOne(Purchase::class,'id','purchase');

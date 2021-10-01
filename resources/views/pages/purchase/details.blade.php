@@ -46,7 +46,7 @@
                             </small>
                         </td>
                         <td>{{ $item->total }}</td>
-                        <td>{{ $item->stock }}</td>
+                        <td>@livewire('purchase-qty',['stock'=>$item])</td>
                         <td>
                             <button data-id={{$item->id}} data-price={{$item->total}} data-stock={{$item->stock}} class="btn btn-danger del-btn">RETURN</button>
                         </td>

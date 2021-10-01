@@ -1,6 +1,6 @@
 
 <div class="form-group col-sm-12 col-md-4" >
-    <label for="">Product Name {{count($products)}} </label>
+    <label for="">Product Name </label>
     <select  name="product_name" id="product_name" class="form-control selectpickers" data-live-search="true">
         <option selected disabled value="">No product selected</option>
         @foreach ($products as $product)

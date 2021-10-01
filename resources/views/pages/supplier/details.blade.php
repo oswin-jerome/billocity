@@ -187,6 +187,8 @@
     });
 
     $('.payMod').on('click',function(){
+        $('#exampleModal').appendTo("body").modal('show');
+
         $('#modamount').val($(this).data('amount'))
         $('#modid').val($(this).data('id'))
     });
