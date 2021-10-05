@@ -10,9 +10,11 @@ class PurchaseQty extends Component
 
     public $stock;
     public $stockValue;
+    public $initialStock;
     public function mount(Stock $stock){
         $this->stock = $stock;
         $this->stockValue = $stock->stock;
+        $this->initialStock = $stock->stock;
     }
 
     public function render()
@@ -25,11 +27,15 @@ class PurchaseQty extends Component
         $productPrice = $this->stock->getProduct->cost_price;
 
         // Update stock price and total
+        $this->stock->getproduct()->update([
+            "stock"=>$this->stock->getproduct->stock + ($this->stockValue - $this->initialStock),
+        ]);
         $this->stock->update([
             "stock"=>$this->stockValue,
             "price"=>$productPrice * $this->stockValue,
             "total"=>($productPrice * $this->stockValue) - ($this->stock->discount * ($productPrice* $this->stockValue)/100)
         ]);
+
 
         $total = 0;
         // Update purchase total
