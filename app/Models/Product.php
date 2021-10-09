@@ -25,4 +25,9 @@ class Product extends Model
     {
         return $this->hasMany(SoldProduct::class,'product','id');
     }
+
+    public function stocks()
+    {
+        return $this->hasMany(Stock::class,'product','id');
+    }
 }
