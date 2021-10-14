@@ -34704,10 +34704,7 @@
       }
       ,
       d.SVGCanvasElement.prototype.applyTransformParams = function(e, t, n) {
-          this.scale = e,
-          this.transX = t,
-          this.transY = n,
-          this.rootElement.node.setAttribute("transform", "scale(" + e + ") translate(" + t + ", " + n + ")")
+        
       }
       ,
       d.SVGShapeElement = function(e, t) {

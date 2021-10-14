@@ -10,4 +10,8 @@ class EmiEntry extends Model
     use HasFactory;
     protected $guarded = [];
 
+    public function emi(){
+        return $this->belongsTo(Emi::class);
+    }
+
 }
