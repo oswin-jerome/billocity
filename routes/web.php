@@ -70,6 +70,7 @@ Route::post('invoice/cancel','App\Http\Controllers\InvoiceController@cancelProdu
 Route::get('pending_customer_payment','App\Http\Controllers\InvoiceController@pending')->middleware("auth");
 Route::post('invoice/get_pay','App\Http\Controllers\InvoiceController@get_pay')->middleware("auth");
 Route::post('purchases/get_pay','App\Http\Controllers\PurchaseController@get_pay')->middleware("auth");
+Route::post('purchases/get_pay_bulk','App\Http\Controllers\PurchaseController@get_pay_bulk')->middleware("auth");
 Route::get("/login","App\Http\Controllers\AuthController@view_login")->name("login");
 Route::post("/login","App\Http\Controllers\AuthController@login");
 Route::get('/test',function(){
