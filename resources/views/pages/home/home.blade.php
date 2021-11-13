@@ -96,6 +96,36 @@
                 </div>
             </a>
         </div>
+        <div class="col-md-6 col-xl-4">
+            <a href="reports/s_debit" id="">
+                <div class="card mb-3 widget-content bg-premium-dark">
+                    <div class=" w-100 widget-content-wrapper text-white d-flex justify-content-between">
+                        <div class="widget-content-left">
+                            <div class="widget-heading">Stock sale value </div>
+                            {{-- <div class="widget-subheading">Last year expenses</div> --}}
+                        </div>
+                        <div class="widget-content-right">
+                            <div class="widget-numbers text-white"><span>₹ {{$stockSellingValue}}</span></div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-6 col-xl-4">
+            <a href="reports/s_debit" id="">
+                <div class="card mb-3 widget-content bg-premium-dark">
+                    <div class=" w-100 widget-content-wrapper text-white d-flex justify-content-between">
+                        <div class="widget-content-left">
+                            <div class="widget-heading">Stock cost value </div>
+                            {{-- <div class="widget-subheading">Last year expenses</div> --}}
+                        </div>
+                        <div class="widget-content-right">
+                            <div class="widget-numbers text-white"><span>₹ {{$stockCostValue}}</span></div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
         <div class="col-12 row p-0 m-0">
             <div class=" col-sm-6 col-md-6 col-lg-6 mt-4 ">
                 <div class="card pulse" >

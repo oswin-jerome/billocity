@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Emi;
+use App\Models\EmiEntry;
 use App\Models\Expense;
 use Illuminate\Http\Request;
 use App\Models\Product;
@@ -9,6 +11,7 @@ use App\Models\Invoice;
 use App\Models\Purchase;
 use App\Models\Stock;
 use App\Models\Supplier;
+use Carbon\Carbon;
 
 class ReportController extends Controller
 {
@@ -121,6 +124,42 @@ class ReportController extends Controller
 
         return view('pages/report/supplierdebit',['debits'=>$debits->get()]);
 
+    }
+
+    public function emi(){
+        $emis =  Emi::all();
+        return view('pages/report/emi',['emis'=>$emis]);
+    }
+
+    public function emi_pay(Request $request){
+        $entries = new EmiEntry();
+        $entries = $entries->with('emi');
+        $from= "";
+        $to= "";
+        $status = "";
+        if(isset($request->from) && isset($request->to)){
+            $from = $request->from;
+            $to = $request->to;
+            $entries = $entries->whereBetween('date',[Carbon::parse($request->from)->startOfMonth(),Carbon::parse($request->from)->endOfMonth()]);
+        }else{
+            $from = Carbon::today()->startOfMonth()->format('Y-m-d');
+            $to =Carbon::today()->endOfMonth()->format('Y-m-d');;
+            $entries = $entries->whereBetween('date',[Carbon::today()->startOfMonth(),Carbon::today()->endOfMonth()]);
+
+        }
+
+        if(isset($request->status)){
+            $status = $request->status;
+            if($request->status=="not_paid"){
+                $entries = $entries->where("paid_date",null);
+            }
+        }else{
+            $status = "not_paid";
+            $entries = $entries->where("paid_date",null);
+        }
+        $entries = $entries->get();
+        // dd($entries->get());
+        return view('pages/report/emipay',['entries'=>$entries,"from"=>$from, "to"=>$to,"status"=>$status]);
     }
     
 

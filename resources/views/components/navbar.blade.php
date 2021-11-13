@@ -1,4 +1,4 @@
-<ul class="vertical-nav-menu">
+<ul class="vertical-nav-menu" style="overflow-y: auto; height:100vh; padding-bottom:60px;">
     <li class="app-sidebar__heading">Dashboards</li>
     <li>
         <a href="/" class="mm-active">
@@ -145,6 +145,8 @@
             <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
         </a>
         <ul>
+            <li><a href="/reports/emi">Emi Report</a></li>
+            <li><a href="/reports/emi_pay">Emi Payment Report</a></li>
             <li><a href="/reports/stock">Stock Report</a></li>
             <li><a href="/reports/stockin">Stock IN Report</a></li>
             <li><a href="/reports/stock_out">Stock Out Report</a></li>

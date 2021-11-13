@@ -24,7 +24,10 @@ class ProductDataTable extends DataTable
             ->addColumn('action', function ($data){
                 return "
                 <form action='' class='m-0 p-0 d-inline'><a href='/products/".$data->id."/edit' class='btn btn-warning'>Edit</a></form>
-                <form action='' class='m-0 p-0 d-inline'><button type='submit' class='btn btn-danger' disabled>DELETE</button></form>
+                <form action='/products/".$data->id."' method='post' class='m-0 p-0 d-inline'>
+                <input type='hidden' name='_token' value=' ".csrf_token()." '>
+                <input type='hidden' name='_method' value='DELETE'>
+                <button type='submit' class='btn btn-danger' ".((count($data->sold)>0 || count($data->stocks)>0)?"disabled":"").">DELETE</button></form>
                 ";
             });
     }

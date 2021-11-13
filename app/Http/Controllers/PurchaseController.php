@@ -166,11 +166,45 @@ class PurchaseController extends Controller
     public function get_pay(Request $request){
         $invoice = Purchase::find($request->pid);
         $invoice->paid = $invoice->paid + $request->amount;
-        // if($invoice->final_price==($invoice->paid_amount)){
-        //     $invoice->status = 'COMPLETED';
 
-        // }
         $invoice->save();
+        return redirect()->back();
+    }
+
+    public function get_pay_bulk(Request $request){
+        $purchases = Purchase::where('supplier','=',$request->supplier_id)->whereColumn("total",">","paid")->get();
+        $totalAmount = $request->amount;
+        if($totalAmount==""){
+            return redirect()->back();
+        }
+        // while($totalAmount>0){
+        // dd($purchases);
+        // }
+        // Loops over unpaid bills
+        foreach($purchases as $key => $purchase){
+            if($totalAmount>0){
+                $total = $purchase->total;
+                $paid = $purchase->paid;
+                $amountToPay = $total - $paid;
+                if($amountToPay<$totalAmount){
+                    // minus bal from purchase
+                    $purchase->paid = $purchase->paid + $amountToPay;
+                    $totalAmount -= $amountToPay;
+                    $purchase->save();
+                }else{
+                    // minus bal from entered amount
+                    $purchase->paid = $purchase->paid + $totalAmount;
+                    $totalAmount -= $totalAmount;
+                    $purchase->save();
+                }
+                
+                // $purchase->paid = $
+            }
+        }
+        // $invoice = Purchase::find($request->pid);
+        // $invoice->paid = $invoice->paid + $request->amount;
+        
+        // $invoice->save();
         return redirect()->back();
     }
 

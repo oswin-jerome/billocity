@@ -33,7 +33,7 @@
             </form>
         </div>
     </div>
-    <div class=" pl-2 py-3 col-sm-12 col-md-4 h-100" style="grid-row: 0/2 !important"  >
+    <div class=" pl-2 py-3 col-sm-12 col-md-4 h-100" style="grid-row: 0/2 !important;gap:15px;"  >
         <div class="card p-4" style="height:100%">
             <div class="d-flex  mb-2">
                 <h4>Balance : </h4>
@@ -48,7 +48,20 @@
                 <h4>{{$purchases->sum('total')}}</h4>
             </div>
         </div>
+        <div class="card p-4" style="height:100%">
+            <h4>Pay Supplier</h4>
+            <form action="/purchases/get_pay_bulk" method="post">
+                @csrf
+                <input type="text" hidden name="supplier_id" value="{{$supplier->id}}" placeholder="">
+                <div class="form-group">
+                    <label for="">Amount</label>
+                    <input type="number" class="form-control" value="0" placeholder="" name="amount">
+                </div>
+                <button class="btn btn-primary">Pay</button>
+            </form>
+        </div>
     </div>
+    
 
 
     <div class=" pl-2 py-3 col-12">

@@ -70,6 +70,7 @@ Route::post('invoice/cancel','App\Http\Controllers\InvoiceController@cancelProdu
 Route::get('pending_customer_payment','App\Http\Controllers\InvoiceController@pending')->middleware("auth");
 Route::post('invoice/get_pay','App\Http\Controllers\InvoiceController@get_pay')->middleware("auth");
 Route::post('purchases/get_pay','App\Http\Controllers\PurchaseController@get_pay')->middleware("auth");
+Route::post('purchases/get_pay_bulk','App\Http\Controllers\PurchaseController@get_pay_bulk')->middleware("auth");
 Route::get("/login","App\Http\Controllers\AuthController@view_login")->name("login");
 Route::post("/login","App\Http\Controllers\AuthController@login");
 Route::get('/test',function(){
@@ -88,6 +89,8 @@ Route::get('reports/expense','App\Http\Controllers\ReportController@expense')->m
 Route::get('reports/c_credit','App\Http\Controllers\ReportController@c_credit')->middleware("auth");
 Route::get('reports/s_debit','App\Http\Controllers\ReportController@s_debit')->middleware("auth");
 Route::get('reports/stock_out','App\Http\Controllers\ReportController@stock_out')->middleware("auth");
+Route::get('reports/emi','App\Http\Controllers\ReportController@emi')->middleware("auth");
+Route::get('reports/emi_pay','App\Http\Controllers\ReportController@emi_pay')->middleware("auth");
 Route::get('settings',[SettingController::class,"index"]);
 Route::put('settings/{id}',[SettingController::class,"update"])->name("settings.update");
 
