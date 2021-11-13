@@ -38,12 +38,23 @@ class DashboardController extends Controller
         //     $debit+=$t - $pa;
         // }
 
+        $stockCostValue = 0;
+        $stockSellingValue = 0;
+        $products = Product::select("price","stock","cost_price")->get();
+        // dd(count($products));
+        foreach ($products as $key => $value) {
+            $stockSellingValue+=$value->price * $value->stock;
+            $stockCostValue+=$value->cost_price * $value->stock;
+        }
+
         $lowstocks= Product::where('stock','<',10)->with(["getbrand"])->get();
         $pendingSupplier = Purchase::where('total','!=','paid')->with(["getsupplier"])->get();
         return view('pages/home/home',['todaysProfit'=>$todaysProfit,'countSold'=>$countSold,
         'stockAddedToday'=>$stockAddedToday,'todaysSales'=>$todaysSales,
         'credit'=>$totalFinal - $totalPaid,'debit'=>$debit,'lowstocks'=>$lowstocks,
-        'pendingsupplier'=>$pendingSupplier
+        'pendingsupplier'=>$pendingSupplier,
+        "stockSellingValue"=>$stockSellingValue,
+        "stockCostValue"=>$stockCostValue
             
         ]);
     }
