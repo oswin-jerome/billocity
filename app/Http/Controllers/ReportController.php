@@ -11,6 +11,7 @@ use App\Models\Invoice;
 use App\Models\Purchase;
 use App\Models\Stock;
 use App\Models\Supplier;
+use Barryvdh\DomPDF\Facade as PDF;
 use Carbon\Carbon;
 
 class ReportController extends Controller
@@ -160,6 +161,24 @@ class ReportController extends Controller
         $entries = $entries->get();
         // dd($entries->get());
         return view('pages/report/emipay',['entries'=>$entries,"from"=>$from, "to"=>$to,"status"=>$status]);
+    }
+
+
+    public function stock_report_pdf(){
+        $stockCostValue = 0;
+        $stockSellingValue = 0;
+        // $products = Product::select("price","stock","cost_price")->get();
+        $products = Product::with(["getcategory","getbrand"])->get();
+        // dd(count($products));
+        foreach ($products as $key => $value) {
+            $stockSellingValue+=$value->price * $value->stock;
+            $stockCostValue+=$value->cost_price * $value->stock;
+        }
+        
+        $pdf = PDF::loadView('pdf/stock',['products'=>$products,
+        "stockSellingValue"=>$stockSellingValue,
+        "stockCostValue"=>$stockCostValue]);
+        return $pdf->stream('stock.pdf');
     }
     
 

@@ -3,8 +3,8 @@
 @section('content')
     <div class="o-card p-4">
         <h4 class="mb-5">Stock report</h4>
-
-        <table id="table_id" class="display">
+        <iframe style="width: 100%; height: 100vh;" src="/reports/stock/pdf" frameborder="0"></iframe>
+        {{-- <table id="table_id" class="display">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -31,7 +31,7 @@
                     </tr>
                 @endforeach
             </tbody>
-        </table>
+        </table> --}}
     </div>
     <script>
         var date = new Date();
