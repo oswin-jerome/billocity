@@ -1,0 +1,44 @@
+name: Build and Release
+on:
+  push:
+    branches:
+      - master
+
+  workflow_dispatch:
+
+jobs:
+    build:
+        name: Build and Deploy
+        runs-on: ubuntu-latest
+        steps:
+            -   name: Checkout Repository
+                uses: actions/checkout@master
+            -   name: Setup Environment
+                uses: shivammathur/setup-php@v2
+                with:
+                    php-version: '8.0'
+            -   uses: actions/setup-node@master
+            -   name: Installing node dependencies
+                run: npm install
+            -   name: Install Packages
+                run: composer install --optimize-autoloader --no-dev
+            -   name: Caching config
+                run: php artisan config:cache
+            -   name: Caching route
+                run: php artisan route:cache
+            -   name: Caching view
+                run: php artisan view:cache
+            -   name: Compress project
+                run: zip -r release.zip .
+            -   name: Making release directory
+                run: mkdir release
+            -   name: Moving zip to seperate folder
+                run: mv ./release.zip ./release
+            -   name: 📂 Sync files to server
+                uses: SamKirkland/FTP-Deploy-Action@4.0.0
+                with:
+                  server: ideaux.in
+                  username: ${{ secrets.FTP_USER }}
+                  password: ${{ secrets.FTP_PASSWORD }}
+                  server-dir: ./
+                  local-dir: ./release/
