@@ -82,6 +82,7 @@ Route::get('/test',function(){
 
 
 // Report
+Route::get('reports/stock/pdf','App\Http\Controllers\ReportController@stock_report_pdf')->middleware("auth");
 Route::get('reports/stock','App\Http\Controllers\ReportController@stock')->middleware("auth");
 Route::get('reports/sales','App\Http\Controllers\ReportController@sales')->middleware("auth");
 Route::get('reports/stockin','App\Http\Controllers\ReportController@stockin')->middleware("auth");
