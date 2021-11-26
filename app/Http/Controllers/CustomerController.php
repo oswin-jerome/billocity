@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Customer;
+use App\Models\Emi;
 use App\Models\Invoice;
 use Brian2694\Toastr\Facades\Toastr;
 
@@ -82,8 +83,8 @@ class CustomerController extends Controller
     {
         $customer = Customer::find($id);
         $invoices = Invoice::where('customer','=',$id)->get();
-
-        return view('pages/customer/details',['customer'=>$customer,'invoices'=>$invoices]);
+        $emis = Emi::where('customer_id','=',$id)->get();
+        return view('pages/customer/details',['customer'=>$customer,'invoices'=>$invoices,"emis"=>$emis]);
     }
 
     /**

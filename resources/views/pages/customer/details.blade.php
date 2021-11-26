@@ -62,6 +62,42 @@
 
     <div class=" pl-2 py-3 col-12">
         <div class="card p-4">
+            <h3>Emi details</h3>
+            <table id="table_id" class="display table-responsive-sm">
+                <thead>
+                    <tr>
+                        <th>Invoice #</th>
+                        <th>Date</th>
+                        <th>Amount</th>
+                        <th>Downpayment</th>
+                        <th>Intrest rate</th>
+                        <th>Interval</th>
+                        <th>Period</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($emis as $emi)
+                        <tr>
+                            <th>{{$emi->invoice_id}}</th>
+                            <th>{{$emi->created_at->format('d/m/Y')}}</th>
+                            <td>{{$emi->amount}}</td>
+                            <td>{{$emi->down_payment}}</td>
+                        <td>{{$emi->interest_rate}}</td>
+                        <td>{{$emi->interval}}</td>
+                        <td>{{$emi->period}}</td>
+                        <td>
+                            <a href="{{'/emi/'.$emi->id}}" class="btn btn-primary">View</a>
+                        </td>
+                       
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class=" pl-2 py-3 col-12">
+        <div class="card p-4">
             <table id="table_id" class="display table-responsive-sm">
                 <thead>
                     <tr>

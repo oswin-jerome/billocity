@@ -22,7 +22,7 @@
             </div>
             <div class="form-group col-sm-12 col-md-3">
                 <label for="">Invoice Amount</label>
-                <input readonly wire:model="amount" type="text" class="form-control" name="amount">
+                <input  wire:model="amount" type="text" class="form-control" name="amount">
             </div>
             <div class="form-group col-sm-12 col-md-3">
                 <label for="">DownPayment Amount</label>

@@ -51,6 +51,14 @@
     <table>
         <table id="table_id" style="margin-top: 50px" class="display">
             <thead>
+            <tr>
+                <td><img width="30px" src="https://logos-world.net/wp-content/uploads/2020/12/Lays-Logo.png"/></td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+            </tr>
                 <tr style="background-color: rgb(157, 191, 255);">
                     <th>#</th>
                     <th>Name</th>
