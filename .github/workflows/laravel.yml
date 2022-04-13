@@ -22,12 +22,12 @@ jobs:
                 run: npm install
             -   name: Install Packages
                 run: composer install --optimize-autoloader --no-dev
-            -   name: Caching config
-                run: php artisan config:cache
-            -   name: Caching route
-                run: php artisan route:cache
-            -   name: Caching view
-                run: php artisan view:cache
+#             -   name: Caching config
+#                 run: php artisan config:cache
+#             -   name: Caching route
+#                 run: php artisan route:cache
+#             -   name: Caching view
+#                 run: php artisan view:cache
             -   name: set permission
                 run: chmod -R 755 ./
             -   name: Compress project
