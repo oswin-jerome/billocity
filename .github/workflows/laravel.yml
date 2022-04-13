@@ -28,6 +28,8 @@ jobs:
                 run: php artisan route:cache
             -   name: Caching view
                 run: php artisan view:cache
+            -   name: set permission
+                run: chmod -R 755 ./
             -   name: Compress project
                 run: zip -r release.zip .
             -   name: Making release directory
