@@ -14,7 +14,7 @@ class MakeInvoiceIdNullableInEmisTable extends Migration
     public function up()
     {
         Schema::table('emis', function (Blueprint $table) {
-            $table->string('invoice_id')->nullable()->change();
+            // $table->string('invoice_id')->nullable()->change();
         });
     }
 

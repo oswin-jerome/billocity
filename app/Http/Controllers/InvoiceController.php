@@ -48,6 +48,8 @@ class InvoiceController extends Controller
     public function store(Request $request)
     {
 
+        dd($request->all());
+
         // TODO: add discount types and amount
 
         $totalPriceWithOutDiscounts = 0;
@@ -125,6 +127,7 @@ class InvoiceController extends Controller
             $sold->sold_price = $product->price - 0; // TODO: any discounts on product
             $sold->gst = $product->gst; //
             $sold->quantity = $request->quantities[$key];
+            $sold->user_id = $request->user_id;
             $sold->profit = ($product->price *$request->quantities[$key])- ($product->cost_price *$request->quantities[$key]);
             $sold->status = "DONE";
 

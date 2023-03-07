@@ -15,7 +15,7 @@ class CreateEmisTable extends Migration
     {
         Schema::create('emis', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger("invoice_id");
+            $table->unsignedBigInteger("invoice_id")->nullable();
             $table->unsignedBigInteger("customer_id");
             $table->double("amount");
             $table->double("down_payment");

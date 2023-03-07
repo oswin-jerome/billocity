@@ -25,10 +25,21 @@
                             @endforeach
                         </select>
                     </div>
+                    <div class="form-group col-sm-12 col-md-4">
+                        <label for="">Employee name</label>
+                        {{-- <input autocomplete="off" type="text" name="barcode" id="product_name" class="form-control"> --}}
+                        <select name="user" id="user" class="form-control selectpicker" data-live-search="true">
+                            <option selected disabled value="">Default</option>
+                            @foreach ($users as $user)
+                                <option value="{{$user->id}}"> {{$user->id}} - {{$user->name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
                     <div class="form-group col-sm-12 col-md-2">
                         <label for="">Quantity</label>
                         <input autocomplete="off" required type="text" name="barcode" id="quantity" class="form-control">
                     </div>
+                    
                     <div class="form-group col-sm-6 col-md-2 mt-2">
                         <label for=""></label>
                         <input type="submit" name="barcode" id="submit" class="form-control">
@@ -49,6 +60,7 @@
                         <tr>
                             <th>#</th>
                             <th>Product Name</th>
+                            <th>Employee ID</th>
                             <th>Quantity</th>
                             <th>Price</th>
                             <th>Total</th>
@@ -58,6 +70,7 @@
                     <tbody id="list-body">
                         <tr>
                             <td>Row 1 Data 1</td>
+                            <td>Row 1 Data 2</td>
                             <td>Row 1 Data 2</td>
                             <td>Row 1 Data 2</td>
                             <td>Row 1 Data 2</td>
@@ -211,7 +224,9 @@
                             $('#product_name').val(prod.id)
                             $('#barcode').val(prod.barcode)
                             $('#product_name').prop("readonly", true);
-                            $("#quantity").focus()
+                            // $("#quantity").focus()
+                            $('#user').data('selectpicker').$button.focus();
+                            $('#user').data('selectpicker').$button.click();
                             currentProd = prod;
                         }
                     })
@@ -251,7 +266,8 @@
 
                 billables.push({
                     product:currentProd,
-                    quantity:$('#quantity').val()
+                    quantity:$('#quantity').val(),
+                    user:$('#user').val(),
 
                 });
                 buildBillables()
@@ -315,6 +331,7 @@
                 <tr>
                     <td>${index+1}</td>
                     <td>${item.product.name}</td>
+                    <td>${item.user}</td>
                     <td>${item.quantity}</td>
                     <td>${item.product.price}</td>
                     <td>${item.product.price * item.quantity}</td>
@@ -359,6 +376,7 @@
                 var prd = `
                 <input type="text" name="products[]" value="${item.product.id}" hidden>
                 <input type="text" name="quantities[]" value="${item.quantity}" hidden>
+                <input type="text" name="users[]" value="${item.user}" hidden>
                 `
                 $('#billData').append(prd)
             })

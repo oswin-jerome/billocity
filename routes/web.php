@@ -22,6 +22,7 @@ use App\Mail\DailyReport;
 use App\Models\Product;
 use App\Models\Customer;
 use App\Models\EmiEntry;
+use App\Models\User;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
@@ -46,7 +47,8 @@ Route::get("/mail", function(Request $request){
 Route::resource('/',DashboardController::class)->middleware("auth");
 
 Route::get('/pos', function () {
-    return view('pages/pos/pos',['products'=>Product::select('id','name')->get(),'customers'=>Customer::select('id','name','phone')->get()]);
+    return view('pages/pos/pos',['products'=>Product::select('id','name')->get(),
+    'customers'=>Customer::select('id','name','phone')->get(), "users"=>User::all()]);
 })->middleware("auth");
 
 Route::resource('expenses',ExpenseController::class)->middleware("auth");

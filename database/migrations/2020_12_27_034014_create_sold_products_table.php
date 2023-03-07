@@ -27,6 +27,9 @@ class CreateSoldProductsTable extends Migration
             $table->timestamps();
 
 
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users');
+
             $table->foreign('product')->references('id')->on('products');
             $table->foreign('invoice')->references('id')->on('invoices');
             $table->foreign('customer')->references('id')->on('customers');
