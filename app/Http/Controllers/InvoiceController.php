@@ -20,13 +20,13 @@ class InvoiceController extends Controller
      */
     public function index()
     {
-        $invoices = Invoice::with(["products","custo"])->orderBy('created_at', 'DESC')->get();
-        return view('pages/invoices/view',['invoices'=>$invoices]);
+        $invoices = Invoice::with(["products", "custo"])->orderBy('created_at', 'DESC')->get();
+        return view('pages/invoices/view', ['invoices' => $invoices]);
     }
 
     public function pending()
     {
-        return view('pages/invoices/pendingpay',['invoices'=>Invoice::where('status','=','PENDING')->orderBy('created_at', 'DESC')->get()]);
+        return view('pages/invoices/pendingpay', ['invoices' => Invoice::where('status', '=', 'PENDING')->orderBy('created_at', 'DESC')->get()]);
     }
 
     /**
@@ -48,7 +48,7 @@ class InvoiceController extends Controller
     public function store(Request $request)
     {
 
-        dd($request->all());
+        // dd($request->all());
 
         // TODO: add discount types and amount
 
@@ -58,28 +58,28 @@ class InvoiceController extends Controller
         $invoice = new Invoice();
 
         // Calculate total and update stock
-        foreach($request->products  as $key=>$product) {
+        foreach ($request->products  as $key => $product) {
             // do stuff
             $product = Product::find($product);
             $totalPriceWithOutDiscounts = $totalPriceWithOutDiscounts + $product->price * $request->quantities[$key];
-            
+
 
             // calculate profit
-            $profitWithoutDiscount += (($product->price * $request->quantities[$key])- ($product->cost_price * $request->quantities[$key]));
+            $profitWithoutDiscount += (($product->price * $request->quantities[$key]) - ($product->cost_price * $request->quantities[$key]));
 
 
             // update stock
-            if($product->type =="product")
+            if ($product->type == "product")
                 $product->stock = $product->stock - $request->quantities[$key];
             $product->save();
 
             // add item to check out list
-            
+
         }
         // get discounts
         $discount = 0;
         $totalPriceWithDiscounts = $totalPriceWithOutDiscounts;
-        if($request->has('redeem') && $request->has('customer') && $request->redeem=='true'){
+        if ($request->has('redeem') && $request->has('customer') && $request->redeem == 'true') {
             $customer = Customer::find($request->customer);
             $discount += $customer->points;
             $totalPriceWithDiscounts = $totalPriceWithOutDiscounts - $customer->points;
@@ -97,12 +97,11 @@ class InvoiceController extends Controller
         $invoice->profit_wd = $profitWithoutDiscount;
         $invoice->profit = $profitWithoutDiscount - $discount_pos; // subract discount
         $invoice->status = 'PENDING';
-        if($invoice->final_price==($invoice->paid_amount+$discount_pos)){
+        if ($invoice->final_price == ($invoice->paid_amount + $discount_pos)) {
             $invoice->status = 'COMPLETED';
-
         }
         $invoice->payment_method = 'CASH'; //TODO: link to accounts table 
-        if($request->has('customer')){
+        if ($request->has('customer')) {
             $invoice->customer = $request->customer;
 
             // add points
@@ -116,7 +115,7 @@ class InvoiceController extends Controller
 
 
         // add products to sold_products
-        foreach($request->products  as $key=>$product) {
+        foreach ($request->products  as $key => $product) {
             $product = Product::find($product);
 
             $sold = new SoldProduct();
@@ -128,15 +127,14 @@ class InvoiceController extends Controller
             $sold->gst = $product->gst; //
             $sold->quantity = $request->quantities[$key];
             $sold->user_id = $request->user_id;
-            $sold->profit = ($product->price *$request->quantities[$key])- ($product->cost_price *$request->quantities[$key]);
+            $sold->profit = ($product->price * $request->quantities[$key]) - ($product->cost_price * $request->quantities[$key]);
             $sold->status = "DONE";
 
             $sold->save();
-
         }
 
 
-        return redirect('invoices/'.$invoice->id);
+        return redirect('invoices/' . $invoice->id);
     }
 
     /**
@@ -147,9 +145,11 @@ class InvoiceController extends Controller
      */
     public function show($id)
     {
-        return view('pages/pos/invoice',['invoice'=>Invoice::find($id),
-        "setting"=>Setting::first(),
-        'ret_products'=>SoldProduct::where('invoice','=',$id)->where('status','=','RETURNED')->get()]);
+        return view('pages/pos/invoice', [
+            'invoice' => Invoice::find($id),
+            "setting" => Setting::first(),
+            'ret_products' => SoldProduct::where('invoice', '=', $id)->where('status', '=', 'RETURNED')->get()
+        ]);
     }
 
     /**
@@ -163,7 +163,7 @@ class InvoiceController extends Controller
 
         $invoice = Invoice::find($id);
 
-        return view('pages/invoices/salesreturn',['invoice'=>$invoice,'products'=>Product::all(),'customers'=>Customer::all()]);
+        return view('pages/invoices/salesreturn', ['invoice' => $invoice, 'products' => Product::all(), 'customers' => Customer::all()]);
     }
 
     /**
@@ -176,7 +176,7 @@ class InvoiceController extends Controller
     public function update(Request $request, $id)
     {
 
-        
+
         // Salse return
         $invoice = Invoice::find($id);
 
@@ -194,18 +194,18 @@ class InvoiceController extends Controller
             $invoice->paid_amount = $invoice->paid_amount - ($soldProduct->sold_price * $request->qty[$key]);
             // if($invoice->final_price==($invoice->paid_amount)){
             //     $invoice->status = 'COMPLETED';
-    
+
             // }
             $invoice->save();
             $soldProduct->quantity = $soldProduct->quantity - $request->qty[$key];
-            if($soldProduct->quantity<1){
+            if ($soldProduct->quantity < 1) {
 
                 $soldProduct->status = "RETURNED";
             }
             $soldProduct->save();
-            echo($soldProduct);
+            echo ($soldProduct);
         }
-        return redirect('invoices/'.$id);
+        return redirect('invoices/' . $id);
     }
 
     /**
@@ -221,23 +221,25 @@ class InvoiceController extends Controller
 
 
 
-    public function viewreturned(){
-         return view('pages/invoices/viewreturned',['products'=>SoldProduct::where('status','=','RETURNED')->get(),'cancled'=>SoldProduct::where('status','=','CANCLED')->get()]);
+    public function viewreturned()
+    {
+        return view('pages/invoices/viewreturned', ['products' => SoldProduct::where('status', '=', 'RETURNED')->get(), 'cancled' => SoldProduct::where('status', '=', 'CANCLED')->get()]);
     }
 
 
 
     // Cancel Bil
-    public function cancelProduct(Request $request){
+    public function cancelProduct(Request $request)
+    {
 
         $invoice = Invoice::find($request->id);
 
         foreach ($invoice->products as $key => $value) {
-           $prod = $value->prod;
-           $prod->stock = $prod->stock + $value->quantity;
-           $prod->save();
-           $value->status = 'CANCLED';
-           $value->save();
+            $prod = $value->prod;
+            $prod->stock = $prod->stock + $value->quantity;
+            $prod->save();
+            $value->status = 'CANCLED';
+            $value->save();
         }
 
         $invoice->status = "CANCLED";
@@ -247,12 +249,12 @@ class InvoiceController extends Controller
         // return view('pages/invoices/viewreturned',['products'=>ReturnedProduct::all()]);
     }
 
-    public function get_pay(Request $request ){
+    public function get_pay(Request $request)
+    {
         $invoice = Invoice::find($request->pid);
         $invoice->paid_amount = $invoice->paid_amount + $request->amount;
-        if($invoice->final_price==($invoice->paid_amount)){
+        if ($invoice->final_price == ($invoice->paid_amount)) {
             $invoice->status = 'COMPLETED';
-
         }
         $invoice->save();
         return redirect()->back();
